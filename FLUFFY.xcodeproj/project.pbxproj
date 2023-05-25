@@ -24,6 +24,7 @@
 		B69688642A1F12CB009CC9B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B69688672A1F12CB009CC9B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B69688692A1F12CB009CC9B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B696886F2A1F163E009CC9B6 /* FLUFFY.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FLUFFY.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +57,7 @@
 		B696885A2A1F12CA009CC9B6 /* FLUFFY */ = {
 			isa = PBXGroup;
 			children = (
+				B696886F2A1F163E009CC9B6 /* FLUFFY.entitlements */,
 				B696885B2A1F12CA009CC9B6 /* AppDelegate.swift */,
 				B696885D2A1F12CA009CC9B6 /* SceneDelegate.swift */,
 				B696885F2A1F12CA009CC9B6 /* ViewController.swift */,
@@ -285,6 +287,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FLUFFY/FLUFFY.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZP6YLB995M;
@@ -313,6 +316,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FLUFFY/FLUFFY.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZP6YLB995M;
