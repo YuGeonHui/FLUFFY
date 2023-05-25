@@ -13,6 +13,10 @@
 		B69688632A1F12CA009CC9B6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B69688612A1F12CA009CC9B6 /* Main.storyboard */; };
 		B69688652A1F12CB009CC9B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B69688642A1F12CB009CC9B6 /* Assets.xcassets */; };
 		B69688682A1F12CB009CC9B6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B69688662A1F12CB009CC9B6 /* LaunchScreen.storyboard */; };
+		B69688732A1F1BE2009CC9B6 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69688722A1F1BE2009CC9B6 /* Score.swift */; };
+		B69688762A1F1BF3009CC9B6 /* AppleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69688752A1F1BF3009CC9B6 /* AppleService.swift */; };
+		B69688782A1F1CDC009CC9B6 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69688772A1F1CDC009CC9B6 /* KeychainService.swift */; };
+		B696887A2A1F22DD009CC9B6 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69688792A1F22DD009CC9B6 /* NetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +29,10 @@
 		B69688672A1F12CB009CC9B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B69688692A1F12CB009CC9B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B696886F2A1F163E009CC9B6 /* FLUFFY.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FLUFFY.entitlements; sourceTree = "<group>"; };
+		B69688722A1F1BE2009CC9B6 /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
+		B69688752A1F1BF3009CC9B6 /* AppleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleService.swift; sourceTree = "<group>"; };
+		B69688772A1F1CDC009CC9B6 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		B69688792A1F22DD009CC9B6 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,16 +65,44 @@
 		B696885A2A1F12CA009CC9B6 /* FLUFFY */ = {
 			isa = PBXGroup;
 			children = (
+				B69688742A1F1BE7009CC9B6 /* Service */,
+				B69688702A1F1B25009CC9B6 /* Scence */,
+				B69688712A1F1B62009CC9B6 /* Domain */,
 				B696886F2A1F163E009CC9B6 /* FLUFFY.entitlements */,
 				B696885B2A1F12CA009CC9B6 /* AppDelegate.swift */,
 				B696885D2A1F12CA009CC9B6 /* SceneDelegate.swift */,
-				B696885F2A1F12CA009CC9B6 /* ViewController.swift */,
 				B69688612A1F12CA009CC9B6 /* Main.storyboard */,
 				B69688642A1F12CB009CC9B6 /* Assets.xcassets */,
 				B69688662A1F12CB009CC9B6 /* LaunchScreen.storyboard */,
 				B69688692A1F12CB009CC9B6 /* Info.plist */,
 			);
 			path = FLUFFY;
+			sourceTree = "<group>";
+		};
+		B69688702A1F1B25009CC9B6 /* Scence */ = {
+			isa = PBXGroup;
+			children = (
+				B696885F2A1F12CA009CC9B6 /* ViewController.swift */,
+			);
+			path = Scence;
+			sourceTree = "<group>";
+		};
+		B69688712A1F1B62009CC9B6 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				B69688722A1F1BE2009CC9B6 /* Score.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		B69688742A1F1BE7009CC9B6 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				B69688752A1F1BF3009CC9B6 /* AppleService.swift */,
+				B69688772A1F1CDC009CC9B6 /* KeychainService.swift */,
+				B69688792A1F22DD009CC9B6 /* NetworkService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,7 +178,11 @@
 			files = (
 				B69688602A1F12CA009CC9B6 /* ViewController.swift in Sources */,
 				B696885C2A1F12CA009CC9B6 /* AppDelegate.swift in Sources */,
+				B69688732A1F1BE2009CC9B6 /* Score.swift in Sources */,
 				B696885E2A1F12CA009CC9B6 /* SceneDelegate.swift in Sources */,
+				B69688762A1F1BF3009CC9B6 /* AppleService.swift in Sources */,
+				B69688782A1F1CDC009CC9B6 /* KeychainService.swift in Sources */,
+				B696887A2A1F22DD009CC9B6 /* NetworkService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
