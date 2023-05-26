@@ -1,6 +1,0 @@
-framework module Pods_FLUFFY {
-  umbrella header "Pods-FLUFFY-umbrella.h"
-
-  export *
-  module * { export * }
-}
