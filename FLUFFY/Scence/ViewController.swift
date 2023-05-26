@@ -17,6 +17,10 @@ final class ViewController: UIViewController {
         
         setupView()
         setupProviderLoginView()
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//            self.navigationController?.pushViewController(MyPageViewController(), animated: true)
+//        }
     }
     
     private func setupView() {
@@ -29,7 +33,6 @@ final class ViewController: UIViewController {
     }
     
     private func setupProviderLoginView() {
-        
         signInView.addTarget(self, action: #selector(handleAuthorizationAppleIDButtonPress), for: .touchUpInside)
     }
     
