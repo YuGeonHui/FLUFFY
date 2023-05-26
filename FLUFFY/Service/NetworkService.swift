@@ -54,14 +54,11 @@ struct NetworkService {
     }
     
     // MARK: - Delete
-    func deleteRequest<T: Decodable>(url: String, parameters: [String: Any]?, headers: [String: String]?, completion: @escaping (Result<T, Error>) -> Void) {
+    func deleteRequest<T: Decodable>(url: String, completion: @escaping (Result<T, Error>) -> Void) {
         
         AF.request(
             url,
-            method: .delete,
-            parameters: parameters,
-            encoding: JSONEncoding.default,
-            headers: headers
+            method: .delete
         )
         .validate(statusCode: 200..<300)
         .responseData { response in
