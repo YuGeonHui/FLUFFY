@@ -38,7 +38,7 @@ final class KeychainService {
 
     func isTokenValidate() -> Bool {
         
-        guard let isValid = KeychainService.shared.load(Const.KEYCHAIN_TOKEN) else {
+        guard let _ = KeychainService.shared.load(Const.KEYCHAIN_TOKEN) else {
             return false
         }
         
