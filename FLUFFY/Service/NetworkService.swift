@@ -71,6 +71,28 @@ struct NetworkService {
         }
     }
     
+    // MARK: - Update
+    func updateRequest<T: Encodable, U: Decodable>(url: String, parameters: T?, headers: [String: String]?, completion: @escaping (Result<U, Error>) -> Void) {
+        
+        AF.request(
+            url,
+            method: .put,
+            parameters: parameters, // [전송 데이터]
+            encoding: JSONEncoding.default, // [인코딩 스타일]
+            headers: headers
+        )
+        .validate(statusCode: 200..<300)
+        .responseData { response in
+            switch response.result {
+            case .success(let value):
+                completion(.success(value))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    
 }
 
 
