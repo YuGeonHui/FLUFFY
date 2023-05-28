@@ -12,17 +12,16 @@ struct NetworkService {
     
     
     // MARK: - GET
-    func getRequest<T: Decodable>(url: String, parameters: [String: Any]?, headers: [String: String]?, completion: @escaping (Result<T, Error>) -> Void) {
+    func getRequest<T: Decodable>(url: String, parameters: [String: Any]?, headers: HTTPHeaders?, completion: @escaping (Result<T, Error>) -> Void) {
         
         AF.request(
-            url, // [주소]
-            method: .get, // [전송 타입]
-            parameters: parameters, // [전송 데이터]
-            encoding: JSONEncoding.default, // [인코딩 스타일]
-            headers: headers // [헤더 지정]
-        )
+            url,
+            method: .get,
+            parameters: parameters,
+            encoding: JSONEncoding.default,
+            headers: headers        )
         .validate(statusCode: 200..<300)
-        .responseData { response in
+        .responseDecodable(of: T.self) { response in
             switch response.result {
             case .success(let value):
                 completion(.success(value))
@@ -33,17 +32,17 @@ struct NetworkService {
     }
     
     // MARK: - Post
-    func postRequest<T: Decodable>(url: String, parameters: [String: Any]?, headers: [String: String]?, completion: @escaping (Result<T, Error>) -> Void) {
+    func postRequest<T: Decodable>(url: String, parameters: [String: Any]?, headers: HTTPHeaders?, completion: @escaping (Result<T, Error>) -> Void) {
         
         AF.request(
-            url, // [주소]
-            method: .post, // [전송 타입]
-            parameters: parameters, // [전송 데이터]
-            encoding: JSONEncoding.default, // [인코딩 스타일]
-            headers: headers // [헤더 지정]
+            url,
+            method: .post,
+            parameters: parameters,
+            encoding: JSONEncoding.default,
+            headers: headers
         )
         .validate(statusCode: 200..<300)
-        .responseData { response in
+        .responseDecodable(of: T.self) { response in
             switch response.result {
             case .success(let value):
                 completion(.success(value))
@@ -61,7 +60,7 @@ struct NetworkService {
             method: .delete
         )
         .validate(statusCode: 200..<300)
-        .responseData { response in
+        .responseDecodable(of: T.self) { response in
             switch response.result {
             case .success(let value):
                 completion(.success(value))
@@ -72,17 +71,17 @@ struct NetworkService {
     }
     
     // MARK: - Update
-    func updateRequest<T: Encodable, U: Decodable>(url: String, parameters: T?, headers: [String: String]?, completion: @escaping (Result<U, Error>) -> Void) {
+    func updateRequest<T: Encodable, U: Decodable>(url: String, parameters: T?, headers: HTTPHeaders?, completion: @escaping (Result<U, Error>) -> Void) {
         
         AF.request(
             url,
             method: .put,
-            parameters: parameters, // [전송 데이터]
-            encoding: JSONEncoding.default, // [인코딩 스타일]
+            parameters: parameters as? Parameters,
+            encoding: JSONEncoding.default,
             headers: headers
         )
         .validate(statusCode: 200..<300)
-        .responseData { response in
+        .responseDecodable(of: U.self) { response in
             switch response.result {
             case .success(let value):
                 completion(.success(value))
