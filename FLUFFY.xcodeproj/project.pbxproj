@@ -32,6 +32,7 @@
 		B69688762A1F1BF3009CC9B6 /* AppleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69688752A1F1BF3009CC9B6 /* AppleService.swift */; };
 		B69688782A1F1CDC009CC9B6 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69688772A1F1CDC009CC9B6 /* KeychainService.swift */; };
 		B696887A2A1F22DD009CC9B6 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69688792A1F22DD009CC9B6 /* NetworkService.swift */; };
+		B6B897FC2A2306770076D712 /* Font+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B897FB2A2306770076D712 /* Font+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +64,7 @@
 		B69688752A1F1BF3009CC9B6 /* AppleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleService.swift; sourceTree = "<group>"; };
 		B69688772A1F1CDC009CC9B6 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		B69688792A1F22DD009CC9B6 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		B6B897FB2A2306770076D712 /* Font+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Ext.swift"; sourceTree = "<group>"; };
 		E4A26D52599D7ACEF0FEB708 /* Pods_FLUFFY.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FLUFFY.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EED37F88DB09F52E209827C0 /* Pods-FLUFFY.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FLUFFY.debug.xcconfig"; path = "Target Support Files/Pods-FLUFFY/Pods-FLUFFY.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -102,6 +104,7 @@
 				B6907DBA2A2075A9001B22C1 /* UIColor+Ext.swift */,
 				B6907DBC2A207661001B22C1 /* Encodable+Ext.swift */,
 				B6907DBE2A2076AF001B22C1 /* UserDefaults+Ext.swift */,
+				B6B897FB2A2306770076D712 /* Font+Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -169,11 +172,12 @@
 		B696885A2A1F12CA009CC9B6 /* FLUFFY */ = {
 			isa = PBXGroup;
 			children = (
+				B69688712A1F1B62009CC9B6 /* Domain */,
 				B6907DC02A20770E001B22C1 /* API */,
-				B6907DB92A20759D001B22C1 /* Extension */,
 				B69688742A1F1BE7009CC9B6 /* Service */,
 				B69688702A1F1B25009CC9B6 /* Scence */,
-				B69688712A1F1B62009CC9B6 /* Domain */,
+				B6B897FD2A2306FF0076D712 /* Resources */,
+				B6907DB92A20759D001B22C1 /* Extension */,
 				B696886F2A1F163E009CC9B6 /* FLUFFY.entitlements */,
 				B696885B2A1F12CA009CC9B6 /* AppDelegate.swift */,
 				B696885D2A1F12CA009CC9B6 /* SceneDelegate.swift */,
@@ -217,6 +221,21 @@
 				B69688792A1F22DD009CC9B6 /* NetworkService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		B6B897FD2A2306FF0076D712 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B6B897FE2A2307840076D712 /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B6B897FE2A2307840076D712 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -338,6 +357,7 @@
 				B696885C2A1F12CA009CC9B6 /* AppDelegate.swift in Sources */,
 				B69688732A1F1BE2009CC9B6 /* Score.swift in Sources */,
 				B6907DBD2A207661001B22C1 /* Encodable+Ext.swift in Sources */,
+				B6B897FC2A2306770076D712 /* Font+Ext.swift in Sources */,
 				B6907DDA2A20A44D001B22C1 /* TabBarViewController.swift in Sources */,
 				B696885E2A1F12CA009CC9B6 /* SceneDelegate.swift in Sources */,
 				B6907DD82A20A278001B22C1 /* BaseViewController.swift in Sources */,

@@ -15,15 +15,19 @@ final class TabBarViewController: UITabBarController {
         self.setupViews()
         
         UINavigationBar.appearance().prefersLargeTitles = true
+        
+        UITabBar.appearance().tintColor = UIColor.white
+        UITabBar.appearance().unselectedItemTintColor = UIColor.gray
+        
+        tabBar.backgroundColor = .blue
     }
     
     private func setupViews() {
         
         let homeVC = generateNavController(vc: ViewController(), title: "홈", image: UIImage(systemName: "house"))
         let schedulerVC = generateNavController(vc: ScheudlerViewController(), title: "스케줄링", image: UIImage(systemName: "calendar"))
-        let myPageVC = generateNavController(vc: MyPageViewController(), title: "마이페이지", image: UIImage(systemName: "person.crop.circle"))
         
-        self.viewControllers = [homeVC, schedulerVC, myPageVC]
+        self.viewControllers = [homeVC, schedulerVC]
         
         self.selectedIndex = 0
     }
