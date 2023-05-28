@@ -11,6 +11,7 @@ import AuthenticationServices
 final class ViewController: UIViewController {
     
     private let signInView = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
+    private let fontText = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,11 +28,21 @@ final class ViewController: UIViewController {
     
     private func setupView() {
         
-        self.view.addSubview(signInView)
+        self.view.addSubview(fontText)
         
-        signInView.translatesAutoresizingMaskIntoConstraints = false
-        signInView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        signInView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        fontText.text = "동해물과"
+        fontText.font = UIFont.pretendard(.bold, size: 15)
+        fontText.textColor = .red
+        
+        fontText.translatesAutoresizingMaskIntoConstraints = false
+        fontText.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        fontText.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        
+//        self.view.addSubview(signInView)
+//
+//        signInView.translatesAutoresizingMaskIntoConstraints = false
+//        signInView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+//        signInView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
     }
     
     private func setupProviderLoginView() {
