@@ -8,35 +8,22 @@
 import UIKit
 import AuthenticationServices
 
-final class ViewController: UIViewController {
+final class ViewController: BaseViewController {
     
-    private let signInView = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
-    private let fontText = UILabel()
+//    private let signInView = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
+    
+    private let nicknameLabel = UILabel()
+    private let messageLabel = UILabel()
+    private let characterImageView = UIImageView()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        print("uuid: \(UUID().uuidString)")
+
         setupView()
-        setupProviderLoginView()
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//            self.navigationController?.pushViewController(MyPageViewController(), animated: true)
-//        }
     }
     
     private func setupView() {
-        
-        self.view.addSubview(fontText)
-        
-        fontText.text = "동해물과"
-        fontText.font = UIFont.pretendard(.bold, size: 15)
-        fontText.textColor = .red
-        
-        fontText.translatesAutoresizingMaskIntoConstraints = false
-        fontText.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        fontText.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
         
 //        self.view.addSubview(signInView)
 //
@@ -46,7 +33,7 @@ final class ViewController: UIViewController {
     }
     
     private func setupProviderLoginView() {
-        signInView.addTarget(self, action: #selector(handleAuthorizationAppleIDButtonPress), for: .touchUpInside)
+//        signInView.addTarget(self, action: #selector(handleAuthorizationAppleIDButtonPress), for: .touchUpInside)
     }
     
     @objc private func handleAuthorizationAppleIDButtonPress() {
