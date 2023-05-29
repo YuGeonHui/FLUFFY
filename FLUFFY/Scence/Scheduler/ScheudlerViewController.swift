@@ -18,12 +18,14 @@ class ScheudlerViewController: BaseViewController {
     private lazy var previousButton : UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        button.addTarget(self, action: #selector(didPreviousButtonClicked), for: .touchUpInside)
         return button
     }()
     
     private lazy var nextButton : UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+        button.addTarget(self, action: #selector(didNextButtonClicked), for: .touchUpInside)
         return button
     }()
     
@@ -31,6 +33,25 @@ class ScheudlerViewController: BaseViewController {
         let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         return view
     }()
+    
+    private let calendar = Calendar.current
+    private let dateFormatter = DateFormatter()
+    private var calendarDate = Date()
+    private var weekDays = [String]()
+    private var weekTitle : [String] = ["월", "화", "수", "목", "금", "토", "일"]
+    private var firstDay = 0
+    private var countDay = 0
+    private var endDateNum = 0
+    private var weekDaysLast = 0
+    
+    @objc private func didPreviousButtonClicked(_ sender: UIButton) {
+        self.minusWeek()
+    }
+    
+    @objc private func didNextButtonClicked(_ sender: UIButton) {
+        self.plusWeek()
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +64,7 @@ class ScheudlerViewController: BaseViewController {
         self.configureNextButton()
         self.configurePreviousButton()
         self.configureCollectionView()
+        self.configureCalendar()
         
     }
     
@@ -52,8 +74,8 @@ class ScheudlerViewController: BaseViewController {
         self.titleLabel.font = UIFont.pretendard(.bold, size: 15)
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 40),
-            self.titleLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            self.titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            self.titleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             self.titleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
         ])
     }
@@ -105,6 +127,7 @@ extension ScheudlerViewController : UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCollectionViewCell.identifier, for: indexPath) as? CalendarCollectionViewCell else {return UICollectionViewCell()}
+        cell.update(day: self.weekDays[indexPath.item], weekTitle: self.weekTitle[indexPath.item])
         return cell
     }
     
@@ -116,7 +139,96 @@ extension ScheudlerViewController : UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return .zero
     }
+}
+
+extension ScheudlerViewController {
     
+    private func configureCalendar() {
+        let components = self.calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date())
+        self.calendarDate = self.calendar.date(from: components) ?? Date()
+        print("calendarDate:\(self.calendarDate)")
+        self.dateFormatter.dateFormat = "yyyy년 MM월"
+        self.updateCalendar()
+    }
     
+    private func endDate() -> Int {
+        return self.calendar.range(of: .day, in: .month, for: self.calendarDate)? .count ?? Int()
+    }
+    
+    private func updateTitle() {
+        let date = self.dateFormatter.string(from: self.calendarDate)
+        self.titleLabel.text = date
+    }
+    
+    private func updatePlus() {
+        self.updateTitle()
+        self.weekDays.removeAll()
+        let firstWeekdayComponents = calendar.dateComponents([.day], from: self.calendarDate)
+        guard let weekday = firstWeekdayComponents.day else {return}
+        
+        firstDay = weekday - 6
+        
+        for day in 0..<7 {
+            if firstDay < 1 && weekDaysLast != endDateNum {
+                self.weekDays.append(String(weekDaysLast+1))
+                weekDaysLast += 1
+                firstDay += 1
+                countDay = weekDays.count
+            } else {
+                weekDays.append(String(firstDay+day-countDay))
+            }
+        }
+        
+        print("weekDays: \(weekDays)")
+        self.collectionView.reloadData()
+    }
+    
+    private func updateMinus() {
+        self.updateTitle()
+        self.weekDays.removeAll()
+        let firstWeekdayComponents = calendar.dateComponents([.day], from: self.calendarDate)
+        guard let weekday = firstWeekdayComponents.day else {return}
+        
+        firstDay = weekday - 6
+        
+        for day in 0..<7 {
+            if firstDay < 1 {
+                self.weekDays.append(String(endDateNum + firstDay))
+                firstDay += 1
+                countDay = weekDays.count
+            } else {
+                weekDays.append(String(firstDay+day-countDay))
+                print("countDay: \(countDay)")
+            }
+        }
+        self.collectionView.reloadData()
+    }
+    
+    private func updateCalendar() {
+        self.updateTitle()
+        self.updatePlus()
+    }
+    
+    private func minusWeek() {
+        countDay = 0
+        endDateNum = self.endDate()
+        weekDaysLast = Int(weekDays.last!)! - 7
+        print("endDate: \(endDateNum)")
+        print("weekDaysLast: \(weekDaysLast)")
+        self.calendarDate = self.calendar.date(byAdding: .day, value: -7, to: self.calendarDate) ?? Date()
+        print("minusWeek : \(self.calendarDate)")
+        self.updateMinus()
+    }
+    
+    private func plusWeek() {
+        countDay = 0
+        endDateNum = self.endDate()
+        weekDaysLast = Int(weekDays.last!)!
+        print("endDate: \(endDateNum)")
+        print("weekDaysLast: \(weekDaysLast)")
+        self.calendarDate = self.calendar.date(byAdding: .day, value: 7, to: self.calendarDate) ?? Date()
+        print("plusWeek : \(self.calendarDate)")
+        self.updatePlus()
+    }
 }
 

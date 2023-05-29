@@ -13,7 +13,7 @@ class CalendarCollectionViewCell: UICollectionViewCell {
     
     let dayLabel : UILabel = {
         let label = UILabel()
-        label.text = "0"
+        label.text = ""
         label.font = UIFont.pretendard(.bold, size: 15)
         return label
     }()
@@ -34,6 +34,13 @@ class CalendarCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         self.configure()
     }
+    
+    func update(day: String, weekTitle: String) {
+        self.dayLabel.text = day
+        self.weekTitleLabel.text = weekTitle
+    }
+    
+    
     
     private func configure() {
         self.addSubview(self.dayLabel)
