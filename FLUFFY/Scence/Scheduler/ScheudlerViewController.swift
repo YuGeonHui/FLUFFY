@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ScheudlerViewController: UIViewController {
+class ScheudlerViewController: BaseViewController {
     
     let titleLabel : UILabel = {
         let label = UILabel()

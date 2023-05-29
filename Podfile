@@ -7,4 +7,5 @@ target 'FLUFFY' do
 
   # Pods for FLUFFY
 pod 'Alamofire'
+pod 'Then'
 end

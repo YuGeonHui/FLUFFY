@@ -9,5 +9,16 @@ import Foundation
 
 extension UserDefaults {
     
-    
+    static func isFirstAppLauch() -> Bool {
+        
+        let firstLaunchFlag = "firstLaunchFlag"
+        
+        let isFirstLaunch = !UserDefaults.standard.bool(forKey: firstLaunchFlag)
+        if isFirstLaunch {
+            UserDefaults.standard.set(true, forKey: firstLaunchFlag)
+            UserDefaults.standard.synchronize()
+        }
+        
+        return isFirstLaunch
+    }
 }

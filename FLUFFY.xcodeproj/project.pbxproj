@@ -18,6 +18,7 @@
 		B6382BCF2A23949300A40724 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B6382BC62A23949300A40724 /* Pretendard-SemiBold.otf */; };
 		B6382BD02A23949300A40724 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = B6382BC72A23949300A40724 /* Pretendard-Thin.otf */; };
 		B6382BD12A23949300A40724 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = B6382BC82A23949300A40724 /* Pretendard-Medium.otf */; };
+		B6382BD42A24706500A40724 /* MyPageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6382BD32A24706500A40724 /* MyPageViewCell.swift */; };
 		B6907DBB2A2075A9001B22C1 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DBA2A2075A9001B22C1 /* UIColor+Ext.swift */; };
 		B6907DBD2A207661001B22C1 /* Encodable+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DBC2A207661001B22C1 /* Encodable+Ext.swift */; };
 		B6907DBF2A2076AF001B22C1 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DBE2A2076AF001B22C1 /* UserDefaults+Ext.swift */; };
@@ -57,6 +58,7 @@
 		B6382BC62A23949300A40724 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		B6382BC72A23949300A40724 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
 		B6382BC82A23949300A40724 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		B6382BD32A24706500A40724 /* MyPageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewCell.swift; sourceTree = "<group>"; };
 		B6907DBA2A2075A9001B22C1 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		B6907DBC2A207661001B22C1 /* Encodable+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Ext.swift"; sourceTree = "<group>"; };
 		B6907DBE2A2076AF001B22C1 /* UserDefaults+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Ext.swift"; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				B6907DCB2A207A95001B22C1 /* MyPageViewController.swift */,
+				B6382BD32A24706500A40724 /* MyPageViewCell.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -413,6 +416,7 @@
 				B6907DD42A20A0F2001B22C1 /* App.swift in Sources */,
 				B6907DCE2A207AA1001B22C1 /* ScheudlerViewController.swift in Sources */,
 				B6907DC22A20771C001B22C1 /* FlUPPYAPIAPI.swift in Sources */,
+				B6382BD42A24706500A40724 /* MyPageViewCell.swift in Sources */,
 				B69688782A1F1CDC009CC9B6 /* KeychainService.swift in Sources */,
 				B6907DD02A207AB7001B22C1 /* SignUpViewController.swift in Sources */,
 				B6907DCC2A207A95001B22C1 /* MyPageViewController.swift in Sources */,
