@@ -11,4 +11,5 @@ pod 'Then'
 pod 'RxSwift'
 pod 'RxCocoa'
 pod 'RxGesture'
+pod 'PanModal'
 end
