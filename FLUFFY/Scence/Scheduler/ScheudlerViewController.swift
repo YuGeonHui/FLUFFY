@@ -146,7 +146,6 @@ extension ScheudlerViewController {
     private func configureCalendar() {
         let components = self.calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date())
         self.calendarDate = self.calendar.date(from: components) ?? Date()
-        print("calendarDate:\(self.calendarDate)")
         self.dateFormatter.dateFormat = "yyyy년 MM월"
         self.updateCalendar()
     }
@@ -179,8 +178,6 @@ extension ScheudlerViewController {
                 weekDays.append(String(firstDay+day-countDay))
             }
         }
-        
-        print("weekDays: \(weekDays)")
         self.collectionView.reloadData()
     }
     
@@ -191,14 +188,11 @@ extension ScheudlerViewController {
         guard let weekday = firstWeekdayComponents.day else {return}
         
         firstDay = weekday - 6
-        print("weekday: \(weekday)")
-        print("firstday: \(firstDay)")
         
         if weekDaysLast < 14 {
             if let previousMonth = calendar.date(byAdding: .month, value: -1, to: self.calendarDate) {
                 if let lastDayOfPreviousMonth = calendar.range(of: .day, in: .month, for: previousMonth)? .count {
                     endDateNum = lastDayOfPreviousMonth
-                    print("minus - endDateNum: \(endDateNum)")
                 }
             }
         }
@@ -223,11 +217,8 @@ extension ScheudlerViewController {
     private func minusWeek() {
         countDay = 0
         weekDaysLast = Int(weekDays.last!)!
-        print("weekDaysLast: \(weekDaysLast)")
         self.calendarDate = self.calendar.date(byAdding: .day, value: -7, to: self.calendarDate) ?? Date()
         endDateNum = self.endDate()
-        print("endDate: \(endDateNum)")
-        print("minusWeek : \(self.calendarDate)")
         self.updateMinus()
     }
     
@@ -235,10 +226,7 @@ extension ScheudlerViewController {
         countDay = 0
         endDateNum = self.endDate()
         weekDaysLast = Int(weekDays.last!)!
-        print("endDate: \(endDateNum)")
-        print("weekDaysLast: \(weekDaysLast)")
         self.calendarDate = self.calendar.date(byAdding: .day, value: 7, to: self.calendarDate) ?? Date()
-        print("plusWeek : \(self.calendarDate)")
         self.updatePlus()
     }
 }
