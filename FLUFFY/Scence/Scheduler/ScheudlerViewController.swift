@@ -127,7 +127,7 @@ extension ScheudlerViewController : UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCollectionViewCell.identifier, for: indexPath) as? CalendarCollectionViewCell else {return UICollectionViewCell()}
-        cell.update(day: self.weekDays[indexPath.item], weekTitle: self.weekTitle[indexPath.item])
+//        cell.update(day: self.weekDays[indexPath.item], weekTitle: self.weekTitle[indexPath.item])
         return cell
     }
     

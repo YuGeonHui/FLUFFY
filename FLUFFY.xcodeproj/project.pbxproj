@@ -19,6 +19,8 @@
 		B6382BD02A23949300A40724 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = B6382BC72A23949300A40724 /* Pretendard-Thin.otf */; };
 		B6382BD12A23949300A40724 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = B6382BC82A23949300A40724 /* Pretendard-Medium.otf */; };
 		B6382BD42A24706500A40724 /* MyPageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6382BD32A24706500A40724 /* MyPageViewCell.swift */; };
+		B6382BD82A25889500A40724 /* RxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6382BD72A25889500A40724 /* RxViewModel.swift */; };
+		B6382BDA2A2588FC00A40724 /* HomeViewValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6382BD92A2588FC00A40724 /* HomeViewValue.swift */; };
 		B6907DBB2A2075A9001B22C1 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DBA2A2075A9001B22C1 /* UIColor+Ext.swift */; };
 		B6907DBD2A207661001B22C1 /* Encodable+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DBC2A207661001B22C1 /* Encodable+Ext.swift */; };
 		B6907DBF2A2076AF001B22C1 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DBE2A2076AF001B22C1 /* UserDefaults+Ext.swift */; };
@@ -30,7 +32,7 @@
 		B6907DD02A207AB7001B22C1 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DCF2A207AB7001B22C1 /* SignUpViewController.swift */; };
 		B6907DD22A207B4B001B22C1 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DD12A207B4B001B22C1 /* Character.swift */; };
 		B6907DD42A20A0F2001B22C1 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DD32A20A0F2001B22C1 /* App.swift */; };
-		B6907DD62A20A205001B22C1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DD52A20A205001B22C1 /* HomeView.swift */; };
+		B6907DD62A20A205001B22C1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DD52A20A205001B22C1 /* HomeViewModel.swift */; };
 		B6907DD82A20A278001B22C1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DD72A20A278001B22C1 /* BaseViewController.swift */; };
 		B6907DDA2A20A44D001B22C1 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DD92A20A44D001B22C1 /* TabBarViewController.swift */; };
 		B696885C2A1F12CA009CC9B6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B696885B2A1F12CA009CC9B6 /* AppDelegate.swift */; };
@@ -59,6 +61,8 @@
 		B6382BC72A23949300A40724 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
 		B6382BC82A23949300A40724 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		B6382BD32A24706500A40724 /* MyPageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewCell.swift; sourceTree = "<group>"; };
+		B6382BD72A25889500A40724 /* RxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxViewModel.swift; sourceTree = "<group>"; };
+		B6382BD92A2588FC00A40724 /* HomeViewValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewValue.swift; sourceTree = "<group>"; };
 		B6907DBA2A2075A9001B22C1 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		B6907DBC2A207661001B22C1 /* Encodable+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Ext.swift"; sourceTree = "<group>"; };
 		B6907DBE2A2076AF001B22C1 /* UserDefaults+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Ext.swift"; sourceTree = "<group>"; };
@@ -70,7 +74,7 @@
 		B6907DCF2A207AB7001B22C1 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		B6907DD12A207B4B001B22C1 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		B6907DD32A20A0F2001B22C1 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
-		B6907DD52A20A205001B22C1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		B6907DD52A20A205001B22C1 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		B6907DD72A20A278001B22C1 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		B6907DD92A20A44D001B22C1 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		B69688582A1F12CA009CC9B6 /* FLUFFY.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FLUFFY.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -144,6 +148,21 @@
 			path = Pretendard;
 			sourceTree = "<group>";
 		};
+		B6382BD52A25874A00A40724 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		B6382BD62A25888600A40724 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				B6382BD72A25889500A40724 /* RxViewModel.swift */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
 		B6907DB92A20759D001B22C1 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -193,8 +212,10 @@
 		B6907DC82A207A60001B22C1 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				B696885F2A1F12CA009CC9B6 /* ViewController.swift */,
 				B6907DC92A207A7F001B22C1 /* HomeViewController.swift */,
-				B6907DD52A20A205001B22C1 /* HomeView.swift */,
+				B6907DD52A20A205001B22C1 /* HomeViewModel.swift */,
+				B6382BD92A2588FC00A40724 /* HomeViewValue.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -220,6 +241,7 @@
 		B696885A2A1F12CA009CC9B6 /* FLUFFY */ = {
 			isa = PBXGroup;
 			children = (
+				B6382BD62A25888600A40724 /* Foundation */,
 				B69688712A1F1B62009CC9B6 /* Domain */,
 				B6907DC02A20770E001B22C1 /* API */,
 				B69688742A1F1BE7009CC9B6 /* Service */,
@@ -241,11 +263,11 @@
 		B69688702A1F1B25009CC9B6 /* Scence */ = {
 			isa = PBXGroup;
 			children = (
+				B6382BD52A25874A00A40724 /* Common */,
 				B6907DC82A207A60001B22C1 /* Home */,
 				B6907DC72A207A11001B22C1 /* Account */,
 				B6907DC62A207A04001B22C1 /* Scheduler */,
 				B6907DC52A2079FC001B22C1 /* MyPage */,
-				B696885F2A1F12CA009CC9B6 /* ViewController.swift */,
 				B6907DD72A20A278001B22C1 /* BaseViewController.swift */,
 				B6907DD92A20A44D001B22C1 /* TabBarViewController.swift */,
 			);
@@ -409,12 +431,14 @@
 				B6907DBD2A207661001B22C1 /* Encodable+Ext.swift in Sources */,
 				B6B897FC2A2306770076D712 /* Font+Ext.swift in Sources */,
 				B6907DDA2A20A44D001B22C1 /* TabBarViewController.swift in Sources */,
+				B6382BD82A25889500A40724 /* RxViewModel.swift in Sources */,
 				B696885E2A1F12CA009CC9B6 /* SceneDelegate.swift in Sources */,
 				B6907DD82A20A278001B22C1 /* BaseViewController.swift in Sources */,
 				B69688762A1F1BF3009CC9B6 /* AppleService.swift in Sources */,
 				B6907DBB2A2075A9001B22C1 /* UIColor+Ext.swift in Sources */,
 				B6907DD42A20A0F2001B22C1 /* App.swift in Sources */,
 				B6907DCE2A207AA1001B22C1 /* ScheudlerViewController.swift in Sources */,
+				B6382BDA2A2588FC00A40724 /* HomeViewValue.swift in Sources */,
 				B6907DC22A20771C001B22C1 /* FlUPPYAPIAPI.swift in Sources */,
 				B6382BD42A24706500A40724 /* MyPageViewCell.swift in Sources */,
 				B69688782A1F1CDC009CC9B6 /* KeychainService.swift in Sources */,
@@ -426,7 +450,7 @@
 				9C3628ED2A23A55C00562713 /* CalendarCollectionViewCell.swift in Sources */,
 				B6907DD22A207B4B001B22C1 /* Character.swift in Sources */,
 				B696887A2A1F22DD009CC9B6 /* NetworkService.swift in Sources */,
-				B6907DD62A20A205001B22C1 /* HomeView.swift in Sources */,
+				B6907DD62A20A205001B22C1 /* HomeViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
