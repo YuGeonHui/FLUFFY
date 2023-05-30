@@ -155,6 +155,7 @@ extension ScheudlerViewController {
         return self.calendar.range(of: .day, in: .month, for: self.calendarDate)? .count ?? Int()
     }
     
+    
     private func updateTitle() {
         let date = self.dateFormatter.string(from: self.calendarDate)
         self.titleLabel.text = date
@@ -190,6 +191,17 @@ extension ScheudlerViewController {
         guard let weekday = firstWeekdayComponents.day else {return}
         
         firstDay = weekday - 6
+        print("weekday: \(weekday)")
+        print("firstday: \(firstDay)")
+        
+        if weekDaysLast < 14 {
+            if let previousMonth = calendar.date(byAdding: .month, value: -1, to: self.calendarDate) {
+                if let lastDayOfPreviousMonth = calendar.range(of: .day, in: .month, for: previousMonth)? .count {
+                    endDateNum = lastDayOfPreviousMonth
+                    print("minus - endDateNum: \(endDateNum)")
+                }
+            }
+        }
         
         for day in 0..<7 {
             if firstDay < 1 {
@@ -198,7 +210,6 @@ extension ScheudlerViewController {
                 countDay = weekDays.count
             } else {
                 weekDays.append(String(firstDay+day-countDay))
-                print("countDay: \(countDay)")
             }
         }
         self.collectionView.reloadData()
@@ -211,11 +222,11 @@ extension ScheudlerViewController {
     
     private func minusWeek() {
         countDay = 0
-        endDateNum = self.endDate()
-        weekDaysLast = Int(weekDays.last!)! - 7
-        print("endDate: \(endDateNum)")
+        weekDaysLast = Int(weekDays.last!)!
         print("weekDaysLast: \(weekDaysLast)")
         self.calendarDate = self.calendar.date(byAdding: .day, value: -7, to: self.calendarDate) ?? Date()
+        endDateNum = self.endDate()
+        print("endDate: \(endDateNum)")
         print("minusWeek : \(self.calendarDate)")
         self.updateMinus()
     }
