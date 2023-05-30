@@ -8,4 +8,7 @@ target 'FLUFFY' do
   # Pods for FLUFFY
 pod 'Alamofire'
 pod 'Then'
+pod 'RxSwift'
+pod 'RxCocoa'
+pod 'RxGesture'
 end
