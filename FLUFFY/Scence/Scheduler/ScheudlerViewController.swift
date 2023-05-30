@@ -10,7 +10,7 @@ import PanModal
 
 class ScheudlerViewController: BaseViewController {
     
-    let statusLabel : UILabel = {
+    private let statusLabel : UILabel = {
         let label = UILabel()
         label.text = "(유저 닉네임)의 현재 상태"
         label.font = UIFont.pretendard(.medium, size: 15)
@@ -18,13 +18,13 @@ class ScheudlerViewController: BaseViewController {
         return label
     }()
     
-    let statusIamge : UIImageView = {
+    private let statusIamge : UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "WarningStatus")
         return image
     }()
     
-    let titleLabel : UILabel = {
+    private let titleLabel : UILabel = {
         let label = UILabel()
         label.text = ""
         return label
@@ -44,8 +44,13 @@ class ScheudlerViewController: BaseViewController {
         return button
     }()
     
-    let collectionView : UICollectionView = {
+    private let collectionView : UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        return view
+    }()
+    
+    private let tableView : UITableView = {
+        let view = UITableView()
         return view
     }()
     
@@ -59,7 +64,7 @@ class ScheudlerViewController: BaseViewController {
     }()
     
     
-    
+    // MARK: - 캘린더 관련 변수
     private let calendar = Calendar.current
     private let dateFormatter = DateFormatter()
     private var calendarDate = Date()
@@ -97,6 +102,7 @@ class ScheudlerViewController: BaseViewController {
         self.configureCollectionView()
         self.configureAddButton()
         self.configureCalendar()
+        self.configureTableView()
         
     }
     
@@ -162,19 +168,34 @@ class ScheudlerViewController: BaseViewController {
             self.collectionView.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 16),
             self.collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-//            self.collectionView.heightAnchor.constraint(equalTo: self.collectionView.widthAnchor, multiplier: 1.5)
             self.collectionView.heightAnchor.constraint(equalToConstant: 60)
         ])
     }
     
+    private func configureTableView() {
+        self.view.addSubview(self.tableView)
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        tableView.rowHeight = 60
+        tableView.separatorStyle = .none
+        tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.identifier)
+        self.tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.tableView.topAnchor.constraint(equalTo: self.collectionView.bottomAnchor, constant: 26),
+            self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+    
     private func configureAddButton() {
-        self.view.addSubview(self.addButton)
+        self.tableView.addSubview(self.addButton)
         self.addButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             self.addButton.heightAnchor.constraint(equalToConstant: 68),
             self.addButton.widthAnchor.constraint(equalToConstant: 68),
-            self.addButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -33),
-            self.addButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20)
+            self.addButton.bottomAnchor.constraint(equalTo: self.tableView.frameLayoutGuide.bottomAnchor, constant: -33),
+            self.addButton.trailingAnchor.constraint(equalTo: self.tableView.frameLayoutGuide.trailingAnchor, constant: -20)
         ])
     }
 }
@@ -197,6 +218,18 @@ extension ScheudlerViewController : UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return .zero
+    }
+}
+
+extension ScheudlerViewController : UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as? TaskTableViewCell else {return UITableViewCell()}
+        cell.selectionStyle = .none
+        return cell
     }
 }
 
