@@ -40,8 +40,6 @@ class CalendarCollectionViewCell: UICollectionViewCell {
         self.weekTitleLabel.text = weekTitle
     }
     
-    
-    
     private func configure() {
         self.addSubview(self.dayLabel)
         self.addSubview(self.weekTitleLabel)

@@ -6,8 +6,23 @@
 //
 
 import UIKit
+import PanModal
 
 class ScheudlerViewController: BaseViewController {
+    
+    let statusLabel : UILabel = {
+        let label = UILabel()
+        label.text = "(유저 닉네임)의 현재 상태"
+        label.font = UIFont.pretendard(.medium, size: 15)
+        label.textColor = UIColor(red: 0.321, green: 0.321, blue: 0.321, alpha: 1)
+        return label
+    }()
+    
+    let statusIamge : UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "WarningStatus")
+        return image
+    }()
     
     let titleLabel : UILabel = {
         let label = UILabel()
@@ -34,6 +49,17 @@ class ScheudlerViewController: BaseViewController {
         return view
     }()
     
+    private lazy var addButton : UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
+        button.tintColor = UIColor(hex: "D9D9D9")
+        button.setPreferredSymbolConfiguration(.init(pointSize: 68, weight: .regular, scale: .default), forImageIn: .normal)
+        button.addTarget(self, action: #selector(addButtonClicked), for: .touchUpInside)
+        return button
+    }()
+    
+    
+    
     private let calendar = Calendar.current
     private let dateFormatter = DateFormatter()
     private var calendarDate = Date()
@@ -52,6 +78,10 @@ class ScheudlerViewController: BaseViewController {
         self.plusWeek()
     }
     
+    @objc private func addButtonClicked(_ sender: UIButton) {
+        let vc = ModalViewController()
+        self.presentPanModal(vc)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,12 +90,30 @@ class ScheudlerViewController: BaseViewController {
     }
     
     private func configure() {
+        self.configureStatus()
         self.configureTitleLabel()
         self.configureNextButton()
         self.configurePreviousButton()
         self.configureCollectionView()
+        self.configureAddButton()
         self.configureCalendar()
         
+    }
+    
+    private func configureStatus() {
+        self.view.addSubview(self.statusLabel)
+        self.view.addSubview(self.statusIamge)
+        self.statusLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.statusIamge.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.statusLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 5),
+            self.statusLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+            self.statusIamge.centerYAnchor.constraint(equalTo: self.statusLabel.centerYAnchor),
+            self.statusIamge.heightAnchor.constraint(equalToConstant: 18),
+            self.statusIamge.widthAnchor.constraint(equalToConstant: 54),
+            self.statusIamge.leadingAnchor.constraint(equalTo: self.statusLabel.trailingAnchor, constant: 5)
+        ])
     }
     
     private func configureTitleLabel() {
@@ -74,7 +122,7 @@ class ScheudlerViewController: BaseViewController {
         self.titleLabel.font = UIFont.pretendard(.bold, size: 15)
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            self.titleLabel.topAnchor.constraint(equalTo: self.statusLabel.bottomAnchor, constant: 7),
             self.titleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             self.titleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
         ])
@@ -114,9 +162,20 @@ class ScheudlerViewController: BaseViewController {
             self.collectionView.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 16),
             self.collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            self.collectionView.heightAnchor.constraint(equalTo: self.collectionView.widthAnchor, multiplier: 1.5)
+//            self.collectionView.heightAnchor.constraint(equalTo: self.collectionView.widthAnchor, multiplier: 1.5)
+            self.collectionView.heightAnchor.constraint(equalToConstant: 60)
         ])
-        
+    }
+    
+    private func configureAddButton() {
+        self.view.addSubview(self.addButton)
+        self.addButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.addButton.heightAnchor.constraint(equalToConstant: 68),
+            self.addButton.widthAnchor.constraint(equalToConstant: 68),
+            self.addButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -33),
+            self.addButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20)
+        ])
     }
 }
 
@@ -127,7 +186,7 @@ extension ScheudlerViewController : UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCollectionViewCell.identifier, for: indexPath) as? CalendarCollectionViewCell else {return UICollectionViewCell()}
-//        cell.update(day: self.weekDays[indexPath.item], weekTitle: self.weekTitle[indexPath.item])
+        cell.update(day: self.weekDays[indexPath.item], weekTitle: self.weekTitle[indexPath.item])
         return cell
     }
     
@@ -230,4 +289,14 @@ extension ScheudlerViewController {
         self.updatePlus()
     }
 }
+
+extension ScheudlerViewController: UISheetPresentationControllerDelegate {
+    func sheetPresentationControllerDidChangeSelectedDetentIdentifier(_ sheetPresentationController: UISheetPresentationController) {
+        //크기 변경 됐을 경우
+        print(sheetPresentationController.selectedDetentIdentifier == .large ? "large" : "medium")
+    }
+}
+
+
+
 
