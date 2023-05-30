@@ -25,6 +25,9 @@ class RxViewModel: NSObject, RxViewModelType {
     }
     
     func unbind() {
+        
+        debugPrint("메모리에서 제거")
+        
         self.disposeBag = DisposeBag()
     }
 }

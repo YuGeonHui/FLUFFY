@@ -14,7 +14,7 @@ final class TabBarViewController: UITabBarController {
         
         self.setupViews()
         
-        UINavigationBar.appearance().prefersLargeTitles = true
+//        UINavigationBar.appearance().prefersLargeTitles = true
         
         UITabBar.appearance().tintColor = UIColor.black
         UITabBar.appearance().unselectedItemTintColor = UIColor.gray

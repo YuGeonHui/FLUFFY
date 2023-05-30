@@ -10,7 +10,7 @@ import UIKit
 struct HomeViewResponse: Equatable, Codable {
 
     var nickname: String?
-    var characterInfo: Character?
+    var characterInfo: Status?
     
     struct ViewValue {
         

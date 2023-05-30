@@ -8,16 +8,9 @@
 import UIKit
 import Then
 
-final class MyPageViewCell: UICollectionViewCell {
+final class MyPageViewCell: UITableViewCell {
     
     static let identifier = "MyPageViewCell"
-    
-//    private enum Styles {
-//
-//        static let title: Style = Style {
-//
-//        }
-//    }
     
     private let titleLabel = UILabel()
     private let iconImageView = UIImageView().then {
@@ -32,15 +25,12 @@ final class MyPageViewCell: UICollectionViewCell {
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
         
-        setupViews()
+        self.setupViews()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     private func setupViews() {
         

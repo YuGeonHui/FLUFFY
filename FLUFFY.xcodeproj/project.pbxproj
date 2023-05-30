@@ -31,7 +31,7 @@
 		B6907DCC2A207A95001B22C1 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DCB2A207A95001B22C1 /* MyPageViewController.swift */; };
 		B6907DCE2A207AA1001B22C1 /* ScheudlerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DCD2A207AA1001B22C1 /* ScheudlerViewController.swift */; };
 		B6907DD02A207AB7001B22C1 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DCF2A207AB7001B22C1 /* SignUpViewController.swift */; };
-		B6907DD22A207B4B001B22C1 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DD12A207B4B001B22C1 /* Character.swift */; };
+		B6907DD22A207B4B001B22C1 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DD12A207B4B001B22C1 /* Status.swift */; };
 		B6907DD42A20A0F2001B22C1 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DD32A20A0F2001B22C1 /* App.swift */; };
 		B6907DD62A20A205001B22C1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DD52A20A205001B22C1 /* HomeViewModel.swift */; };
 		B6907DD82A20A278001B22C1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DD72A20A278001B22C1 /* BaseViewController.swift */; };
@@ -46,6 +46,9 @@
 		B69688762A1F1BF3009CC9B6 /* AppleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69688752A1F1BF3009CC9B6 /* AppleService.swift */; };
 		B69688782A1F1CDC009CC9B6 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69688772A1F1CDC009CC9B6 /* KeychainService.swift */; };
 		B696887A2A1F22DD009CC9B6 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69688792A1F22DD009CC9B6 /* NetworkService.swift */; };
+		B6AB3E4D2A261844003241C2 /* DividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AB3E4C2A261844003241C2 /* DividerView.swift */; };
+		B6AB3E4F2A2620C5003241C2 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AB3E4E2A2620C5003241C2 /* MyPageViewModel.swift */; };
+		B6AB3E522A262586003241C2 /* PushSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AB3E512A262586003241C2 /* PushSettingViewController.swift */; };
 		B6B897FC2A2306770076D712 /* Font+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B897FB2A2306770076D712 /* Font+Ext.swift */; };
 /* End PBXBuildFile section */
 
@@ -74,7 +77,7 @@
 		B6907DCB2A207A95001B22C1 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		B6907DCD2A207AA1001B22C1 /* ScheudlerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheudlerViewController.swift; sourceTree = "<group>"; };
 		B6907DCF2A207AB7001B22C1 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
-		B6907DD12A207B4B001B22C1 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
+		B6907DD12A207B4B001B22C1 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		B6907DD32A20A0F2001B22C1 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		B6907DD52A20A205001B22C1 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		B6907DD72A20A278001B22C1 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -92,6 +95,9 @@
 		B69688752A1F1BF3009CC9B6 /* AppleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleService.swift; sourceTree = "<group>"; };
 		B69688772A1F1CDC009CC9B6 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		B69688792A1F22DD009CC9B6 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		B6AB3E4C2A261844003241C2 /* DividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerView.swift; sourceTree = "<group>"; };
+		B6AB3E4E2A2620C5003241C2 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
+		B6AB3E512A262586003241C2 /* PushSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushSettingViewController.swift; sourceTree = "<group>"; };
 		B6B897FB2A2306770076D712 /* Font+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Ext.swift"; sourceTree = "<group>"; };
 		E4A26D52599D7ACEF0FEB708 /* Pods_FLUFFY.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FLUFFY.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EED37F88DB09F52E209827C0 /* Pods-FLUFFY.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FLUFFY.debug.xcconfig"; path = "Target Support Files/Pods-FLUFFY/Pods-FLUFFY.debug.xcconfig"; sourceTree = "<group>"; };
@@ -153,6 +159,7 @@
 		B6382BD52A25874A00A40724 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				B6AB3E4C2A261844003241C2 /* DividerView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -188,8 +195,10 @@
 		B6907DC52A2079FC001B22C1 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				B6AB3E502A262579003241C2 /* PushSetting */,
 				B6907DCB2A207A95001B22C1 /* MyPageViewController.swift */,
 				B6382BD32A24706500A40724 /* MyPageViewCell.swift */,
+				B6AB3E4E2A2620C5003241C2 /* MyPageViewModel.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -281,7 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				B69688722A1F1BE2009CC9B6 /* Score.swift */,
-				B6907DD12A207B4B001B22C1 /* Character.swift */,
+				B6907DD12A207B4B001B22C1 /* Status.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -294,6 +303,14 @@
 				B69688792A1F22DD009CC9B6 /* NetworkService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		B6AB3E502A262579003241C2 /* PushSetting */ = {
+			isa = PBXGroup;
+			children = (
+				B6AB3E512A262586003241C2 /* PushSettingViewController.swift */,
+			);
+			path = PushSetting;
 			sourceTree = "<group>";
 		};
 		B6B897FD2A2306FF0076D712 /* Resources */ = {
@@ -428,9 +445,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6AB3E522A262586003241C2 /* PushSettingViewController.swift in Sources */,
 				B69688602A1F12CA009CC9B6 /* ViewController.swift in Sources */,
 				B696885C2A1F12CA009CC9B6 /* AppDelegate.swift in Sources */,
 				B69688732A1F1BE2009CC9B6 /* Score.swift in Sources */,
+				B6AB3E4F2A2620C5003241C2 /* MyPageViewModel.swift in Sources */,
 				B6907DBD2A207661001B22C1 /* Encodable+Ext.swift in Sources */,
 				B6B897FC2A2306770076D712 /* Font+Ext.swift in Sources */,
 				B6907DDA2A20A44D001B22C1 /* TabBarViewController.swift in Sources */,
@@ -447,11 +466,12 @@
 				B69688782A1F1CDC009CC9B6 /* KeychainService.swift in Sources */,
 				B6907DD02A207AB7001B22C1 /* SignUpViewController.swift in Sources */,
 				B6907DCC2A207A95001B22C1 /* MyPageViewController.swift in Sources */,
+				B6AB3E4D2A261844003241C2 /* DividerView.swift in Sources */,
 				B6907DBF2A2076AF001B22C1 /* UserDefaults+Ext.swift in Sources */,
 				B6907DC42A207743001B22C1 /* API.swift in Sources */,
 				B6907DCA2A207A7F001B22C1 /* HomeViewController.swift in Sources */,
 				9C3628ED2A23A55C00562713 /* CalendarCollectionViewCell.swift in Sources */,
-				B6907DD22A207B4B001B22C1 /* Character.swift in Sources */,
+				B6907DD22A207B4B001B22C1 /* Status.swift in Sources */,
 				B696887A2A1F22DD009CC9B6 /* NetworkService.swift in Sources */,
 				9C3628F32A26001900562713 /* ModalViewController.swift in Sources */,
 				B6907DD62A20A205001B22C1 /* HomeViewModel.swift in Sources */,

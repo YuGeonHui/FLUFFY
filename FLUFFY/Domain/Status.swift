@@ -1,5 +1,5 @@
 //
-//  Character.swift
+//  Status.swift
 //  FLUFFY
 //
 //  Created by geonhui Yu on 2023/05/26.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum Character: Equatable, CaseIterable, Codable {
+enum Status: Equatable, CaseIterable, Codable {
     
     case unknow
     case safe
@@ -23,6 +23,17 @@ enum Character: Equatable, CaseIterable, Codable {
         case .caution: return "주의"
         case .warning: return "경고"
         case .danger: return "위험"
+        }
+    }
+    
+    var desc: String {
+        
+        switch self {
+        case .unknow: return ""
+        case .safe: return "적절한 스트레스가 도움이 되는 상태"
+        case .caution: return "일상 생활에 지장은 없지만, 관리가 필요한 상태"
+        case .warning: return "스트레스가 쌓여 예민하고 지친 상태"
+        case .danger: return "무기력하고 의욕이 사라진 상태"
         }
     }
     
