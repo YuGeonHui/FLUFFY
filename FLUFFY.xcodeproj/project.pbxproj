@@ -21,9 +21,12 @@
 		B6382BCF2A23949300A40724 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B6382BC62A23949300A40724 /* Pretendard-SemiBold.otf */; };
 		B6382BD02A23949300A40724 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = B6382BC72A23949300A40724 /* Pretendard-Thin.otf */; };
 		B6382BD12A23949300A40724 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = B6382BC82A23949300A40724 /* Pretendard-Medium.otf */; };
-		B6382BD42A24706500A40724 /* MyPageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6382BD32A24706500A40724 /* MyPageViewCell.swift */; };
 		B6382BD82A25889500A40724 /* RxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6382BD72A25889500A40724 /* RxViewModel.swift */; };
 		B6382BDA2A2588FC00A40724 /* HomeViewValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6382BD92A2588FC00A40724 /* HomeViewValue.swift */; };
+		B65B41FA2A27311D00E6B579 /* Opener.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B41F92A27311D00E6B579 /* Opener.swift */; };
+		B65B41FC2A27317100E6B579 /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B41FB2A27317100E6B579 /* Web.swift */; };
+		B65B41FF2A27352900E6B579 /* MyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B41FE2A27352900E6B579 /* MyInfoViewController.swift */; };
+		B65B42012A27357000E6B579 /* MyInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B42002A27357000E6B579 /* MyInfoViewModel.swift */; };
 		B6907DBB2A2075A9001B22C1 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DBA2A2075A9001B22C1 /* UIColor+Ext.swift */; };
 		B6907DBD2A207661001B22C1 /* Encodable+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DBC2A207661001B22C1 /* Encodable+Ext.swift */; };
 		B6907DBF2A2076AF001B22C1 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DBE2A2076AF001B22C1 /* UserDefaults+Ext.swift */; };
@@ -48,7 +51,6 @@
 		B69688762A1F1BF3009CC9B6 /* AppleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69688752A1F1BF3009CC9B6 /* AppleService.swift */; };
 		B69688782A1F1CDC009CC9B6 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69688772A1F1CDC009CC9B6 /* KeychainService.swift */; };
 		B696887A2A1F22DD009CC9B6 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69688792A1F22DD009CC9B6 /* NetworkService.swift */; };
-		B6AB3E4D2A261844003241C2 /* DividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AB3E4C2A261844003241C2 /* DividerView.swift */; };
 		B6AB3E4F2A2620C5003241C2 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AB3E4E2A2620C5003241C2 /* MyPageViewModel.swift */; };
 		B6AB3E522A262586003241C2 /* PushSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AB3E512A262586003241C2 /* PushSettingViewController.swift */; };
 		B6B897FC2A2306770076D712 /* Font+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B897FB2A2306770076D712 /* Font+Ext.swift */; };
@@ -69,9 +71,12 @@
 		B6382BC62A23949300A40724 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		B6382BC72A23949300A40724 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
 		B6382BC82A23949300A40724 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
-		B6382BD32A24706500A40724 /* MyPageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewCell.swift; sourceTree = "<group>"; };
 		B6382BD72A25889500A40724 /* RxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxViewModel.swift; sourceTree = "<group>"; };
 		B6382BD92A2588FC00A40724 /* HomeViewValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewValue.swift; sourceTree = "<group>"; };
+		B65B41F92A27311D00E6B579 /* Opener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Opener.swift; sourceTree = "<group>"; };
+		B65B41FB2A27317100E6B579 /* Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
+		B65B41FE2A27352900E6B579 /* MyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewController.swift; sourceTree = "<group>"; };
+		B65B42002A27357000E6B579 /* MyInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewModel.swift; sourceTree = "<group>"; };
 		B6907DBA2A2075A9001B22C1 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		B6907DBC2A207661001B22C1 /* Encodable+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Ext.swift"; sourceTree = "<group>"; };
 		B6907DBE2A2076AF001B22C1 /* UserDefaults+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Ext.swift"; sourceTree = "<group>"; };
@@ -99,7 +104,6 @@
 		B69688752A1F1BF3009CC9B6 /* AppleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleService.swift; sourceTree = "<group>"; };
 		B69688772A1F1CDC009CC9B6 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		B69688792A1F22DD009CC9B6 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		B6AB3E4C2A261844003241C2 /* DividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerView.swift; sourceTree = "<group>"; };
 		B6AB3E4E2A2620C5003241C2 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		B6AB3E512A262586003241C2 /* PushSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushSettingViewController.swift; sourceTree = "<group>"; };
 		B6B897FB2A2306770076D712 /* Font+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Ext.swift"; sourceTree = "<group>"; };
@@ -160,20 +164,29 @@
 			path = Pretendard;
 			sourceTree = "<group>";
 		};
-		B6382BD52A25874A00A40724 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				B6AB3E4C2A261844003241C2 /* DividerView.swift */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
 		B6382BD62A25888600A40724 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
 				B6382BD72A25889500A40724 /* RxViewModel.swift */,
 			);
 			path = Foundation;
+			sourceTree = "<group>";
+		};
+		B65B41F82A27311000E6B579 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				B65B41F92A27311D00E6B579 /* Opener.swift */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		B65B41FD2A27351C00E6B579 /* MyInfo */ = {
+			isa = PBXGroup;
+			children = (
+				B65B41FE2A27352900E6B579 /* MyInfoViewController.swift */,
+				B65B42002A27357000E6B579 /* MyInfoViewModel.swift */,
+			);
+			path = MyInfo;
 			sourceTree = "<group>";
 		};
 		B6907DB92A20759D001B22C1 /* Extension */ = {
@@ -199,9 +212,9 @@
 		B6907DC52A2079FC001B22C1 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				B65B41FD2A27351C00E6B579 /* MyInfo */,
 				B6AB3E502A262579003241C2 /* PushSetting */,
 				B6907DCB2A207A95001B22C1 /* MyPageViewController.swift */,
-				B6382BD32A24706500A40724 /* MyPageViewCell.swift */,
 				B6AB3E4E2A2620C5003241C2 /* MyPageViewModel.swift */,
 			);
 			path = MyPage;
@@ -258,6 +271,7 @@
 		B696885A2A1F12CA009CC9B6 /* FLUFFY */ = {
 			isa = PBXGroup;
 			children = (
+				B65B41F82A27311000E6B579 /* Tools */,
 				B6382BD62A25888600A40724 /* Foundation */,
 				B69688712A1F1B62009CC9B6 /* Domain */,
 				B6907DC02A20770E001B22C1 /* API */,
@@ -280,7 +294,6 @@
 		B69688702A1F1B25009CC9B6 /* Scence */ = {
 			isa = PBXGroup;
 			children = (
-				B6382BD52A25874A00A40724 /* Common */,
 				B6907DC82A207A60001B22C1 /* Home */,
 				B6907DC72A207A11001B22C1 /* Account */,
 				B6907DC62A207A04001B22C1 /* Scheduler */,
@@ -296,6 +309,7 @@
 			children = (
 				B69688722A1F1BE2009CC9B6 /* Score.swift */,
 				B6907DD12A207B4B001B22C1 /* Status.swift */,
+				B65B41FB2A27317100E6B579 /* Web.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -467,13 +481,15 @@
 				B6907DBB2A2075A9001B22C1 /* UIColor+Ext.swift in Sources */,
 				B6907DD42A20A0F2001B22C1 /* App.swift in Sources */,
 				B6907DCE2A207AA1001B22C1 /* ScheudlerViewController.swift in Sources */,
+				B65B42012A27357000E6B579 /* MyInfoViewModel.swift in Sources */,
+				B65B41FA2A27311D00E6B579 /* Opener.swift in Sources */,
 				B6382BDA2A2588FC00A40724 /* HomeViewValue.swift in Sources */,
 				B6907DC22A20771C001B22C1 /* FlUPPYAPIAPI.swift in Sources */,
-				B6382BD42A24706500A40724 /* MyPageViewCell.swift in Sources */,
 				B69688782A1F1CDC009CC9B6 /* KeychainService.swift in Sources */,
+				B65B41FF2A27352900E6B579 /* MyInfoViewController.swift in Sources */,
 				B6907DD02A207AB7001B22C1 /* SignUpViewController.swift in Sources */,
+				B65B41FC2A27317100E6B579 /* Web.swift in Sources */,
 				B6907DCC2A207A95001B22C1 /* MyPageViewController.swift in Sources */,
-				B6AB3E4D2A261844003241C2 /* DividerView.swift in Sources */,
 				B6907DBF2A2076AF001B22C1 /* UserDefaults+Ext.swift in Sources */,
 				B6907DC42A207743001B22C1 /* API.swift in Sources */,
 				B6907DCA2A207A7F001B22C1 /* HomeViewController.swift in Sources */,

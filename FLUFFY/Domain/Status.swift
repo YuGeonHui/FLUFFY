@@ -48,6 +48,17 @@ enum Status: Equatable, CaseIterable, Codable {
         }
     }
     
+    var character: UIImage? {
+        
+        switch self {
+        case .unknow: return UIImage(named: "")
+        case .safe: return UIImage(named: "")
+        case .caution: return UIImage(named: "")
+        case .warning: return UIImage(named: "")
+        case .danger: return UIImage(named: "")
+        }
+    }
+    
     var icon: UIImage? {
         
         switch self {
@@ -56,6 +67,28 @@ enum Status: Equatable, CaseIterable, Codable {
         case .caution: return UIImage(named: "")
         case .warning: return UIImage(named: "")
         case .danger: return UIImage(named: "")
+        }
+    }
+    
+    var statusBar: UIImage? {
+        
+        switch self {
+        case .unknow: return UIImage(named: "")
+        case .safe:  return UIImage(named: "")
+        case .caution:  return UIImage(named: "")
+        case .warning: return UIImage(named: "")
+        case .danger: return UIImage(named: "")
+        }
+    }
+    
+    var statusBarSize: CGSize {
+        
+        switch self {
+        case .unknow: return CGSize(width: 0, height: 0)
+        case .safe: return CGSize(width: 0, height: 0)
+        case .caution: return CGSize(width: 0, height: 0)
+        case .warning: return CGSize(width: 0, height: 0)
+        case .danger: return CGSize(width: 0, height: 0)
         }
     }
 }

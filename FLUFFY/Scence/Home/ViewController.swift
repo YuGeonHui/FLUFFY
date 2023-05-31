@@ -7,7 +7,8 @@
 
 import UIKit
 import AuthenticationServices
-import RxGesture
+import RxSwift
+import RxCocoa
 
 final class ViewController: BaseViewController {
     
@@ -36,22 +37,9 @@ final class ViewController: BaseViewController {
         $0.image = UIImage(named: "GoodCharacter")
     }
     
-    private let statusView = UIImageView().then {
+    private let statusImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
-        $0.image = UIImage(named: "GoodStatus")
         $0.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    private let infoView = UIButton().then {
-        $0.setImage(UIImage(named: "info"), for: .normal)
-        $0.imageView?.contentMode = .scaleToFill
-    }
-    
-    private lazy var infoStackView = UIStackView(arrangedSubviews: [statusView, infoView]).then {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.axis = .horizontal
-        $0.alignment = .center
-        $0.spacing = Metric.statusSpacing
     }
     
     private lazy var stackView = UIStackView(arrangedSubviews: [nicknameLabel, characterImageView, messageLabel]).then {
@@ -78,47 +66,21 @@ final class ViewController: BaseViewController {
         bindInputs()
         bindOutputs()
         
-        // MARK: Binding
         viewModel.bind()
+    }
+    
+    deinit {
+        viewModel.unbind()
     }
     
     private func setupAutoLayout() {
         
         self.view.addSubview(self.nicknameLabel)
-        self.view.addSubview(self.infoStackView)
         
-        self.nicknameLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 60).isActive = true
-        self.nicknameLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        
-        self.statusView.widthAnchor.constraint(equalToConstant: 65).isActive = true
-        self.statusView.heightAnchor.constraint(equalToConstant: 31).isActive = true
-        
-        self.infoView.widthAnchor.constraint(equalToConstant: Metric.infoSize.width).isActive = true
-        self.infoView.heightAnchor.constraint(equalToConstant: Metric.infoSize.height).isActive = true
-        
-        self.infoStackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        self.infoStackView.topAnchor.constraint(equalTo: self.nicknameLabel.bottomAnchor, constant: 14).isActive = true
-        
-
-//        self.toolTipView.widthAnchor.constraint(equalToConstant: Metric.infoSize.width).isActive = true
-//        self.toolTipView.heightAnchor.constraint(equalToConstant: Metric.infoSize.height).isActive = true
-        
-//        self.characterImageView.widthAnchor.constraint(equalToConstant: Metric.iconSize.width).isActive = true
-//        self.statusView.widthAnchor.constraint(equalToConstant: Metric.statusSize.width).isActive = true
-//
-//        self.statusView.heightAnchor.constraint(equalToConstant: 31).isActive = true
-        
-//        self.characterImageView.heightAnchor.constraint(equalToConstant: Metric.iconSize.height).isActive = true
-        
-//        self.stackView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
-//        self.stackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-    }
-    
-    // MARK: 툴팁 화면 표출하기
-    private func showTooTipView() {
-        
-        let toolTipVC = MyPageViewController()
-        self.navigationController?.pushViewController(toolTipVC, animated: true)
+        NSLayoutConstraint.activate([
+            self.nicknameLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 60),
+            self.nicknameLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+        ])
     }
 }
 
@@ -127,17 +89,29 @@ extension ViewController {
     
     private func bindInputs() {
         
-        self.infoView.rx.tap
-            .withUnretained(self)
-            .bind(onNext: { $0.0.viewModel.tapToolTip() })
-            .disposed(by: self.disposeBag)
     }
     
     private func bindOutputs() {
         
-        self.viewModel.showToolTip
+        self.viewModel.valueChanged
+            .observe(on: MainScheduler.instance)
             .withUnretained(self)
-            .bind(onNext: { $0.0.showTooTipView() })
+            .bind(onNext: { $0.0.updateViews($0.1) })
             .disposed(by: self.disposeBag)
+    }
+}
+
+extension ViewController {
+    
+    private func updateViews(_ status: Status?) {
+        
+        guard let status = status else { return }
+        
+        self.statusImageView.widthAnchor.constraint(equalToConstant: status.statusBarSize.width).isActive = true
+        self.statusImageView.heightAnchor.constraint(equalToConstant: status.statusBarSize.height).isActive = true
+        self.statusImageView.image = status.statusBar
+        
+        self.characterImageView.image = status.icon
+        self.messageLabel.text = status.message
     }
 }

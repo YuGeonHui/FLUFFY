@@ -9,7 +9,7 @@ import Foundation
  
 enum FlUPPYAPI {
     
-    static let baseURL: String = ""
+    static let baseURL: String = "54.180.2.148:8000"
     
     enum Header: APIHeader {
         

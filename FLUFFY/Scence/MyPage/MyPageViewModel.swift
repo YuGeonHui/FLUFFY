@@ -11,6 +11,7 @@ import RxCocoa
 
 final class MyPageViewModel: RxViewModel {
     
+    // MARK: Inputs
     private let _tapMyInfo = PublishRelay<Void>()
     func tapMyInfo() {
         self._tapMyInfo.accept(())
@@ -29,6 +30,12 @@ final class MyPageViewModel: RxViewModel {
     private let _tapInquire = PublishRelay<Void>()
     func tapInquire() {
         self._tapInquire.accept(())
+    }
+    
+    // MARK: Values
+    private let _viewValue = BehaviorRelay<Status?>(value: nil)
+    var valueChanged: Observable<Status?> {
+        return self._viewValue.asObservable()
     }
     
     // MARK: Output
