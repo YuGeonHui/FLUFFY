@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8FAFE2BEA05001644EDAA65E /* Pods_FLUFFY.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4A26D52599D7ACEF0FEB708 /* Pods_FLUFFY.framework */; };
+		9C2F58B52A26454B00B36415 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2F58B42A26454B00B36415 /* TaskTableViewCell.swift */; };
 		9C3628ED2A23A55C00562713 /* CalendarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3628EC2A23A55C00562713 /* CalendarCollectionViewCell.swift */; };
 		9C3628F32A26001900562713 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3628F22A26001900562713 /* ModalViewController.swift */; };
 		B6382BC92A23949300A40724 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B6382BC02A23949300A40724 /* Pretendard-ExtraBold.otf */; };
@@ -54,6 +55,7 @@
 
 /* Begin PBXFileReference section */
 		647511F047D81A33A7168BA9 /* Pods-FLUFFY.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FLUFFY.release.xcconfig"; path = "Target Support Files/Pods-FLUFFY/Pods-FLUFFY.release.xcconfig"; sourceTree = "<group>"; };
+		9C2F58B42A26454B00B36415 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		9C3628EC2A23A55C00562713 /* CalendarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCollectionViewCell.swift; sourceTree = "<group>"; };
 		9C3628F22A26001900562713 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		B6382BC02A23949300A40724 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 				B6907DCD2A207AA1001B22C1 /* ScheudlerViewController.swift */,
 				9C3628F22A26001900562713 /* ModalViewController.swift */,
 				9C3628EC2A23A55C00562713 /* CalendarCollectionViewCell.swift */,
+				9C2F58B42A26454B00B36415 /* TaskTableViewCell.swift */,
 			);
 			path = Scheduler;
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C2F58B52A26454B00B36415 /* TaskTableViewCell.swift in Sources */,
 				B6AB3E522A262586003241C2 /* PushSettingViewController.swift in Sources */,
 				B69688602A1F12CA009CC9B6 /* ViewController.swift in Sources */,
 				B696885C2A1F12CA009CC9B6 /* AppDelegate.swift in Sources */,

@@ -14,6 +14,7 @@ class CalendarCollectionViewCell: UICollectionViewCell {
     let dayLabel : UILabel = {
         let label = UILabel()
         label.text = ""
+        label.textColor = UIColor(hex: "2D2D2D")
         label.font = UIFont.pretendard(.bold, size: 15)
         return label
     }()
@@ -21,9 +22,23 @@ class CalendarCollectionViewCell: UICollectionViewCell {
     let weekTitleLabel : UILabel = {
         let label = UILabel()
         label.text = "월"
-        label.font = UIFont.pretendard(.bold, size: 15)
+        label.textColor = UIColor(hex: "ADADAD")
+        label.font = UIFont.pretendard(.bold, size: 11)
         return label
     }()
+    
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                dayLabel.textColor = UIColor(hex: "0600FE")
+                weekTitleLabel.textColor = UIColor(hex: "0600FE")
+            }
+            else {
+                dayLabel.textColor = UIColor(hex: "2D2D2D")
+                weekTitleLabel.textColor = UIColor(hex: "ADADAD")
+            }
+        }
+    }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
