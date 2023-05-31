@@ -39,7 +39,7 @@ final class MyPageViewModel: RxViewModel {
     
     private let _showPushSetting = PublishRelay<Void>()
     var showPushSettingView: Observable<Void> {
-        return self._showNotice.asObservable()
+        return self._showPushSetting.asObservable()
     }
     
     private let _showNotice = PublishRelay<Void>()

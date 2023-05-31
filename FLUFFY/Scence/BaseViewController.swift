@@ -23,6 +23,12 @@ class BaseViewController: UIViewController {
         navigationController?.navigationBar.tintColor = UIColor(hex: "454545")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tabBarController?.tabBar.isHidden = false
+    }
+    
     private func setupNavViews() {
     
         self.view.backgroundColor = .white
@@ -62,6 +68,8 @@ class BaseViewController: UIViewController {
     }
     
     @objc private func showMyPageVC() {
+        
+        self.tabBarController?.tabBar.isHidden = true
         
         let myPageVC = MyPageViewController()
         self.navigationController?.pushViewController(myPageVC, animated: true)
