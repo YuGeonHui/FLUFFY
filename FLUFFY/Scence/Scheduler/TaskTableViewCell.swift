@@ -29,6 +29,14 @@ class TaskTableViewCell: UITableViewCell {
         return label
     }()
     
+    let timeLabel : UILabel = {
+        let label = UILabel()
+        label.text = ""
+        label.textColor = UIColor(hex: "8D8D8D")
+        label.font = UIFont.pretendard(.medium, size: 12)
+        return label
+    }()
+    
     private let statusIcon : UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "0")
@@ -40,8 +48,6 @@ class TaskTableViewCell: UITableViewCell {
         image.image = UIImage(named: "line")
         return image
     }()
-    
-    
     
     static let identifier = "TaskTableViewCell"
     
@@ -79,6 +85,13 @@ class TaskTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             taskLabel.centerYAnchor.constraint(equalTo: taskView.centerYAnchor),
             taskLabel.leadingAnchor.constraint(equalTo: taskView.leadingAnchor, constant: 17)
+        ])
+        
+        contentView.addSubview(timeLabel)
+        timeLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            timeLabel.centerYAnchor.constraint(equalTo: self.taskView.centerYAnchor),
+            timeLabel.trailingAnchor.constraint(equalTo: self.taskView.trailingAnchor, constant: -12)
         ])
         
         contentView.addSubview(line)

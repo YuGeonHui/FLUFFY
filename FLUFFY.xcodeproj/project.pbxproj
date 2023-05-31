@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8FAFE2BEA05001644EDAA65E /* Pods_FLUFFY.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4A26D52599D7ACEF0FEB708 /* Pods_FLUFFY.framework */; };
 		9C2F58B52A26454B00B36415 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2F58B42A26454B00B36415 /* TaskTableViewCell.swift */; };
+		9C2F58BB2A27421F00B36415 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2F58BA2A27421F00B36415 /* CustomSlider.swift */; };
 		9C3628ED2A23A55C00562713 /* CalendarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3628EC2A23A55C00562713 /* CalendarCollectionViewCell.swift */; };
 		9C3628F32A26001900562713 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3628F22A26001900562713 /* ModalViewController.swift */; };
 		B629BAD82A26EF3800561538 /* PushSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B629BAD72A26EF3800561538 /* PushSettingViewModel.swift */; };
@@ -59,6 +60,7 @@
 /* Begin PBXFileReference section */
 		647511F047D81A33A7168BA9 /* Pods-FLUFFY.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FLUFFY.release.xcconfig"; path = "Target Support Files/Pods-FLUFFY/Pods-FLUFFY.release.xcconfig"; sourceTree = "<group>"; };
 		9C2F58B42A26454B00B36415 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
+		9C2F58BA2A27421F00B36415 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		9C3628EC2A23A55C00562713 /* CalendarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCollectionViewCell.swift; sourceTree = "<group>"; };
 		9C3628F22A26001900562713 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		B629BAD72A26EF3800561538 /* PushSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushSettingViewModel.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 			children = (
 				B6907DCD2A207AA1001B22C1 /* ScheudlerViewController.swift */,
 				9C3628F22A26001900562713 /* ModalViewController.swift */,
+				9C2F58BA2A27421F00B36415 /* CustomSlider.swift */,
 				9C3628EC2A23A55C00562713 /* CalendarCollectionViewCell.swift */,
 				9C2F58B42A26454B00B36415 /* TaskTableViewCell.swift */,
 			);
@@ -478,6 +481,7 @@
 				B696885E2A1F12CA009CC9B6 /* SceneDelegate.swift in Sources */,
 				B6907DD82A20A278001B22C1 /* BaseViewController.swift in Sources */,
 				B69688762A1F1BF3009CC9B6 /* AppleService.swift in Sources */,
+				9C2F58BB2A27421F00B36415 /* CustomSlider.swift in Sources */,
 				B6907DBB2A2075A9001B22C1 /* UIColor+Ext.swift in Sources */,
 				B6907DD42A20A0F2001B22C1 /* App.swift in Sources */,
 				B6907DCE2A207AA1001B22C1 /* ScheudlerViewController.swift in Sources */,

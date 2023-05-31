@@ -58,7 +58,7 @@ class ScheudlerViewController: BaseViewController {
         let button = UIButton()
         button.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
         button.tintColor = UIColor(hex: "D9D9D9")
-        button.setPreferredSymbolConfiguration(.init(pointSize: 68, weight: .regular, scale: .default), forImageIn: .normal)
+        button.setPreferredSymbolConfiguration(.init(pointSize: 68, weight: .light, scale: .default), forImageIn: .normal)
         button.addTarget(self, action: #selector(addButtonClicked), for: .touchUpInside)
         return button
     }()
@@ -176,7 +176,7 @@ class ScheudlerViewController: BaseViewController {
         self.view.addSubview(self.tableView)
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        tableView.rowHeight = 60
+        tableView.rowHeight = 64
         tableView.separatorStyle = .none
         tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.identifier)
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -219,11 +219,12 @@ extension ScheudlerViewController : UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return .zero
     }
+    
 }
 
 extension ScheudlerViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 7
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
