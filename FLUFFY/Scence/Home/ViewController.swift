@@ -9,50 +9,68 @@ import UIKit
 import AuthenticationServices
 import RxSwift
 import RxCocoa
+import SwiftRichString
 
 final class ViewController: BaseViewController {
     
     private enum Metric {
-        static let iconSize: CGSize = CGSize(width: 300, height: 300)
-        static let statusSpacing: CGFloat = 4
         
-        static let stackSpacing: CGFloat = 11
-        static let statusSize: CGSize = CGSize(width: 65, height: 31)
+        static let leadingInset: CGFloat = 20
         
-        static let infoSize: CGSize = CGSize(width: 20, height: 20)
+        static let trailingInset: CGFloat = 20
+        
+        static let statusBarSize: CGSize = CGSize(width: 65, height: 31)
+        
+        static let charaterSize: CGSize = CGSize(width: 300, height: 300)
+        
+        static let nickBefore: CGFloat = 60
+        
+        static let nickAfter: CGFloat = 11
+        
+        static let statusAfter: CGFloat = 11
+        
+        static let characterAfter: CGFloat = 11
+    }
+    
+    private enum Styles {
+        
+        static var nickname: Style = Style {
+            $0.font = UIFont.pretendard(.bold, size: 24)
+            $0.color = UIColor(hex: "2c2c2c")
+            $0.alignment = .center
+        }
+        
+        static let message: Style = Style {
+            $0.font = UIFont.pretendard(.medium, size: 15)
+            $0.color = UIColor(hex: "2d2d2d")
+            $0.minimumLineHeight = 26
+            $0.maximumLineHeight = 26
+            $0.alignment = .center
+        }
     }
     
     // MARK: Views
     private let nicknameLabel = UILabel().then {
-        $0.font = UIFont.pretendard(.bold, size: 24)
-        $0.textAlignment = .center
-        $0.textColor = UIColor(hex: "2c2c2c")
-        $0.text = "둥둥"
+        $0.attributedText = "둥둥".set(style: Styles.nickname)
         $0.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    private let characterImageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFit
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.image = UIImage(named: "GoodCharacter")
     }
     
     private let statusImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
         $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.image = UIImage(named: "GoodStatus")
     }
     
-    private lazy var stackView = UIStackView(arrangedSubviews: [nicknameLabel, characterImageView, messageLabel]).then {
+    private let characterImageView = UIImageView().then {
+        $0.contentMode = .scaleAspectFit
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.axis = .vertical
-        $0.spacing = Metric.stackSpacing
+        $0.image = UIImage(named: "character_good")
     }
     
     private let messageLabel = UILabel().then {
         $0.numberOfLines = 0
-        $0.textAlignment = .center
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.text = "동동님의 상태가 좋지 않아요.\n회복을 위해 휴식을 취하시는 것을 추천드려요."
+        $0.attributedText = "동동님의 상태가 좋지 않아요.\n회복을 위해 휴식을 취하시는 것을 추천드려요.".set(style: Styles.message)
     }
     
     // MARK: ViewModel
@@ -69,6 +87,24 @@ final class ViewController: BaseViewController {
         viewModel.bind()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        UIView.animate(withDuration: 0.5, delay: 0.5, options: [], animations: {
+            self.characterImageView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.5) {
+                self.characterImageView.transform = CGAffineTransform.identity
+            }
+        })
+        
+        //        let shakeAnimation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        //        shakeAnimation.timingFunction = CAMediaTimingFunction(name: .linear)
+        //        shakeAnimation.duration = 0.5
+        //        shakeAnimation.values = [-10, 10, -8, 8, -6, 6, -4, 4, -2, 2, 0]
+        //        characterImageView.layer.add(shakeAnimation, forKey: "shakeAnimation")
+    }
+    
     deinit {
         viewModel.unbind()
     }
@@ -76,10 +112,26 @@ final class ViewController: BaseViewController {
     private func setupAutoLayout() {
         
         self.view.addSubview(self.nicknameLabel)
+        self.view.addSubview(self.statusImageView)
+        self.view.addSubview(self.characterImageView)
+        self.view.addSubview(self.messageLabel)
         
         NSLayoutConstraint.activate([
-            self.nicknameLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 60),
-            self.nicknameLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+            self.nicknameLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: Metric.nickBefore),
+            self.nicknameLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            
+            self.statusImageView.topAnchor.constraint(equalTo: self.nicknameLabel.bottomAnchor, constant: 11),
+            self.statusImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.statusImageView.widthAnchor.constraint(equalToConstant: Metric.statusBarSize.width),
+            self.statusImageView.heightAnchor.constraint(equalToConstant: Metric.statusBarSize.height),
+            
+            self.characterImageView.topAnchor.constraint(equalTo: self.statusImageView.bottomAnchor, constant: 11),
+            self.characterImageView.widthAnchor.constraint(equalToConstant: Metric.charaterSize.width),
+            self.characterImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.characterImageView.heightAnchor.constraint(equalToConstant: Metric.charaterSize.height),
+            
+            self.messageLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.messageLabel.topAnchor.constraint(equalTo: self.characterImageView.bottomAnchor, constant: 14)
         ])
     }
 }
@@ -93,11 +145,11 @@ extension ViewController {
     
     private func bindOutputs() {
         
-        self.viewModel.valueChanged
-            .observe(on: MainScheduler.instance)
-            .withUnretained(self)
-            .bind(onNext: { $0.0.updateViews($0.1) })
-            .disposed(by: self.disposeBag)
+//        self.viewModel.valueChanged
+//            .observe(on: MainScheduler.instance)
+//            .withUnretained(self)
+//            .bind(onNext: { $0.0.updateViews($0.1) })
+//            .disposed(by: self.disposeBag)
     }
 }
 

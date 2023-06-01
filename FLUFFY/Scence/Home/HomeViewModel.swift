@@ -19,9 +19,11 @@ protocol HomeViewModelOutputs {
 
 final class HomeViewModel: RxViewModel, HomeViewModelInputs, HomeViewModelOutputs {
     
+    private let apiService = NetworkService()
+    
     // MARK: Values
-    private let _viewValue = BehaviorRelay<Status?>(value: nil)
-    var valueChanged: Observable<Status?> {
+    private let _viewValue = BehaviorRelay<HomeViewResponse?>(value: nil)
+    var valueChanged: Observable<HomeViewResponse?> {
         return self._viewValue.asObservable()
     }
     

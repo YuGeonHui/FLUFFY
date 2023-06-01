@@ -12,4 +12,5 @@ pod 'RxSwift'
 pod 'RxCocoa'
 pod 'RxGesture'
 pod 'PanModal'
+pod 'SwiftRichString'
 end

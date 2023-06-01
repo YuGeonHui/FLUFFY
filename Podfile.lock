@@ -10,6 +10,7 @@ PODS:
   - RxRelay (6.5.0):
     - RxSwift (= 6.5.0)
   - RxSwift (6.5.0)
+  - SwiftRichString (3.7.2)
   - Then (3.0.0)
 
 DEPENDENCIES:
@@ -18,6 +19,7 @@ DEPENDENCIES:
   - RxCocoa
   - RxGesture
   - RxSwift
+  - SwiftRichString
   - Then
 
 SPEC REPOS:
@@ -28,6 +30,7 @@ SPEC REPOS:
     - RxGesture
     - RxRelay
     - RxSwift
+    - SwiftRichString
     - Then
 
 SPEC CHECKSUMS:
@@ -37,8 +40,9 @@ SPEC CHECKSUMS:
   RxGesture: f3efb47ed2d26a8082f7b660d4a59970e275a7f8
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
+  SwiftRichString: d61b807db1f8834c26fee92b6dd3e1be2dc5af03
   Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
 
-PODFILE CHECKSUM: 03ded37371db70dbed6085744613348db9ffd1e5
+PODFILE CHECKSUM: bf9cf02cd8b246a0424d43936ca28592d0351841
 
 COCOAPODS: 1.12.1

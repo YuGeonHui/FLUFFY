@@ -28,6 +28,9 @@
 		B65B41FC2A27317100E6B579 /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B41FB2A27317100E6B579 /* Web.swift */; };
 		B65B41FF2A27352900E6B579 /* MyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B41FE2A27352900E6B579 /* MyInfoViewController.swift */; };
 		B65B42012A27357000E6B579 /* MyInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B42002A27357000E6B579 /* MyInfoViewModel.swift */; };
+		B65B42062A28284C00E6B579 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B42052A28284C00E6B579 /* Account.swift */; };
+		B65B42082A28286100E6B579 /* AccountAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B42072A28286100E6B579 /* AccountAPIs.swift */; };
+		B65B420A2A283AFB00E6B579 /* MyPageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B42092A283AFB00E6B579 /* MyPageRowView.swift */; };
 		B6907DBB2A2075A9001B22C1 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DBA2A2075A9001B22C1 /* UIColor+Ext.swift */; };
 		B6907DBD2A207661001B22C1 /* Encodable+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DBC2A207661001B22C1 /* Encodable+Ext.swift */; };
 		B6907DBF2A2076AF001B22C1 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DBE2A2076AF001B22C1 /* UserDefaults+Ext.swift */; };
@@ -79,6 +82,9 @@
 		B65B41FB2A27317100E6B579 /* Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
 		B65B41FE2A27352900E6B579 /* MyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewController.swift; sourceTree = "<group>"; };
 		B65B42002A27357000E6B579 /* MyInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewModel.swift; sourceTree = "<group>"; };
+		B65B42052A28284C00E6B579 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		B65B42072A28286100E6B579 /* AccountAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAPIs.swift; sourceTree = "<group>"; };
+		B65B42092A283AFB00E6B579 /* MyPageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageRowView.swift; sourceTree = "<group>"; };
 		B6907DBA2A2075A9001B22C1 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		B6907DBC2A207661001B22C1 /* Encodable+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Ext.swift"; sourceTree = "<group>"; };
 		B6907DBE2A2076AF001B22C1 /* UserDefaults+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Ext.swift"; sourceTree = "<group>"; };
@@ -191,6 +197,15 @@
 			path = MyInfo;
 			sourceTree = "<group>";
 		};
+		B65B42042A28283600E6B579 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				B65B42052A28284C00E6B579 /* Account.swift */,
+				B65B42072A28286100E6B579 /* AccountAPIs.swift */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
 		B6907DB92A20759D001B22C1 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -218,6 +233,7 @@
 				B6AB3E502A262579003241C2 /* PushSetting */,
 				B6907DCB2A207A95001B22C1 /* MyPageViewController.swift */,
 				B6AB3E4E2A2620C5003241C2 /* MyPageViewModel.swift */,
+				B65B42092A283AFB00E6B579 /* MyPageRowView.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -310,6 +326,7 @@
 		B69688712A1F1B62009CC9B6 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				B65B42042A28283600E6B579 /* Account */,
 				B69688722A1F1BE2009CC9B6 /* Score.swift */,
 				B6907DD12A207B4B001B22C1 /* Status.swift */,
 				B65B41FB2A27317100E6B579 /* Web.swift */,
@@ -473,8 +490,10 @@
 				B69688602A1F12CA009CC9B6 /* ViewController.swift in Sources */,
 				B696885C2A1F12CA009CC9B6 /* AppDelegate.swift in Sources */,
 				B69688732A1F1BE2009CC9B6 /* Score.swift in Sources */,
+				B65B42062A28284C00E6B579 /* Account.swift in Sources */,
 				B6AB3E4F2A2620C5003241C2 /* MyPageViewModel.swift in Sources */,
 				B6907DBD2A207661001B22C1 /* Encodable+Ext.swift in Sources */,
+				B65B420A2A283AFB00E6B579 /* MyPageRowView.swift in Sources */,
 				B6B897FC2A2306770076D712 /* Font+Ext.swift in Sources */,
 				B6907DDA2A20A44D001B22C1 /* TabBarViewController.swift in Sources */,
 				B6382BD82A25889500A40724 /* RxViewModel.swift in Sources */,
@@ -485,6 +504,7 @@
 				B6907DBB2A2075A9001B22C1 /* UIColor+Ext.swift in Sources */,
 				B6907DD42A20A0F2001B22C1 /* App.swift in Sources */,
 				B6907DCE2A207AA1001B22C1 /* ScheudlerViewController.swift in Sources */,
+				B65B42082A28286100E6B579 /* AccountAPIs.swift in Sources */,
 				B65B42012A27357000E6B579 /* MyInfoViewModel.swift in Sources */,
 				B65B41FA2A27311D00E6B579 /* Opener.swift in Sources */,
 				B6382BDA2A2588FC00A40724 /* HomeViewValue.swift in Sources */,

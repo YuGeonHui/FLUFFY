@@ -8,15 +8,15 @@
 import UIKit
 
 struct HomeViewResponse: Equatable, Codable {
-
-    var nickname: String?
-    var characterInfo: Status?
     
-    struct ViewValue {
+    var nickname: String?
+    var score: Int?
+    var createdAt: String?
+    
+    enum CodingKeys: String, CodingKey {
         
-        var nickname: String?
-        var status: UIImage?
-        var character: UIImage?
-        var message: String?
+        case nickname = "user_nickname"
+        case score = "user_point"
+        case createdAt = "user_created_time"
     }
 }
