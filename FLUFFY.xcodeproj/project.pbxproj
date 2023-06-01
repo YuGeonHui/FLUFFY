@@ -31,6 +31,7 @@
 		B65B42062A28284C00E6B579 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B42052A28284C00E6B579 /* Account.swift */; };
 		B65B42082A28286100E6B579 /* AccountAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B42072A28286100E6B579 /* AccountAPIs.swift */; };
 		B65B420A2A283AFB00E6B579 /* MyPageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B42092A283AFB00E6B579 /* MyPageRowView.swift */; };
+		B65B420C2A2861D300E6B579 /* Bundle+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B420B2A2861D300E6B579 /* Bundle+Ext.swift */; };
 		B6907DBB2A2075A9001B22C1 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DBA2A2075A9001B22C1 /* UIColor+Ext.swift */; };
 		B6907DBD2A207661001B22C1 /* Encodable+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DBC2A207661001B22C1 /* Encodable+Ext.swift */; };
 		B6907DBF2A2076AF001B22C1 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6907DBE2A2076AF001B22C1 /* UserDefaults+Ext.swift */; };
@@ -85,6 +86,7 @@
 		B65B42052A28284C00E6B579 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		B65B42072A28286100E6B579 /* AccountAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAPIs.swift; sourceTree = "<group>"; };
 		B65B42092A283AFB00E6B579 /* MyPageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageRowView.swift; sourceTree = "<group>"; };
+		B65B420B2A2861D300E6B579 /* Bundle+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Ext.swift"; sourceTree = "<group>"; };
 		B6907DBA2A2075A9001B22C1 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		B6907DBC2A207661001B22C1 /* Encodable+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Ext.swift"; sourceTree = "<group>"; };
 		B6907DBE2A2076AF001B22C1 /* UserDefaults+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Ext.swift"; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 				B6907DBC2A207661001B22C1 /* Encodable+Ext.swift */,
 				B6907DBE2A2076AF001B22C1 /* UserDefaults+Ext.swift */,
 				B6B897FB2A2306770076D712 /* Font+Ext.swift */,
+				B65B420B2A2861D300E6B579 /* Bundle+Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -501,6 +504,7 @@
 				B6907DD82A20A278001B22C1 /* BaseViewController.swift in Sources */,
 				B69688762A1F1BF3009CC9B6 /* AppleService.swift in Sources */,
 				9C2F58BB2A27421F00B36415 /* CustomSlider.swift in Sources */,
+				B65B420C2A2861D300E6B579 /* Bundle+Ext.swift in Sources */,
 				B6907DBB2A2075A9001B22C1 /* UIColor+Ext.swift in Sources */,
 				B6907DD42A20A0F2001B22C1 /* App.swift in Sources */,
 				B6907DCE2A207AA1001B22C1 /* ScheudlerViewController.swift in Sources */,

@@ -32,6 +32,11 @@ final class MyPageViewModel: RxViewModel {
         self._tapInquire.accept(())
     }
     
+    private let _tapTerm = PublishRelay<Void>()
+    func tapTerm() {
+        self._tapTerm.accept(())
+    }
+    
     // MARK: Values
     private let _viewValue = BehaviorRelay<Status?>(value: nil)
     var valueChanged: Observable<Status?> {
@@ -59,6 +64,11 @@ final class MyPageViewModel: RxViewModel {
         return self._showInquire.asObservable()
     }
     
+    private let _showTerm = PublishRelay<Void>()
+    var showTermView: Observable<Void> {
+        return self._showTerm.asObservable()
+    }
+    
     override func bind() {
         
         self._tapMyInfo
@@ -79,6 +89,11 @@ final class MyPageViewModel: RxViewModel {
         self._tapInquire
             .withUnretained(self)
             .bind(onNext: { $0._showInquire.accept($1) })
+            .disposed(by: self.disposeBag)
+        
+        self._tapTerm
+            .withUnretained(self)
+            .bind(onNext: { $0._showTerm.accept($1) })
             .disposed(by: self.disposeBag)
     }
 }

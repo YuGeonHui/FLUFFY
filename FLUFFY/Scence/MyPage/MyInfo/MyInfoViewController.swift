@@ -9,4 +9,9 @@ import UIKit
 
 final class MyInfoViewController: UIViewController {
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.view.backgroundColor = UIColor(hex: "f1f1f1")
+    }
 }

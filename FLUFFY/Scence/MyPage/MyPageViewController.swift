@@ -9,6 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 import Then
+//import RxGesture
 import SwiftRichString
 
 class MyPageViewController: UIViewController {
@@ -21,7 +22,7 @@ class MyPageViewController: UIViewController {
         
         static let nicknameAfter: CGFloat = 4
         
-        static let statusBarSize: CGSize = CGSize(width: 65, height: 31)
+        static let statusBarSize: CGSize = CGSize(width: 50, height: 24)
         
         static let iconSize: CGSize = CGSize(width: 21, height: 21)
         
@@ -75,15 +76,21 @@ class MyPageViewController: UIViewController {
         $0.backgroundColor = UIColor(hex: "b1b1b1")
     }
     
-    private let pushSettingView = MyPageRowView(title: "푸시 알림 시간 설정 변경")
+    private let pushSettingView = MyPageRowView(title: "푸시 알림 시간 설정 변경").then {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
     
-    private let noticeView = MyPageRowView(title: "공지사항")
+    private let noticeView = MyPageRowView(title: "공지사항").then {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
     
-    private let inquireView = MyPageRowView(title: "문의하기")
+    private let inquireView = MyPageRowView(title: "문의하기").then {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
     
-    private let termView = MyPageRowView(title: "이용약관")
-    
-    private lazy var stackView = UIStackView(arrangedSubviews: [pushSettingView, noticeView, inquireView, termView])
+    private let termView = MyPageRowView(title: "이용약관").then {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
     
     private let viewModel = MyPageViewModel()
     
@@ -102,10 +109,6 @@ class MyPageViewController: UIViewController {
     }
     
     private func setupViews() {
-        
-        self.stackView.axis = .vertical
-        self.stackView.spacing = 20
-        self.stackView.translatesAutoresizingMaskIntoConstraints = false
     
         self.view.addSubview(nicknameLabel)
         self.view.addSubview(editImageView)
@@ -114,8 +117,10 @@ class MyPageViewController: UIViewController {
         self.view.addSubview(characterImageView)
         self.view.addSubview(dividerView)
         
-        self.view.addSubview(stackView)
-//        self.view
+        self.view.addSubview(pushSettingView)
+        self.view.addSubview(noticeView)
+        self.view.addSubview(inquireView)
+        self.view.addSubview(termView)
     }
     
     private func setupAutoLayout() {
@@ -130,6 +135,8 @@ class MyPageViewController: UIViewController {
         
         statusBarImageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true
         statusBarImageView.topAnchor.constraint(equalTo: self.nicknameLabel.bottomAnchor, constant: 16).isActive = true
+        statusBarImageView.widthAnchor.constraint(equalToConstant: Metric.statusBarSize.width).isActive = true
+        statusBarImageView.heightAnchor.constraint(equalToConstant: Metric.statusBarSize.height).isActive = true
         
         messageLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true
         messageLabel.topAnchor.constraint(equalTo: self.statusBarImageView.bottomAnchor, constant: 16).isActive = true
@@ -144,19 +151,46 @@ class MyPageViewController: UIViewController {
             dividerView.heightAnchor.constraint(equalToConstant: Metric.dividerSize.height),
             dividerView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             dividerView.topAnchor.constraint(equalTo: self.characterImageView.bottomAnchor, constant: 31),
-//            dividerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-//            dividerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-//            dividerView.topAnchor.constraint(equalTo: self.characterImageView.bottomAnchor, constant: 31),
             
-            stackView.topAnchor.constraint(equalTo: self.dividerView.bottomAnchor, constant: 30),
-            stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20)
+            pushSettingView.topAnchor.constraint(equalTo: self.dividerView.bottomAnchor, constant: 30),
+            pushSettingView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            pushSettingView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            
+            noticeView.topAnchor.constraint(equalTo: self.pushSettingView.bottomAnchor, constant: 20),
+            noticeView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            noticeView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            
+            inquireView.topAnchor.constraint(equalTo: self.noticeView.bottomAnchor, constant: 20),
+            inquireView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            inquireView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            
+            termView.topAnchor.constraint(equalTo: self.inquireView.bottomAnchor, constant: 20),
+            termView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            termView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
     }
     
     private func bindInputs() {
         
+        self.pushSettingView.buttonTapped
+            .withUnretained(self)
+            .bind(onNext: { $0.0.viewModel.tapPushSetting() })
+            .disposed(by: self.disposeBag)
         
+        self.noticeView.buttonTapped
+            .withUnretained(self)
+            .bind(onNext: { $0.0.viewModel.tapNotice() })
+            .disposed(by: self.disposeBag)
+        
+        self.inquireView.buttonTapped
+            .withUnretained(self)
+            .bind(onNext: { $0.0.viewModel.tapInquire() })
+            .disposed(by: self.disposeBag)
+        
+        self.termView.buttonTapped
+            .withUnretained(self)
+            .bind(onNext: { $0.0.viewModel.tapTerm() })
+            .disposed(by: self.disposeBag)
     }
     
     private func bindOutputs() {
@@ -188,9 +222,14 @@ class MyPageViewController: UIViewController {
         self.viewModel.showInquireView
             .withUnretained(self)
             .observe(on: MainScheduler.instance)
-            .bind(onNext: { $0.0.showMyInfoView() })
+            .bind(onNext: { $0.0.showInquireView() })
             .disposed(by: self.disposeBag)
         
+        self.viewModel.showTermView
+            .withUnretained(self)
+            .observe(on: MainScheduler.instance)
+            .bind(onNext: { $0.0.showTermView() })
+            .disposed(by: self.disposeBag)
     }
     
     deinit {
@@ -198,6 +237,7 @@ class MyPageViewController: UIViewController {
     }
 }
 
+// MARK: Methods
 extension MyPageViewController {
     
     private func updateViews(_ status: Status?) {
@@ -227,5 +267,9 @@ extension MyPageViewController {
     
     private func showInquireView() {
         Opener.open(urlString: Web.googleForm)
+    }
+    
+    private func showTermView() {
+        Opener.open(urlString: Web.term)
     }
 }
