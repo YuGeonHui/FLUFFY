@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (5.7.1)
+  - FSCalendar (2.8.4)
   - PanModal (1.2.7)
   - RxCocoa (6.5.0):
     - RxRelay (= 6.5.0)
@@ -15,6 +16,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - FSCalendar
   - PanModal
   - RxCocoa
   - RxGesture
@@ -25,6 +27,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - FSCalendar
     - PanModal
     - RxCocoa
     - RxGesture
@@ -35,6 +38,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
+  FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
   PanModal: 3e16ead1a907fb06f4df3f13492fd00149fa4974
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxGesture: f3efb47ed2d26a8082f7b660d4a59970e275a7f8
@@ -44,5 +48,6 @@ SPEC CHECKSUMS:
   Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
 
 PODFILE CHECKSUM: bf9cf02cd8b246a0424d43936ca28592d0351841
+PODFILE CHECKSUM: 9a8b16a1b0727824b2c97f1a42944eb7f3c21d23
 
 COCOAPODS: 1.12.1

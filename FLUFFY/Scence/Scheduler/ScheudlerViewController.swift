@@ -7,8 +7,11 @@
 
 import UIKit
 import PanModal
+import FSCalendar
 
 class ScheudlerViewController: BaseViewController {
+    
+    private var selectedDate : String?
     
     private let statusLabel : UILabel = {
         let label = UILabel()
@@ -33,21 +36,47 @@ class ScheudlerViewController: BaseViewController {
     private lazy var previousButton : UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
-        button.addTarget(self, action: #selector(didPreviousButtonClicked), for: .touchUpInside)
+        button.addTarget(self, action: #selector(prevCurrentPage), for: .touchUpInside)
         return button
     }()
     
     private lazy var nextButton : UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
-        button.addTarget(self, action: #selector(didNextButtonClicked), for: .touchUpInside)
+        button.addTarget(self, action: #selector(nextCurrentPage), for: .touchUpInside)
         return button
     }()
     
-    private let collectionView : UICollectionView = {
-        let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        return view
+    private var currentPage: Date?
+    private lazy var today: Date = {
+        return Date()
     }()
+    
+    private lazy var dateFormatter: DateFormatter = {
+        let df = DateFormatter()
+        df.locale = Locale(identifier: "ko_KR")
+        df.dateFormat = "yyyy년 MM월"
+        return df
+    }()
+    
+    @objc private func nextCurrentPage(isPrev: Bool) {
+        let cal = Calendar.current
+        var dateComponents = DateComponents()
+        dateComponents.weekOfMonth = 1
+        
+        self.currentPage = cal.date(byAdding: dateComponents, to: self.currentPage ?? self.today)
+        self.calendar.setCurrentPage(self.currentPage!, animated: true)
+    }
+    
+    @objc private func prevCurrentPage(isPrev: Bool) {
+        let cal = Calendar.current
+        var dateComponents = DateComponents()
+        dateComponents.weekOfMonth = -1
+        
+        self.currentPage = cal.date(byAdding: dateComponents, to: self.currentPage ?? self.today)
+        self.calendar.setCurrentPage(self.currentPage!, animated: true)
+    }
+    
     
     private let tableView : UITableView = {
         let view = UITableView()
@@ -57,31 +86,33 @@ class ScheudlerViewController: BaseViewController {
     private lazy var addButton : UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
-        button.tintColor = UIColor(hex: "D9D9D9")
+        button.tintColor = UIColor(hex: "89BFFF")
         button.setPreferredSymbolConfiguration(.init(pointSize: 68, weight: .light, scale: .default), forImageIn: .normal)
         button.addTarget(self, action: #selector(addButtonClicked), for: .touchUpInside)
         return button
     }()
     
+    //    fileprivate weak var calendar: FSCalendar!
+    private let calendar : FSCalendar = {
+        let calendar = FSCalendar(frame: .zero)
+        calendar.weekdayHeight = 15
+        calendar.headerHeight = 0
+        calendar.appearance.headerTitleFont = UIFont.pretendard(.bold, size: 15)
+        calendar.appearance.weekdayFont = UIFont.pretendard(.bold, size: 11)
+        calendar.appearance.headerTitleColor = UIColor(hex: "2D2D2D")
+        calendar.appearance.weekdayTextColor = UIColor(hex: "ADADAD")
+        calendar.appearance.titleTodayColor = UIColor(hex: "2D2D2D")
+        calendar.appearance.todayColor = .clear
+        calendar.appearance.selectionColor = .clear
+        calendar.appearance.titleSelectionColor = UIColor(hex: "0600FE")
+        calendar.locale = Locale(identifier: "us_US")
+        calendar.scope = .week
+        calendar.firstWeekday = 2
+        calendar.appearance.titleFont = UIFont.pretendard(.bold, size: 15)
+        
+        return calendar
+    }()
     
-    // MARK: - 캘린더 관련 변수
-    private let calendar = Calendar.current
-    private let dateFormatter = DateFormatter()
-    private var calendarDate = Date()
-    private var weekDays = [String]()
-    private var weekTitle : [String] = ["월", "화", "수", "목", "금", "토", "일"]
-    private var firstDay = 0
-    private var countDay = 0
-    private var endDateNum = 0
-    private var weekDaysLast = 0
-    
-    @objc private func didPreviousButtonClicked(_ sender: UIButton) {
-        self.minusWeek()
-    }
-    
-    @objc private func didNextButtonClicked(_ sender: UIButton) {
-        self.plusWeek()
-    }
     
     @objc private func addButtonClicked(_ sender: UIButton) {
         let vc = ModalViewController()
@@ -97,12 +128,26 @@ class ScheudlerViewController: BaseViewController {
     private func configure() {
         self.configureStatus()
         self.configureTitleLabel()
+        self.configureFSCalendar()
         self.configureNextButton()
         self.configurePreviousButton()
-        self.configureCollectionView()
         self.configureAddButton()
-        self.configureCalendar()
         self.configureTableView()
+        
+    }
+    
+    private func configureFSCalendar() {
+        self.view.addSubview(calendar)
+        calendar.delegate = self
+        calendar.dataSource = self
+        calendar.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            calendar.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 17),
+            calendar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+            calendar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+            calendar.heightAnchor.constraint(equalToConstant: 60)
+        ])
         
     }
     
@@ -113,7 +158,7 @@ class ScheudlerViewController: BaseViewController {
         self.statusIamge.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            self.statusLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 5),
+            self.statusLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 14),
             self.statusLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             self.statusIamge.centerYAnchor.constraint(equalTo: self.statusLabel.centerYAnchor),
             self.statusIamge.heightAnchor.constraint(equalToConstant: 18),
@@ -124,11 +169,11 @@ class ScheudlerViewController: BaseViewController {
     
     private func configureTitleLabel() {
         self.view.addSubview(self.titleLabel)
-        self.titleLabel.text = "2000년 01월"
+        self.titleLabel.text = self.dateFormatter.string(from: Date())
         self.titleLabel.font = UIFont.pretendard(.bold, size: 15)
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.titleLabel.topAnchor.constraint(equalTo: self.statusLabel.bottomAnchor, constant: 7),
+            self.titleLabel.topAnchor.constraint(equalTo: self.statusLabel.bottomAnchor, constant: 14),
             self.titleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             self.titleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
         ])
@@ -158,19 +203,6 @@ class ScheudlerViewController: BaseViewController {
         ])
     }
     
-    private func configureCollectionView() {
-        self.view.addSubview(self.collectionView)
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
-        self.collectionView.register(CalendarCollectionViewCell.self, forCellWithReuseIdentifier: CalendarCollectionViewCell.identifier)
-        self.collectionView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            self.collectionView.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 16),
-            self.collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            self.collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            self.collectionView.heightAnchor.constraint(equalToConstant: 60)
-        ])
-    }
     
     private func configureTableView() {
         self.view.addSubview(self.tableView)
@@ -181,7 +213,7 @@ class ScheudlerViewController: BaseViewController {
         tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.identifier)
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.tableView.topAnchor.constraint(equalTo: self.collectionView.bottomAnchor, constant: 26),
+            self.tableView.topAnchor.constraint(equalTo: self.calendar.bottomAnchor, constant: 26),
             self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
@@ -200,31 +232,11 @@ class ScheudlerViewController: BaseViewController {
     }
 }
 
-extension ScheudlerViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 7
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCollectionViewCell.identifier, for: indexPath) as? CalendarCollectionViewCell else {return UICollectionViewCell()}
-        cell.update(day: self.weekDays[indexPath.item], weekTitle: self.weekTitle[indexPath.item])
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = self.view.frame.width / 7
-        return CGSize(width: width, height: width * 1.5)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return .zero
-    }
-    
-}
+
 
 extension ScheudlerViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -234,95 +246,6 @@ extension ScheudlerViewController : UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension ScheudlerViewController {
-    
-    private func configureCalendar() {
-        let components = self.calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date())
-        self.calendarDate = self.calendar.date(from: components) ?? Date()
-        self.dateFormatter.dateFormat = "yyyy년 MM월"
-        self.updateCalendar()
-    }
-    
-    private func endDate() -> Int {
-        return self.calendar.range(of: .day, in: .month, for: self.calendarDate)? .count ?? Int()
-    }
-    
-    
-    private func updateTitle() {
-        let date = self.dateFormatter.string(from: self.calendarDate)
-        self.titleLabel.text = date
-    }
-    
-    private func updatePlus() {
-        self.updateTitle()
-        self.weekDays.removeAll()
-        let firstWeekdayComponents = calendar.dateComponents([.day], from: self.calendarDate)
-        guard let weekday = firstWeekdayComponents.day else {return}
-        
-        firstDay = weekday - 6
-        
-        for day in 0..<7 {
-            if firstDay < 1 && weekDaysLast != endDateNum {
-                self.weekDays.append(String(weekDaysLast+1))
-                weekDaysLast += 1
-                firstDay += 1
-                countDay = weekDays.count
-            } else {
-                weekDays.append(String(firstDay+day-countDay))
-            }
-        }
-        self.collectionView.reloadData()
-    }
-    
-    private func updateMinus() {
-        self.updateTitle()
-        self.weekDays.removeAll()
-        let firstWeekdayComponents = calendar.dateComponents([.day], from: self.calendarDate)
-        guard let weekday = firstWeekdayComponents.day else {return}
-        
-        firstDay = weekday - 6
-        
-        if weekDaysLast < 14 {
-            if let previousMonth = calendar.date(byAdding: .month, value: -1, to: self.calendarDate) {
-                if let lastDayOfPreviousMonth = calendar.range(of: .day, in: .month, for: previousMonth)? .count {
-                    endDateNum = lastDayOfPreviousMonth
-                }
-            }
-        }
-        
-        for day in 0..<7 {
-            if firstDay < 1 {
-                self.weekDays.append(String(endDateNum + firstDay))
-                firstDay += 1
-                countDay = weekDays.count
-            } else {
-                weekDays.append(String(firstDay+day-countDay))
-            }
-        }
-        self.collectionView.reloadData()
-    }
-    
-    private func updateCalendar() {
-        self.updateTitle()
-        self.updatePlus()
-    }
-    
-    private func minusWeek() {
-        countDay = 0
-        weekDaysLast = Int(weekDays.last!)!
-        self.calendarDate = self.calendar.date(byAdding: .day, value: -7, to: self.calendarDate) ?? Date()
-        endDateNum = self.endDate()
-        self.updateMinus()
-    }
-    
-    private func plusWeek() {
-        countDay = 0
-        endDateNum = self.endDate()
-        weekDaysLast = Int(weekDays.last!)!
-        self.calendarDate = self.calendar.date(byAdding: .day, value: 7, to: self.calendarDate) ?? Date()
-        self.updatePlus()
-    }
-}
 
 extension ScheudlerViewController: UISheetPresentationControllerDelegate {
     func sheetPresentationControllerDidChangeSelectedDetentIdentifier(_ sheetPresentationController: UISheetPresentationController) {
@@ -331,6 +254,27 @@ extension ScheudlerViewController: UISheetPresentationControllerDelegate {
     }
 }
 
+extension ScheudlerViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
+    
+    
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        self.titleLabel.text = self.dateFormatter.string(from: calendar.currentPage)
+        print("current: \(calendar.currentPage)")
+    }
+    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        print("date: \(date)")
+        selectedDate = date.toString()
+        print("selectedDate = \(selectedDate ?? "no")")
 
+    }
+    
+}
 
-
+extension Date {
+    func toString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        return dateFormatter.string(from: self)
+    }
+}

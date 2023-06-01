@@ -13,4 +13,5 @@ pod 'RxCocoa'
 pod 'RxGesture'
 pod 'PanModal'
 pod 'SwiftRichString'
+pod 'FSCalendar'
 end
