@@ -91,6 +91,10 @@ class MyPageViewController: UIViewController {
     private let termView = MyPageRowView(title: "이용약관").then {
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
+
+    private let versionView = MyPageRowView(title: "버전정보", hasVersion: true).then {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
     
     private let viewModel = MyPageViewModel()
     
@@ -121,6 +125,7 @@ class MyPageViewController: UIViewController {
         self.view.addSubview(noticeView)
         self.view.addSubview(inquireView)
         self.view.addSubview(termView)
+        self.view.addSubview(versionView)
     }
     
     private func setupAutoLayout() {
@@ -166,11 +171,26 @@ class MyPageViewController: UIViewController {
             
             termView.topAnchor.constraint(equalTo: self.inquireView.bottomAnchor, constant: 20),
             termView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            termView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+            termView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            
+            versionView.topAnchor.constraint(equalTo: self.termView.bottomAnchor, constant: 20),
+            versionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            versionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
     }
     
     private func bindInputs() {
+        
+        let nickTapped = self.nicknameLabel.rx.tapGesture()
+            .when(.recognized)
+        
+        let editTapped = self.editImageView.rx.tapGesture()
+            .when(.recognized)
+        
+        Observable.of(nickTapped, editTapped).merge()
+            .withUnretained(self)
+            .bind(onNext: { $0.0.viewModel.tapMyInfo() })
+            .disposed(by: self.disposeBag)
         
         self.pushSettingView.buttonTapped
             .withUnretained(self)
