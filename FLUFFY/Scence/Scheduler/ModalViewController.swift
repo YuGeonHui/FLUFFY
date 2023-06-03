@@ -10,8 +10,20 @@ import PanModal
 
 class ModalViewController: UIViewController{
     
+    var selectedDate : String = ""
+    
     private let stressWord : [String] = [
-        "-5", "-4", "-3", "-2", "-1", "0", "1", "2", "3", "4", "5"
+        "스트레스 완전 회복~! 100%",
+        "이게 휴식이지~! 회복 80%",
+        "마음의 안정 :) 회복 60%",
+        "조금 아쉬운 휴식, 회복 40%",
+        "쉬긴 쉰걸까..? 회복 20%",
+        "없음",
+        "이정도야 뭐 :) 스트레스 20%",
+        "일은 일이구나.. 스트레스 40%",
+        "나 조금 힘들지도..? 스트레스 60%",
+        "지친다 지쳐.. 스트레스 80%",
+        "너무 힘든 하루.. 스트레스 100%"
     ]
     
     private lazy var checkButton : UIButton = {
@@ -25,6 +37,7 @@ class ModalViewController: UIViewController{
     
     @objc private func buttonIsClikced() {
         self.dismiss(animated: true)
+        print("modal select - \(selectedDate)")
     }
     
     private let taskTextField : UITextField = {
@@ -256,4 +269,5 @@ extension ModalViewController: PanModalPresentable {
         return 12
     }
 }
+
 

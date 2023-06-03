@@ -11,7 +11,7 @@ import FSCalendar
 
 class ScheudlerViewController: BaseViewController {
     
-    private var selectedDate : String?
+    private var selectedDate : String = Date().toString()
     
     private let statusLabel : UILabel = {
         let label = UILabel()
@@ -101,7 +101,7 @@ class ScheudlerViewController: BaseViewController {
         calendar.appearance.weekdayFont = UIFont.pretendard(.bold, size: 11)
         calendar.appearance.headerTitleColor = UIColor(hex: "2D2D2D")
         calendar.appearance.weekdayTextColor = UIColor(hex: "ADADAD")
-        calendar.appearance.titleTodayColor = UIColor(hex: "2D2D2D")
+        calendar.appearance.titleTodayColor = UIColor(hex: "0600FE")
         calendar.appearance.todayColor = .clear
         calendar.appearance.selectionColor = .clear
         calendar.appearance.titleSelectionColor = UIColor(hex: "0600FE")
@@ -116,12 +116,16 @@ class ScheudlerViewController: BaseViewController {
     
     @objc private func addButtonClicked(_ sender: UIButton) {
         let vc = ModalViewController()
+        vc.selectedDate = self.selectedDate
         self.presentPanModal(vc)
+        
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        print("today - \(selectedDate)")
         self.configure()
     }
     
@@ -263,10 +267,11 @@ extension ScheudlerViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        calendar.appearance.titleTodayColor = UIColor(hex: "2D2D2D")
         print("date: \(date)")
         selectedDate = date.toString()
-        print("selectedDate = \(selectedDate ?? "no")")
-
+        print("selectedDate = \(selectedDate)")
+        
     }
     
 }

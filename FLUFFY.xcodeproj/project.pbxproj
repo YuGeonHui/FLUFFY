@@ -11,6 +11,7 @@
 		9C2F58B52A26454B00B36415 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2F58B42A26454B00B36415 /* TaskTableViewCell.swift */; };
 		9C2F58BB2A27421F00B36415 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2F58BA2A27421F00B36415 /* CustomSlider.swift */; };
 		9C3628F32A26001900562713 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3628F22A26001900562713 /* ModalViewController.swift */; };
+		9C5A12472A2AE7C800E04FC3 /* ScheduleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A12462A2AE7C800E04FC3 /* ScheduleManager.swift */; };
 		B629BAD82A26EF3800561538 /* PushSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B629BAD72A26EF3800561538 /* PushSettingViewModel.swift */; };
 		B6382BC92A23949300A40724 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B6382BC02A23949300A40724 /* Pretendard-ExtraBold.otf */; };
 		B6382BCA2A23949300A40724 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = B6382BC12A23949300A40724 /* Pretendard-Light.otf */; };
@@ -65,6 +66,7 @@
 		9C2F58B42A26454B00B36415 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		9C2F58BA2A27421F00B36415 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		9C3628F22A26001900562713 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
+		9C5A12462A2AE7C800E04FC3 /* ScheduleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleManager.swift; sourceTree = "<group>"; };
 		B629BAD72A26EF3800561538 /* PushSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushSettingViewModel.swift; sourceTree = "<group>"; };
 		B6382BC02A23949300A40724 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
 		B6382BC12A23949300A40724 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 			children = (
 				B6907DCD2A207AA1001B22C1 /* ScheudlerViewController.swift */,
 				9C3628F22A26001900562713 /* ModalViewController.swift */,
+				9C5A12462A2AE7C800E04FC3 /* ScheduleManager.swift */,
 				9C2F58BA2A27421F00B36415 /* CustomSlider.swift */,
 				9C2F58B42A26454B00B36415 /* TaskTableViewCell.swift */,
 			);
@@ -523,6 +526,7 @@
 				B696887A2A1F22DD009CC9B6 /* NetworkService.swift in Sources */,
 				9C3628F32A26001900562713 /* ModalViewController.swift in Sources */,
 				B6907DD62A20A205001B22C1 /* HomeViewModel.swift in Sources */,
+				9C5A12472A2AE7C800E04FC3 /* ScheduleManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
