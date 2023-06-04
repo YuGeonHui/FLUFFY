@@ -19,7 +19,6 @@ final class SignUpViewController: UIViewController {
         static let stackSpacing: CGFloat = 18
         
         static let sigInLogoSize: CGSize = CGSize(width: 268, height: 54)
-        
     }
     
     private enum Styles {
@@ -79,7 +78,7 @@ final class SignUpViewController: UIViewController {
         self.titleStackView.spacing = Metric.stackSpacing
         
         self.backImageView.image = UIImage(named: "background")
-//        self.backImageView.contentMode = .scaleAspectFit
+        self.backImageView.contentMode = .scaleAspectFit
     }
     
     private func setupAutoLayout() {
