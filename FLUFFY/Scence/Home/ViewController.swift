@@ -98,24 +98,6 @@ final class ViewController: BaseViewController {
         viewModel.bind()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-//        UIView.animate(withDuration: 0.5, delay: 0.5, options: [], animations: {
-//            self.characterImageView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-//        }, completion: { _ in
-//            UIView.animate(withDuration: 0.5) {
-//                self.characterImageView.transform = CGAffineTransform.identity
-//            }
-//        })
-        
-                let shakeAnimation = CAKeyframeAnimation(keyPath: "transform.translation.x")
-                shakeAnimation.timingFunction = CAMediaTimingFunction(name: .linear)
-                shakeAnimation.duration = 0.5
-                shakeAnimation.values = [-10, 10, -8, 8, -6, 6, -4, 4, -2, 2, 0]
-                characterImageView.layer.add(shakeAnimation, forKey: "shakeAnimation")
-    }
-    
     deinit {
         viewModel.unbind()
     }

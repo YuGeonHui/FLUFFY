@@ -37,3 +37,22 @@ extension UIFont {
         return UIFont(name: type.value, size: size) ?? UIFont.systemFont(ofSize: size)
     }
 }
+
+extension UIFont {
+    
+    enum CandyBean {
+        
+        case normal
+        
+        var value: String {
+            
+            switch self {
+            case .normal: return "Candy-Beans"
+            }
+        }
+    }
+    
+    static func candyBean(_ type: CandyBean, size: CGFloat) -> UIFont {
+        return UIFont(name: type.value, size: size) ?? UIFont.systemFont(ofSize: size)
+    }
+}

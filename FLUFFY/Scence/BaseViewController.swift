@@ -71,9 +71,7 @@ class BaseViewController: UIViewController {
         
         self.tabBarController?.tabBar.isHidden = true
         
-//        let myPageVC = MyPageViewController()
-//        let myPageVC = AssociationViewController()
-        let myPageVC = SignUpViewController()
+        let myPageVC = MyPageViewController()
         self.navigationController?.pushViewController(myPageVC, animated: true)
     }
 }
