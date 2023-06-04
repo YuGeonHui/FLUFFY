@@ -71,6 +71,7 @@ final class OnBoardingContenViewController: UIViewController {
         self.stackView.axis = .vertical
         self.stackView.alignment = .center
         self.stackView.distribution = .fill
+        self.stackView.spacing = Metric.spacing
         
         self.titleLabel.attributedText = self.titleText.set(style: Styles.title)
         self.titleLabel.numberOfLines = 2

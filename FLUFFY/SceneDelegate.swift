@@ -15,11 +15,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        let tabBarVC = TabBarViewController()
+        var firstVC: UIViewController = TabBarViewController()
+        
+        if UserDefaults.isFirstAppLauch() {
+            firstVC = AppGuideViewController()
+        }
         
         window = UIWindow(windowScene: windowScene)
-            
-        window?.rootViewController = tabBarVC
+        
+        window?.rootViewController = UINavigationController(rootViewController: firstVC)
         
         window?.makeKeyAndVisible()
     }

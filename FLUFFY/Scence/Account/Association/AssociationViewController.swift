@@ -169,7 +169,7 @@ extension AssociationViewController {
     
     private func showNicknameView() {
         
-        let signInVC = SignInViewController()
+        let signInVC = MyInfoViewController()
         self.navigationController?.pushViewController(signInVC, animated: true)
     }
 }
