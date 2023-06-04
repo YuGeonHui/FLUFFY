@@ -71,10 +71,7 @@ class MyPageViewController: UIViewController {
         $0.image = UIImage(named: "ProfileGood")
     }
     
-    private let dividerView = UIView().then {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.backgroundColor = UIColor(hex: "b1b1b1")
-    }
+    private let dividerView = DividerView()
     
     private let pushSettingView = MyPageRowView(title: "푸시 알림 시간 설정 변경").then {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -154,7 +151,7 @@ class MyPageViewController: UIViewController {
         NSLayoutConstraint.activate([
             dividerView.widthAnchor.constraint(equalToConstant: Metric.dividerSize.width),
             dividerView.heightAnchor.constraint(equalToConstant: Metric.dividerSize.height),
-            dividerView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+//            dividerView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             dividerView.topAnchor.constraint(equalTo: self.characterImageView.bottomAnchor, constant: 31),
             
             pushSettingView.topAnchor.constraint(equalTo: self.dividerView.bottomAnchor, constant: 30),
