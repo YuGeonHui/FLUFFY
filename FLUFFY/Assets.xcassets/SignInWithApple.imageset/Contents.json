@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "SignInWithApple.png",
+      "filename" : "SignInWithApple (2).png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "SignInWithApple 1.png",
+      "filename" : "SignInWithApple (2) 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "SignInWithApple 2.png",
+      "filename" : "SignInWithApple (2) 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

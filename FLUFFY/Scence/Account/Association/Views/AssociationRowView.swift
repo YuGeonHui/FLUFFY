@@ -66,15 +66,7 @@ final class AssociationRowView: UIView {
     
     private lazy var rowStackView = UIStackView(arrangedSubviews: [titleStackView, showLabel])
     
-    private let _agreeTapped = PublishRelay<Bool>()
-    var agreeTapped: Observable<Bool> {
-        return self._agreeTapped.asObservable()
-    }
-    
-    private let _showTapped = PublishRelay<Void>()
-    var showTapped: Observable<Void> {
-        return self._showTapped.asObservable()
-    }
+    private var agreeStatus = BehaviorRelay<Bool>(value: false)
     
     private func setupViews() {
         
@@ -100,6 +92,12 @@ final class AssociationRowView: UIView {
         
         NSLayoutConstraint.activate([
             
+            self.rowStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            self.rowStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            
+            self.showLabel.widthAnchor.constraint(equalToConstant: 26),
+            self.showLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            
             self.checkImageView.widthAnchor.constraint(equalToConstant: Metric.checkSize.width),
             self.checkImageView.heightAnchor.constraint(equalToConstant: Metric.checkSize.height),
             
@@ -113,24 +111,28 @@ extension AssociationRowView {
     
     private func bindView() {
         
-        //        self.checkImageView.rx.tapGesture()
-        //            .when(.recognized)
-        //            .withUnretained(self)
-        //            .bind(onNext: { $0.0._agreeTapped.accept($0.1) })
-        //            .disposed(by: self.disposeBag)
-        //
-        //        self._agreeTapped
-        //            .withUnretained(self)
-        //            .bind(onNext: { $0.0.changeAgreeState($0.1) })
-        //            .disposed(by: self.disposeBag)
-        //
-        //        self._showTapped
-        //            .withUnretained(self)
-        //            .bind(onNext: { $0 })
-        //            .disposed(by: self.disposeBag)
+        self.checkImageView.rx.tapGesture()
+            .when(.recognized)
+            .withLatestFrom(self.agreeStatus)
+            .withUnretained(self)
+            .bind(onNext: { $0.0.changeAgreeState($0.1) })
+            .disposed(by: self.disposeBag)
+        
+        self.showLabel.rx.tapGesture()
+            .when(.recognized)
+            .withUnretained(self)
+            .bind(onNext: { $0.0.showTermView() })
+            .disposed(by: self.disposeBag)
     }
     
     private func changeAgreeState(_ state: Bool) {
+        
         self.checkImageView.image = state ? UIImage(named: "checkRed") : UIImage(named: "checkBlack")
+        
+        self.agreeStatus.accept(!state)
+    }
+    
+    private func showTermView() {
+        Opener.open(urlString: Web.term)
     }
 }

@@ -47,7 +47,7 @@ extension UIFont {
         var value: String {
             
             switch self {
-            case .normal: return "Candy-Beans"
+            case .normal: return "Candy Beans"
             }
         }
     }

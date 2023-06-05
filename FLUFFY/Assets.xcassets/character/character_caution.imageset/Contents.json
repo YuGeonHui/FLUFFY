@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "character_caution (1).png",
+      "filename" : "character_caution (2).png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "character_caution (2) 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "character_caution (2) 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

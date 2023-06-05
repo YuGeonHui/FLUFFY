@@ -13,7 +13,7 @@ final class OnBoardingContenViewController: UIViewController {
     private let titleLabel = UILabel()
     private let descLabel = UILabel()
     private let guideImgeView = UIImageView()
-    private lazy var stackView = UIStackView(arrangedSubviews: [titleLabel, descLabel, guideImgeView])
+    private lazy var stackView = UIStackView(arrangedSubviews: [titleLabel, descLabel])
     
     private(set) var titleText: String
     private(set) var descText: String
@@ -65,8 +65,10 @@ final class OnBoardingContenViewController: UIViewController {
     private func setupViews() {
         
         self.stackView.translatesAutoresizingMaskIntoConstraints = false
+        self.guideImgeView.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(stackView)
+        self.view.addSubview(guideImgeView)
         
         self.stackView.axis = .vertical
         self.stackView.alignment = .center
@@ -80,19 +82,21 @@ final class OnBoardingContenViewController: UIViewController {
         self.descLabel.numberOfLines = 2
         
         self.guideImgeView.image = self.image
-//        self.guideImgeView.contentMode = .scaleAspectFit
+        self.guideImgeView.contentMode = .scaleAspectFit
     }
     
     private func setupAutoLayout() {
         
         NSLayoutConstraint.activate([
-            
-            guideImgeView.widthAnchor.constraint(equalToConstant: 300),
-            guideImgeView.heightAnchor.constraint(equalToConstant: 500),
-            
+        
             stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            stackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor)
+            stackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            
+            guideImgeView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            guideImgeView.topAnchor.constraint(equalTo: self.stackView.bottomAnchor, constant: 58),
+            guideImgeView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+            guideImgeView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20)
         ])
     }
 }

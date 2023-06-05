@@ -40,6 +40,7 @@ class MyPageViewController: UIViewController {
         
         static let desc: Style = Style {
             $0.font = UIFont.pretendard(.regular, size: 15)
+//            $0.color = UIColor(hex: "")
         }
     }
     
@@ -68,7 +69,7 @@ class MyPageViewController: UIViewController {
     private let characterImageView = UIImageView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.contentMode = .scaleAspectFit
-        $0.image = UIImage(named: "ProfileGood")
+        $0.image = UIImage(named: "warningIcon")
     }
     
     private let dividerView = DividerView()

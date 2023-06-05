@@ -24,7 +24,6 @@
 		B6382BD12A23949300A40724 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = B6382BC82A23949300A40724 /* Pretendard-Medium.otf */; };
 		B6382BD82A25889500A40724 /* RxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6382BD72A25889500A40724 /* RxViewModel.swift */; };
 		B6382BDA2A2588FC00A40724 /* HomeViewValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6382BD92A2588FC00A40724 /* HomeViewValue.swift */; };
-		B65487D12A2C530E008B4D6E /* Candy-Beans.otf in Resources */ = {isa = PBXBuildFile; fileRef = B65487D02A2C530E008B4D6E /* Candy-Beans.otf */; };
 		B65B41FA2A27311D00E6B579 /* Opener.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B41F92A27311D00E6B579 /* Opener.swift */; };
 		B65B41FC2A27317100E6B579 /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B41FB2A27317100E6B579 /* Web.swift */; };
 		B65B41FF2A27352900E6B579 /* MyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B41FE2A27352900E6B579 /* MyInfoViewController.swift */; };
@@ -72,6 +71,7 @@
 		B6AB3E4F2A2620C5003241C2 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AB3E4E2A2620C5003241C2 /* MyPageViewModel.swift */; };
 		B6AB3E522A262586003241C2 /* PushSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AB3E512A262586003241C2 /* PushSettingViewController.swift */; };
 		B6B897FC2A2306770076D712 /* Font+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B897FB2A2306770076D712 /* Font+Ext.swift */; };
+		B6EF94EE2A2D84C0006BBC8E /* Candy Beans.otf in Resources */ = {isa = PBXBuildFile; fileRef = B6EF94ED2A2D84C0006BBC8E /* Candy Beans.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,7 +92,6 @@
 		B6382BC82A23949300A40724 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		B6382BD72A25889500A40724 /* RxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxViewModel.swift; sourceTree = "<group>"; };
 		B6382BD92A2588FC00A40724 /* HomeViewValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewValue.swift; sourceTree = "<group>"; };
-		B65487D02A2C530E008B4D6E /* Candy-Beans.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Candy-Beans.otf"; sourceTree = "<group>"; };
 		B65B41F92A27311D00E6B579 /* Opener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Opener.swift; sourceTree = "<group>"; };
 		B65B41FB2A27317100E6B579 /* Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
 		B65B41FE2A27352900E6B579 /* MyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +142,7 @@
 		B6AB3E4E2A2620C5003241C2 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		B6AB3E512A262586003241C2 /* PushSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushSettingViewController.swift; sourceTree = "<group>"; };
 		B6B897FB2A2306770076D712 /* Font+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Ext.swift"; sourceTree = "<group>"; };
+		B6EF94ED2A2D84C0006BBC8E /* Candy Beans.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Candy Beans.otf"; sourceTree = "<group>"; };
 		E4A26D52599D7ACEF0FEB708 /* Pods_FLUFFY.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FLUFFY.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EED37F88DB09F52E209827C0 /* Pods-FLUFFY.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FLUFFY.debug.xcconfig"; path = "Target Support Files/Pods-FLUFFY/Pods-FLUFFY.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -212,7 +212,7 @@
 		B65487CD2A2C52E0008B4D6E /* CandyBeans */ = {
 			isa = PBXGroup;
 			children = (
-				B65487D02A2C530E008B4D6E /* Candy-Beans.otf */,
+				B6EF94ED2A2D84C0006BBC8E /* Candy Beans.otf */,
 			);
 			path = CandyBeans;
 			sourceTree = "<group>";
@@ -523,8 +523,8 @@
 				B69688682A1F12CB009CC9B6 /* LaunchScreen.storyboard in Resources */,
 				B6382BCD2A23949300A40724 /* Pretendard-Bold.otf in Resources */,
 				B6382BCB2A23949300A40724 /* Pretendard-Regular.otf in Resources */,
+				B6EF94EE2A2D84C0006BBC8E /* Candy Beans.otf in Resources */,
 				B69688652A1F12CB009CC9B6 /* Assets.xcassets in Resources */,
-				B65487D12A2C530E008B4D6E /* Candy-Beans.otf in Resources */,
 				B6382BC92A23949300A40724 /* Pretendard-ExtraBold.otf in Resources */,
 				B6382BCA2A23949300A40724 /* Pretendard-Light.otf in Resources */,
 				B6382BCF2A23949300A40724 /* Pretendard-SemiBold.otf in Resources */,
@@ -710,7 +710,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -764,7 +764,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

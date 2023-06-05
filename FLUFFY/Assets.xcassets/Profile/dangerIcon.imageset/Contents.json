@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "character_good (2).png",
+      "filename" : "dangerIcon.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "character_good (2) 1.png",
+      "filename" : "dangerIcon 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "character_good (2) 2.png",
+      "filename" : "dangerIcon 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
