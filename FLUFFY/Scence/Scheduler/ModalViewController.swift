@@ -12,6 +12,8 @@ class ModalViewController: UIViewController{
     
     var selectedDate : String = ""
     
+    private var pickerDate : Date?
+    
     private let stressWord : [String] = [
         "스트레스 완전 회복~! 100%",
         "이게 휴식이지~! 회복 80%",
@@ -50,13 +52,26 @@ class ModalViewController: UIViewController{
         return textField
     }()
     
-    private let datePicker : UIDatePicker = {
+    
+    private lazy var datePicker : UIDatePicker = {
         let picker = UIDatePicker()
-        picker.preferredDatePickerStyle = .compact
-        picker.locale = Locale(identifier: "ko_KR")
         picker.datePickerMode = .time
         picker.minuteInterval = 30
+        picker.preferredDatePickerStyle = .wheels
+        picker.locale = Locale(identifier: "ko_KR")
         return picker
+    }()
+
+    
+    private let dateTextField : UITextField = {
+        let textField = UITextField()
+        textField.layer.cornerRadius = 15.5
+        textField.layer.borderWidth = 0.5
+        textField.layer.borderColor = UIColor(hex: "C5C5C5").cgColor
+        textField.backgroundColor = UIColor(hex: "F5F5F5")
+        textField.clipsToBounds = true
+        textField.tintColor = .clear
+        return textField
     }()
     
     private let lineView : UIView = {
@@ -114,24 +129,40 @@ class ModalViewController: UIViewController{
         print("value: \(Int(slider.value))")
     }
     
-    let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.alignment = .fill
-        stackView.distribution = .fillProportionally
-        stackView.spacing = 7
-        return stackView
-    }()
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         self.configure()
     }
     
+    private func createToolBar() -> UIToolbar {
+        
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        let doneBtn = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneButtonTapped))
+        toolbar.setItems([doneBtn], animated: true)
+        
+        return toolbar
+    }
+    
+    @objc func doneButtonTapped() {
+        
+        let dateFormmater = DateFormatter()
+        dateFormmater.dateFormat = "a h:mm"
+        dateFormmater.locale = Locale(identifier: "ko_KR")
+        
+        let date = dateFormmater.string(from: datePicker.date)
+        dateTextField.text = date
+        dateTextField.font = UIFont.pretendard(.medium, size: 15)
+        
+        self.view.endEditing(true)
+    }
+    
     private func configure() {
-        self.configureStackView()
+        self.configureTaskTextField()
+        self.configureDateTextField()
+        self.createDatePicker()
         self.configureLineView()
         self.configureCheckButton()
         self.configureChooseLabel()
@@ -140,22 +171,45 @@ class ModalViewController: UIViewController{
         self.configureLabel()
     }
     
-    private func configureStackView() {
-        self.view.addSubview(stackView)
-        stackView.addArrangedSubview(taskTextField)
-        stackView.addArrangedSubview(datePicker)
-        
+    
+    private func configureTaskTextField() {
+        self.view.addSubview(taskTextField)
         self.taskTextField.delegate = self
-        self.stackView.translatesAutoresizingMaskIntoConstraints = false
+        self.taskTextField.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 85),
-            stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 25),
-            stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -25),
-            datePicker.widthAnchor.constraint(equalToConstant: 94),
-            stackView.heightAnchor.constraint(equalToConstant: 36)
+            taskTextField.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 85),
+            taskTextField.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 25),
+            taskTextField.heightAnchor.constraint(equalToConstant: 36),
+            taskTextField.widthAnchor.constraint(equalToConstant: 200)
         ])
     }
+    
+    private func configureDateTextField() {
+        self.view.addSubview(dateTextField)
+        
+        self.dateTextField.delegate = self
+        self.dateTextField.translatesAutoresizingMaskIntoConstraints = false
+        self.dateTextField.inputView = self.datePicker
+        
+        NSLayoutConstraint.activate([
+            dateTextField.centerYAnchor.constraint(equalTo: self.taskTextField.centerYAnchor),
+            dateTextField.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -25),
+            dateTextField.heightAnchor.constraint(equalToConstant: 27),
+            dateTextField.widthAnchor.constraint(equalToConstant: 94)
+        ])
+    }
+    
+    private func createDatePicker() {
+        dateTextField.inputView = datePicker
+        dateTextField.inputAccessoryView = createToolBar()
+        
+        let leftInsetView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
+        dateTextField.leftView = leftInsetView
+        dateTextField.leftViewMode = .always
+    }
+    
+    
     
     private func configureChooseLabel() {
         self.view.addSubview(self.chooseLabel)
@@ -196,7 +250,7 @@ class ModalViewController: UIViewController{
         
         NSLayoutConstraint.activate([
             lineView.heightAnchor.constraint(equalToConstant: 0.5),
-            lineView.topAnchor.constraint(equalTo: self.stackView.bottomAnchor, constant: 5),
+            lineView.topAnchor.constraint(equalTo: self.taskTextField.bottomAnchor, constant: 5),
             lineView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 25),
             lineView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -25)
         ])

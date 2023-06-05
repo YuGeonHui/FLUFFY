@@ -18,6 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         var firstVC: UIViewController = TabBarViewController()
         let isFirst = UserDefaults.isFirstAppLauch()
         
+//        var secondVC = ScheudlerViewController()
+        
         if isFirst {
             firstVC = AppGuideViewController()
         }
@@ -25,7 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         
         window?.rootViewController = isFirst ? UINavigationController(rootViewController: firstVC) : firstVC
-        
+//        window?.rootViewController = secondVC
         window?.makeKeyAndVisible()
     }
 

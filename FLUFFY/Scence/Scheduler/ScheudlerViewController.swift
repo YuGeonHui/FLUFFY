@@ -104,6 +104,7 @@ class ScheudlerViewController: BaseViewController {
         calendar.appearance.titleTodayColor = UIColor(hex: "0600FE")
         calendar.appearance.todayColor = .clear
         calendar.appearance.selectionColor = .clear
+        calendar.register(FSCalendarCell.self, forCellReuseIdentifier: "cell")
         calendar.appearance.titleSelectionColor = UIColor(hex: "0600FE")
         calendar.locale = Locale(identifier: "us_US")
         calendar.scope = .week
@@ -272,7 +273,7 @@ extension ScheudlerViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
         selectedDate = date.toString()
         print("selectedDate = \(selectedDate)")
         
-    }
+    }   
     
 }
 
