@@ -102,7 +102,7 @@ final class PermAgreeViewController: UIViewController {
         self.view.addSubview(agreeButton)
         
         let style = StyleXML(base: Styles.title, ["b": Styles.fluffy])
-        self.titleLabel.attributedText = "<b>Fluffy</b>에서 사용할\n닉네임을 입력해주세요!".set(style: style)
+        self.titleLabel.attributedText = "<b>Fluffy</b>앱 사용\n권한에 대해 안내드립니다.".set(style: style)
         self.titleLabel.numberOfLines = 0
         
         self.descLabel.attributedText = "더 나은 서비스의 제공을 위해 사용자에게 서비스의 이용과 관련된 각종 고지를 푸시알림으로 제공할 수 있습니다. 더욱 정확한 서비스 이용을 위해 동의하시는 것을 권장드립니다.\n\n동의 하지 않을 시 언제든지 기기 설정 → 알림에서 변경 할 수 있습니다.".set(style: Styles.desc)

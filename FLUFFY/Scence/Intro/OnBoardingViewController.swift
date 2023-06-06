@@ -8,10 +8,19 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import SwiftRichString
 
 class AppGuideViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
+    
+    private enum Styles {
+        
+        static let skip: Style = Style {
+            $0.font = UIFont.pretendard(.semiBold, size: 14)
+            $0.color = UIColor(hex: "b4b4b4")
+        }
+    }
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -27,6 +36,8 @@ class AppGuideViewController: UIViewController {
         pageControl.addTarget(self, action: #selector(pageControlValueChanged(_:)), for: .valueChanged)
         return pageControl
     }()
+    
+    private let skipButton = UILabel()
     
     private let nextButton = CommonButtonView(background: UIColor(hex: "89bfff"), title: "시작하기")
     
@@ -55,16 +66,20 @@ class AppGuideViewController: UIViewController {
     private func setupViews() {
         
         pageControl.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(pageControl)
+        skipButton.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
         
+        self.view.addSubview(skipButton)
+        self.view.addSubview(pageControl)
+        self.view.addSubview(scrollView)
+        
+        skipButton.attributedText = "건너뛰기".set(style: Styles.skip)
+       
         pageControl.currentPage = 0
         pageControl.numberOfPages = 3
         pageControl.pageIndicatorTintColor = UIColor(hex: "eaeaea")
         pageControl.currentPageIndicatorTintColor = UIColor(hex: "90bdff")
        
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(scrollView)
-        
         scrollView.frame = UIScreen.main.bounds
         scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width * CGFloat(pageCount), height: UIScreen.main.bounds.height)
 
@@ -81,6 +96,10 @@ class AppGuideViewController: UIViewController {
     
     private func setupAutoLayout() {
         NSLayoutConstraint.activate([
+            
+            skipButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            skipButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 25),
+            
             pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             pageControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 25),
 
@@ -146,6 +165,12 @@ class AppGuideViewController: UIViewController {
         
         self.nextButton.rx.tap
             .observe(on: MainScheduler.instance)
+            .withUnretained(self)
+            .bind(onNext: { $0.0.moveToNextScene() })
+            .disposed(by: self.disposeBag)
+        
+        self.skipButton.rx.tapGesture()
+            .when(.recognized)
             .withUnretained(self)
             .bind(onNext: { $0.0.moveToNextScene() })
             .disposed(by: self.disposeBag)

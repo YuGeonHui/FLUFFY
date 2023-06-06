@@ -39,17 +39,18 @@ class MyPageViewController: UIViewController {
         }
         
         static let desc: Style = Style {
-            $0.font = UIFont.pretendard(.regular, size: 15)
-//            $0.color = UIColor(hex: "")
+            $0.font = UIFont.pretendard(.semiBold, size: 14)
+            $0.color = UIColor(hex: "89bfff")
         }
         
         static let status: Style = Style {
-            $0.font = UIFont.candyBean(.normal, size: 12)
+            $0.font = UIFont.candyBean(.normal, size: 15)
             $0.color = UIColor(hex: "ffffff")
         }
     }
     
     private lazy var nicknameLabel = UILabel().then {
+        $0.attributedText = "환영해요!".set(style: Styles.nickname)
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -60,21 +61,21 @@ class MyPageViewController: UIViewController {
     }
     
     private var statusLabel = PaddingLabel().then {
-        $0.padding = UIEdgeInsets(top: 9, left: 12, bottom: 9, right: 12)
-        $0.backgroundColor = .cyan
-        $0.attributedText = "WARNING".set(style: Styles.status)
+        $0.padding = UIEdgeInsets(top: 5, left: 7.5, bottom: 5, right: 7.5)
+        $0.backgroundColor = UIColor(hex: "89bfff")
+        $0.attributedText = "Log in >".set(style: Styles.status)
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private let messageLabel = UILabel().then {
-        $0.attributedText = "스트레스가 쌓여 예민하고 지친상태".set(style: Styles.desc)
+        $0.attributedText = "로그인하고 번아웃 예방하기".set(style: Styles.desc)
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private let characterImageView = UIImageView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.contentMode = .scaleAspectFit
-        $0.image = UIImage(named: "warningIcon")
+        $0.image = UIImage(named: "goodIcon")
     }
     
     private let dividerView = DividerView()
@@ -153,7 +154,7 @@ class MyPageViewController: UIViewController {
         editImageView.heightAnchor.constraint(equalToConstant: Metric.iconSize.height).isActive = true
         
         statusLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true
-        statusLabel.topAnchor.constraint(equalTo: self.nicknameLabel.bottomAnchor, constant: 16).isActive = true
+        statusLabel.topAnchor.constraint(equalTo: self.nicknameLabel.bottomAnchor, constant: 12).isActive = true
         
         messageLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true
         messageLabel.topAnchor.constraint(equalTo: self.statusLabel.bottomAnchor, constant: 12).isActive = true
@@ -167,7 +168,7 @@ class MyPageViewController: UIViewController {
             dividerView.widthAnchor.constraint(equalToConstant: Metric.dividerSize.width),
             dividerView.heightAnchor.constraint(equalToConstant: Metric.dividerSize.height),
             dividerView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            dividerView.topAnchor.constraint(equalTo: self.characterImageView.bottomAnchor, constant: 31),
+            dividerView.topAnchor.constraint(equalTo: self.characterImageView.bottomAnchor, constant: 21),
             
             pushSettingView.topAnchor.constraint(equalTo: self.dividerView.bottomAnchor, constant: 30),
             pushSettingView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
