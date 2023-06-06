@@ -30,6 +30,25 @@ struct NetworkService {
             }
         }
     }
+    
+    func getRequest<T: Decodable>(url: String, method: HTTPMethod, headers: HTTPHeaders?, completion: @escaping (Result<T, Error>) -> Void) {
+        
+        AF.request(
+            url,
+            method: method,
+            encoding: JSONEncoding.default,
+            headers: headers
+        )
+        .validate(statusCode: 200..<300)
+        .responseDecodable(of: T.self) { response in
+            switch response.result {
+            case .success(let value):
+                completion(.success(value))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }
 
 

@@ -15,11 +15,18 @@ class ScheudlerViewController: BaseViewController {
     
     private var selectedDate : String = Date().toString()
     
-    private var events : [Date] = []
+    private var grayEvents : [Date] = []
+    private var redEvents : [Date] = []
+    private var blueEvents : [Date] = []
     
-    private let statusLabel : UILabel = {
+    private var todayDate : Date?
+    
+    private var userName = "동동"
+    
+    
+    private lazy var statusLabel : UILabel = {
         let label = UILabel()
-        label.text = "(유저 닉네임)의 현재 상태"
+        label.text = "\(userName)님의 현재 상태"
         label.font = UIFont.pretendard(.medium, size: 15)
         label.textColor = UIColor(red: 0.321, green: 0.321, blue: 0.321, alpha: 1)
         return label
@@ -96,13 +103,11 @@ class ScheudlerViewController: BaseViewController {
         return button
     }()
     
-    //    fileprivate weak var calendar: FSCalendar!
     private let calendar : FSCalendar = {
         let calendar = FSCalendar(frame: .zero)
         calendar.weekdayHeight = 15
         calendar.headerHeight = 0
         calendar.appearance.eventDefaultColor = UIColor(hex: "C6C6C6")
-        calendar.appearance.eventSelectionColor = UIColor(hex: "C6C6C6")
         calendar.appearance.headerTitleFont = UIFont.pretendard(.bold, size: 15)
         calendar.appearance.weekdayFont = UIFont.pretendard(.bold, size: 11)
         calendar.appearance.headerTitleColor = UIColor(hex: "2D2D2D")
@@ -130,11 +135,14 @@ class ScheudlerViewController: BaseViewController {
     }
     
     override func viewDidLoad() {
+        getUser()
         super.viewDidLoad()
         self.view.backgroundColor = .white
         print("today - \(selectedDate)")
         self.configure()
         setEvents()
+        
+        
     }
     
     private func configure() {
@@ -151,11 +159,22 @@ class ScheudlerViewController: BaseViewController {
     private func setEvents() {
         let dfMatter = DateFormatter()
         dfMatter.locale = Locale(identifier: "ko_KR")
-        dfMatter.dateFormat = "yyyy-MM-dd"
+        dfMatter.dateFormat = "yyyyMMdd"
         
-        let myFirstEvent = dfMatter.date(from: "2023-06-07")
+        guard let myFirstEvent = dfMatter.date(from: selectedDate) else {return}
+        print("myFirstEvent: \(myFirstEvent)")
         
-        events = [myFirstEvent!]
+        grayEvents = [myFirstEvent]
+    }
+    
+    private func getUser() {
+        User().getUserName(self)
+    }
+    
+    func didSuccess(_ response: UserInfo) {
+        self.userName = response.userNickname
+        print("username - \(userName)")
+        self.view.layoutIfNeeded()
     }
     
     private func configureFSCalendar() {
@@ -176,6 +195,8 @@ class ScheudlerViewController: BaseViewController {
     private func configureStatus() {
         self.view.addSubview(self.statusLabel)
         self.view.addSubview(self.statusIamge)
+        
+        
         self.statusLabel.translatesAutoresizingMaskIntoConstraints = false
         self.statusIamge.translatesAutoresizingMaskIntoConstraints = false
         
@@ -244,6 +265,11 @@ class ScheudlerViewController: BaseViewController {
     
     private func configureAddButton() {
         self.tableView.addSubview(self.addButton)
+        if KeychainService.shared.loadToken() != nil {
+            addButton.isHidden = false
+        } else {
+            addButton.isHidden = true
+        }
         self.addButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             self.addButton.heightAnchor.constraint(equalToConstant: 68),
@@ -306,17 +332,36 @@ extension ScheudlerViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
         print("date: \(date)")
         selectedDate = date.toString()
         print("selectedDate = \(selectedDate)")
-        
+        setEvents()
     }
     
+    // 이벤트 닷 표시 개수
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        if self.events.contains(date) {
-            return 3
-//            return events.count
+        if self.grayEvents.contains(date) {
+            return 1
         }
-        else {
-            return 0
+        if self.redEvents.contains(date) {
+            return 1
         }
+        if self.blueEvents.contains(date) {
+            return 1
+        }
+        
+        return 0
+    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
+        if self.grayEvents.contains(date) {
+            return [UIColor(hex: "C6C6C6")]
+        }
+        if self.redEvents.contains(date) {
+            return [UIColor(hex: "FF0000")]
+        }
+        if self.blueEvents.contains(date) {
+            return [UIColor(hex: "2276F0")]
+        }
+        
+        return nil
     }
     
     

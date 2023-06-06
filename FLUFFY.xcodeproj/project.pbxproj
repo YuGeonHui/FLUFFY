@@ -13,6 +13,8 @@
 		9C3628F32A26001900562713 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3628F22A26001900562713 /* ModalViewController.swift */; };
 		9C5A12472A2AE7C800E04FC3 /* ScheduleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A12462A2AE7C800E04FC3 /* ScheduleManager.swift */; };
 		9C5A12492A2DCC7F00E04FC3 /* EditModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A12482A2DCC7F00E04FC3 /* EditModalViewController.swift */; };
+		9C5A124D2A2F80C600E04FC3 /* SchedulerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A124C2A2F80C600E04FC3 /* SchedulerModel.swift */; };
+		9C5A124F2A2F8B7F00E04FC3 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A124E2A2F8B7F00E04FC3 /* UserInfo.swift */; };
 		B629BAD82A26EF3800561538 /* PushSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B629BAD72A26EF3800561538 /* PushSettingViewModel.swift */; };
 		B6382BC92A23949300A40724 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B6382BC02A23949300A40724 /* Pretendard-ExtraBold.otf */; };
 		B6382BCA2A23949300A40724 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = B6382BC12A23949300A40724 /* Pretendard-Light.otf */; };
@@ -86,6 +88,8 @@
 		9C3628F22A26001900562713 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		9C5A12462A2AE7C800E04FC3 /* ScheduleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleManager.swift; sourceTree = "<group>"; };
 		9C5A12482A2DCC7F00E04FC3 /* EditModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditModalViewController.swift; sourceTree = "<group>"; };
+		9C5A124C2A2F80C600E04FC3 /* SchedulerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerModel.swift; sourceTree = "<group>"; };
+		9C5A124E2A2F8B7F00E04FC3 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		B629BAD72A26EF3800561538 /* PushSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushSettingViewModel.swift; sourceTree = "<group>"; };
 		B6382BC02A23949300A40724 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
 		B6382BC12A23949300A40724 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
@@ -350,6 +354,8 @@
 			isa = PBXGroup;
 			children = (
 				B6907DCD2A207AA1001B22C1 /* ScheudlerViewController.swift */,
+				9C5A124C2A2F80C600E04FC3 /* SchedulerModel.swift */,
+				9C5A124E2A2F8B7F00E04FC3 /* UserInfo.swift */,
 				9C3628F22A26001900562713 /* ModalViewController.swift */,
 				9C5A12482A2DCC7F00E04FC3 /* EditModalViewController.swift */,
 				9C5A12462A2AE7C800E04FC3 /* ScheduleManager.swift */,
@@ -635,7 +641,9 @@
 				B65B41FF2A27352900E6B579 /* MyInfoViewController.swift in Sources */,
 				B65BDCE72A2B310600DEFAD8 /* AssociationViewModel.swift in Sources */,
 				B65BDCD82A2B2C6D00DEFAD8 /* OnBoardingViewController.swift in Sources */,
+				9C5A124F2A2F8B7F00E04FC3 /* UserInfo.swift in Sources */,
 				B6907DD02A207AB7001B22C1 /* SignUpViewController.swift in Sources */,
+				9C5A124D2A2F80C600E04FC3 /* SchedulerModel.swift in Sources */,
 				B65BDCED2A2B346400DEFAD8 /* AssociationRowView.swift in Sources */,
 				B65B41FC2A27317100E6B579 /* Web.swift in Sources */,
 				B65BDCDF2A2B309600DEFAD8 /* AssociationViewController.swift in Sources */,

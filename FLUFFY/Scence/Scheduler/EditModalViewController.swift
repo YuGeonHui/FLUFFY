@@ -16,6 +16,8 @@ class EditModalViewController: UIViewController{
     
     var sliderValue = 0
     
+    var weeklyValue = 0
+    
     private var pickerDate : Date?
     
     private let stressWord : [String] = [
@@ -55,32 +57,7 @@ class EditModalViewController: UIViewController{
     @objc private func editIsClikced() {
         self.dismiss(animated: true)
         print("modal select - \(selectedDate)")
-        switch sliderValue {
-        case -5 :
-            print("-10.75")
-        case -4 :
-            print("-8.6")
-        case -3 :
-            print("-6.45")
-        case -2 :
-            print("-4.3")
-        case -1 :
-            print("-2.15")
-        case 0 :
-            print("0")
-        case 1 :
-            print("1")
-        case 2 :
-            print("2")
-        case 3 :
-            print("3")
-        case 4 :
-            print("4")
-        case 5 :
-            print("5")
-        default:
-            print("error")
-        }
+        // weekly value 주간 점수 통신
     }
     
     @objc private func trashIsClikced() {
@@ -170,6 +147,8 @@ class EditModalViewController: UIViewController{
     
     @objc private func sliderValueChanged(_ slider: UISlider) {
         let value = Int(slider.value) + 5
+        weeklyValue = value
+        print("weeklyValue: \(weeklyValue)")
         stressLabel.text = stressWord[value]
         print("value: \(Int(slider.value))")
         sliderValue = Int(slider.value)
