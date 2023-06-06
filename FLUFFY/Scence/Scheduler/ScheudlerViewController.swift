@@ -11,7 +11,11 @@ import FSCalendar
 
 class ScheudlerViewController: BaseViewController {
     
+    private let apiService = NetworkService()
+    
     private var selectedDate : String = Date().toString()
+    
+    private var events : [Date] = []
     
     private let statusLabel : UILabel = {
         let label = UILabel()
@@ -97,6 +101,8 @@ class ScheudlerViewController: BaseViewController {
         let calendar = FSCalendar(frame: .zero)
         calendar.weekdayHeight = 15
         calendar.headerHeight = 0
+        calendar.appearance.eventDefaultColor = UIColor(hex: "C6C6C6")
+        calendar.appearance.eventSelectionColor = UIColor(hex: "C6C6C6")
         calendar.appearance.headerTitleFont = UIFont.pretendard(.bold, size: 15)
         calendar.appearance.weekdayFont = UIFont.pretendard(.bold, size: 11)
         calendar.appearance.headerTitleColor = UIColor(hex: "2D2D2D")
@@ -128,6 +134,7 @@ class ScheudlerViewController: BaseViewController {
         self.view.backgroundColor = .white
         print("today - \(selectedDate)")
         self.configure()
+        setEvents()
     }
     
     private func configure() {
@@ -139,6 +146,16 @@ class ScheudlerViewController: BaseViewController {
         self.configureAddButton()
         self.configureTableView()
         
+    }
+    
+    private func setEvents() {
+        let dfMatter = DateFormatter()
+        dfMatter.locale = Locale(identifier: "ko_KR")
+        dfMatter.dateFormat = "yyyy-MM-dd"
+        
+        let myFirstEvent = dfMatter.date(from: "2023-06-07")
+        
+        events = [myFirstEvent!]
     }
     
     private func configureFSCalendar() {
@@ -241,6 +258,7 @@ class ScheudlerViewController: BaseViewController {
 
 extension ScheudlerViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return 1
     }
     
@@ -248,6 +266,22 @@ extension ScheudlerViewController : UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as? TaskTableViewCell else {return UITableViewCell()}
         cell.selectionStyle = .none
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // 통신 - DB에서 데이터 삭제 메서드
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // 수정 모달 팝업 - 통신해서 해당 날짜에 기존 데이터 없으면 실행 x
+        let vc = EditModalViewController()
+        vc.selectedDate = selectedDate
+        present(vc, animated: true)
     }
 }
 
@@ -273,7 +307,18 @@ extension ScheudlerViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
         selectedDate = date.toString()
         print("selectedDate = \(selectedDate)")
         
-    }   
+    }
+    
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+        if self.events.contains(date) {
+            return 3
+//            return events.count
+        }
+        else {
+            return 0
+        }
+    }
+    
     
 }
 

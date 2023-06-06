@@ -10,7 +10,11 @@ import PanModal
 
 class ModalViewController: UIViewController{
     
+    private let apiService = NetworkService()
+    
     var selectedDate : String = ""
+    
+    var sliderValue = 0
     
     private var pickerDate : Date?
     
@@ -40,7 +44,34 @@ class ModalViewController: UIViewController{
     @objc private func buttonIsClikced() {
         self.dismiss(animated: true)
         print("modal select - \(selectedDate)")
+        switch sliderValue {
+        case -5 :
+            print("-10.75")
+        case -4 :
+            print("-8.6")
+        case -3 :
+            print("-6.45")
+        case -2 :
+            print("-4.3")
+        case -1 :
+            print("-2.15")
+        case 0 :
+            print("0")
+        case 1 :
+            print("1")
+        case 2 :
+            print("2")
+        case 3 :
+            print("3")
+        case 4 :
+            print("4")
+        case 5 :
+            print("5")
+        default:
+            print("error")
+        }
     }
+    
     
     private let taskTextField : UITextField = {
         let textField = UITextField()
@@ -127,6 +158,8 @@ class ModalViewController: UIViewController{
         let value = Int(slider.value) + 5
         stressLabel.text = stressWord[value]
         print("value: \(Int(slider.value))")
+        sliderValue = Int(slider.value)
+        print("changed : \(sliderValue)")
     }
     
     override func viewDidLoad() {
@@ -181,7 +214,7 @@ class ModalViewController: UIViewController{
             taskTextField.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 85),
             taskTextField.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 25),
             taskTextField.heightAnchor.constraint(equalToConstant: 36),
-            taskTextField.widthAnchor.constraint(equalToConstant: 200)
+            taskTextField.widthAnchor.constraint(equalToConstant: 220)
         ])
     }
     

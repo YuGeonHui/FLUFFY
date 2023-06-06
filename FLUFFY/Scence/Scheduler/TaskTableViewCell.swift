@@ -77,7 +77,8 @@ class TaskTableViewCell: UITableViewCell {
             taskView.topAnchor.constraint(equalTo: contentView.topAnchor),
             taskView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             taskView.leadingAnchor.constraint(equalTo: statusIcon.trailingAnchor, constant: 20),
-            taskView.heightAnchor.constraint(equalToConstant: 51)
+            taskView.heightAnchor.constraint(equalToConstant: 51),
+            taskView.widthAnchor.constraint(equalToConstant: 220)
         ])
         
         contentView.addSubview(taskLabel)

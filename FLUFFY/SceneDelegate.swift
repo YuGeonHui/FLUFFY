@@ -15,23 +15,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
+//        var secondVC = ScheudlerViewController()
+        
         var firstVC: UIViewController = TabBarViewController()
         let isFirst = UserDefaults.isFirstAppLauch()
-        
-//        if isFirst {
-//            firstVC = AppGuideViewController()
-//        }
-        
+
         if !isFirst {
-//            firstVC = SignUpViewController()
             firstVC = AppGuideViewController()
         }
         
         window = UIWindow(windowScene: windowScene)
         
-//        window?.rootViewController = isFirst ? UINavigationController(rootViewController: firstVC) : firstVC
-        
-        window?.rootViewController = UINavigationController(rootViewController: firstVC) 
+        window?.rootViewController = UINavigationController(rootViewController: firstVC)
+//        window?.rootViewController = secondVC
         
         window?.makeKeyAndVisible()
     }
