@@ -14,8 +14,6 @@ final class TabBarViewController: UITabBarController {
         
         self.setupViews()
         
-//        UINavigationBar.appearance().prefersLargeTitles = true
-        
         UITabBar.appearance().tintColor = UIColor.black
         UITabBar.appearance().unselectedItemTintColor = UIColor.gray
         UITabBar.appearance().backgroundColor = .white
@@ -23,10 +21,15 @@ final class TabBarViewController: UITabBarController {
     
     private func setupViews() {
         
-        let homeTabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "Home_duotone"), selectedImage: UIImage(named: "Home_fill"))
+        let homeTabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "homeIconOff"), selectedImage: UIImage(named: "homeIconOn"))
         let schedulerBartItem = UITabBarItem(title: "Schedule", image: UIImage(named: "Date_range"), selectedImage: UIImage(named: "Date_range_fill"))
         
-        let homeVC = generateNavController(vc: ViewController(), tabBarItem: homeTabBarItem)
+        var homeVC = generateNavController(vc: HomeViewController(), tabBarItem: homeTabBarItem)
+        
+        if KeychainService.shared.isTokenValidate() {
+            homeVC = generateNavController(vc: ViewController(), tabBarItem: homeTabBarItem)
+        }
+        
         let schedulerVC = generateNavController(vc: ScheudlerViewController(), tabBarItem: schedulerBartItem)
         
         self.viewControllers = [homeVC, schedulerVC]

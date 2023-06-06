@@ -51,7 +51,9 @@ class BaseViewController: UIViewController {
                           NSAttributedString.Key.foregroundColor: UIColor(hex: "2d2d2d"),
                           NSAttributedString.Key.baselineOffset: -3] as [NSAttributedString.Key : Any]
      
-        let backButtonItem = UIBarButtonItem(title: "마이페이지", style: .plain, target: nil, action: nil)
+//        let backButtonItem = UIBarButtonItem(title: "마이페이지", style: .plain, target: nil, action: nil)
+        
+        let backButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         navigationItem.backBarButtonItem = backButtonItem
 

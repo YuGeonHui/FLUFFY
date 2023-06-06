@@ -49,13 +49,7 @@ class MyPageViewController: UIViewController {
         }
     }
     
-    private let nicknameLabel = UILabel().then {
-        
-        let nickname = UserDefaults.standard.string(forKey: NICKNAME_KEY)
-        
-        guard let nickname = nickname else { return }
-        
-        $0.attributedText = nickname.set(style: Styles.nickname)
+    private lazy var nicknameLabel = UILabel().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -121,12 +115,20 @@ class MyPageViewController: UIViewController {
         viewModel.bind()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let nickname = UserDefaults.standard.string(forKey: NICKNAME_KEY)
+        
+        guard let nickname = nickname else { return }
+        
+        nicknameLabel.attributedText = nickname.set(style: Styles.nickname)
+    }
+    
     private func setupViews() {
     
         self.view.addSubview(nicknameLabel)
         self.view.addSubview(editImageView)
-//        self.view.addSubview(statusBarImageView)
-        
         
         self.view.addSubview(statusLabel)
         self.view.addSubview(messageLabel)

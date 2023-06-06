@@ -48,14 +48,19 @@ final class NicknameChangeViewController: UIViewController {
     
     private let cautionLabel = UILabel()
     
-    private let startButton = CommonButtonView(background: UIColor(hex: "000000"), title: "시작하기")
+    private let signOutView = MyPageRowView(title: "로그아웃")
     
+    private let withdrawView = MyPageRowView(title: "회원탈퇴")
+    
+    private let saveButton = CommonButtonView(background: UIColor(hex: "000000"), title: "시작하기")
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor(hex: "f9f9f9")
         
         self.setupViews()
+        self.setupNicknameField()
         self.setupAutoLayout()
         self.bindView()
     }
@@ -66,21 +71,33 @@ final class NicknameChangeViewController: UIViewController {
         self.nicknameField.translatesAutoresizingMaskIntoConstraints = false
         self.dividerView.translatesAutoresizingMaskIntoConstraints = false
         self.cautionLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.startButton.translatesAutoresizingMaskIntoConstraints = false
+        self.saveButton.translatesAutoresizingMaskIntoConstraints = false
+        self.signOutView.translatesAutoresizingMaskIntoConstraints = false
+        self.withdrawView.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(descLabel)
         self.view.addSubview(dividerView)
         self.view.addSubview(nicknameField)
         self.view.addSubview(cautionLabel)
-        self.view.addSubview(startButton)
+        self.view.addSubview(saveButton)
+        self.view.addSubview(signOutView)
+        self.view.addSubview(withdrawView)
         
         self.descLabel.attributedText = "한글 및 영문, 숫자, 특수문자 만 사용 가능하며 최소 2글자 이상,\n최대 10자 이하까지만 등록 가능합니다.".set(style: Styles.desc)
         self.descLabel.numberOfLines = 0
         
+        self.saveButton.isUserInteractionEnabled = false
+    }
+    
+    private func setupNicknameField() {
+        
+//        let nickname = UserDefaults.standard.string(forKey: NICKNAME_KEY)
+//
+//        guard let nickname = nickname else { return }
+//
+//        self.nicknameField.attributedText = nickname.set(style: Styles.nicknameField)
         self.nicknameField.attributedPlaceholder = "닉네임 입력".set(style: Styles.nicknameField)
         self.nicknameField.clearButtonMode = .whileEditing
-        
-        self.startButton.isUserInteractionEnabled = false
     }
     
     private func setupAutoLayout() {
@@ -104,10 +121,18 @@ final class NicknameChangeViewController: UIViewController {
             self.cautionLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             self.cautionLabel.topAnchor.constraint(equalTo: self.dividerView.bottomAnchor, constant: 7),
             
-            self.startButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-            self.startButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-            self.startButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            self.startButton.heightAnchor.constraint(equalToConstant: Metric.btnHeight)
+            self.signOutView.topAnchor.constraint(equalTo: self.dividerView.bottomAnchor, constant: 58),
+            self.signOutView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.signOutView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            
+            self.withdrawView.topAnchor.constraint(equalTo: self.signOutView.bottomAnchor, constant: 20),
+            self.withdrawView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.withdrawView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            
+            self.saveButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+            self.saveButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+            self.saveButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            self.saveButton.heightAnchor.constraint(equalToConstant: Metric.btnHeight)
         ])
     }
     
@@ -118,12 +143,41 @@ final class NicknameChangeViewController: UIViewController {
             .withUnretained(self)
             .bind(onNext: { $0.0.setValidateInput($0.1) })
             .disposed(by: self.disposeBag)
+        
+        self.signOutView.buttonTapped
+            .withUnretained(self)
+            .bind(onNext: { $0.0.signOutTapped() })
+            .disposed(by: self.disposeBag)
+        
+        self.withdrawView.buttonTapped
+            .withUnretained(self)
+            .bind(onNext: { $0.0.withdrawTapped() })
+            .disposed(by: self.disposeBag)
+        
+        self.saveButton.rx.tap
+            .withUnretained(self)
+            .bind(onNext: { $0.0.saveButtonTapped() })
+            .disposed(by: self.disposeBag)
     }
 }
 
-
-
 extension NicknameChangeViewController {
+    
+    private func signOutTapped() {
+        KeychainService.shared.deleteToken()
+    }
+    
+    private func withdrawTapped() {
+        
+        // 회원탈퇴 로직 추가
+    }
+    
+    private func saveButtonTapped() {
+        
+        UserDefaults.standard.set(nicknameField.text, forKey: NICKNAME_KEY)
+        
+        self.navigationController?.popViewController(animated: true)
+    }
     
     private func setValidateInput(_ text: String?) {
         
@@ -131,7 +185,7 @@ extension NicknameChangeViewController {
             
             self.dividerView.backgroundColor = UIColor(hex: "b1b1b1")
             self.cautionLabel.attributedText = "".set(style: Styles.caution)
-            self.startButton.isUserInteractionEnabled = true
+            self.saveButton.isUserInteractionEnabled = true
             return
         }
         
@@ -139,13 +193,13 @@ extension NicknameChangeViewController {
             
             self.dividerView.backgroundColor = UIColor(hex: "b1b1b1")
             self.cautionLabel.attributedText = "".set(style: Styles.caution)
-            self.startButton.isUserInteractionEnabled = true
+            self.saveButton.isUserInteractionEnabled = true
             
         } else {
             
             self.dividerView.backgroundColor = UIColor(hex: "ff0000")
             self.cautionLabel.attributedText = "사용 불가한 닉네임입니다.".set(style: Styles.caution)
-            self.startButton.isUserInteractionEnabled = false
+            self.saveButton.isUserInteractionEnabled = false
         }
     }
     

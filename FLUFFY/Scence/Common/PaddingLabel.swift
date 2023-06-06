@@ -9,7 +9,7 @@ import UIKit
 
 class PaddingLabel: UILabel {
     
-    var padding: UIEdgeInsets = UIEdgeInsets(top: 9, left: 12, bottom: 9, right: 12) {
+    var padding: UIEdgeInsets = .zero {
         didSet {
             invalidateIntrinsicContentSize()
         }
@@ -18,10 +18,9 @@ class PaddingLabel: UILabel {
     override func drawText(in rect: CGRect) {
         super.drawText(in: rect.inset(by: padding))
         
-        self.layer.cornerRadius = 16
+        self.layer.cornerRadius = 15.5
         self.clipsToBounds = true
-        
-        self.font = UIFont.candyBean(.normal, size: 15)
+        self.textAlignment = .center
         self.textColor = UIColor(hex: "ffffff")
     }
 

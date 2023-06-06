@@ -142,7 +142,7 @@ final class AssociationViewController: UIViewController {
             
             self.nextButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             self.nextButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-            self.nextButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -53),
+            self.nextButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             self.nextButton.heightAnchor.constraint(equalToConstant: Metric.btnHeight)
         ])
     }

@@ -42,15 +42,15 @@ final class MyInfoViewController: UIViewController {
         static let fluffy: Style = Style {
             $0.font = UIFont.candyBean(.normal, size: 25)
             $0.color = UIColor(hex: "2d2d2d")
-            $0.minimumLineHeight = 26
-            $0.maximumLineHeight = 26
+            $0.minimumLineHeight = 32
+            $0.maximumLineHeight = 32
         }
         
         static let title: Style = Style {
             $0.font = UIFont.pretendard(.bold, size: 25)
             $0.color = UIColor(hex: "2d2d2d")
-            $0.minimumLineHeight = 26
-            $0.maximumLineHeight = 26
+            $0.minimumLineHeight = 32
+            $0.maximumLineHeight = 32
         }
         
         static let desc: Style = Style {
@@ -125,7 +125,7 @@ final class MyInfoViewController: UIViewController {
             
             self.nicknameField.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             self.nicknameField.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-            self.nicknameField.topAnchor.constraint(equalTo: self.titleStackViwe.bottomAnchor, constant: 20),
+            self.nicknameField.topAnchor.constraint(equalTo: self.titleStackViwe.bottomAnchor, constant: 30),
             
             self.dividerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             self.dividerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
@@ -134,11 +134,12 @@ final class MyInfoViewController: UIViewController {
             self.dividerView.heightAnchor.constraint(equalToConstant: 1),
             
             self.cautionLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+            self.cautionLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 20),
             self.cautionLabel.topAnchor.constraint(equalTo: self.dividerView.bottomAnchor, constant: 7),
             
             self.imageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 120),
             self.imageView.bottomAnchor.constraint(equalTo: self.startButton.topAnchor, constant: -70),
-            
+//
             self.startButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             self.startButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
             self.startButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
