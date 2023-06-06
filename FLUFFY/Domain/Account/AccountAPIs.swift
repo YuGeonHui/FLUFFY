@@ -12,16 +12,13 @@ enum AccountAPI {
     case signIn
     case signUp
     case userInfo
-    
-    var spec: APISpec {
+
+    var url: String {
         
         switch self {
-        case .signIn:
-            return APISpec(method: .post, url: "\(FlUPPYAPI.baseURL)/account/signin")
-        case .signUp:
-            return APISpec(method: .post, url: "\(FlUPPYAPI.baseURL)/account/signup")
-        case .userInfo:
-            return APISpec(method: .get, url: "\(FlUPPYAPI.baseURL)/user/info")
+        case .signIn: return "\(FlUFFYAPI.baseURL)/api/account/signin"
+        case .signUp: return "\(FlUFFYAPI.baseURL)/api/account/signup"
+        case .userInfo: return "\(FlUFFYAPI.baseURL)/api/user/info"
         }
     }
 }

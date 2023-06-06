@@ -95,6 +95,11 @@ final class ViewController: BaseViewController {
         viewModel.bind()
         
         self.view.backgroundColor = UIColor(hex: "f9f9f9")
+        
+        self.bindInputs()
+        self.bindOutputs()
+        
+        self.viewModel.fetchInfo()
     }
     
     override func viewWillAppear(_ animated: Bool) {

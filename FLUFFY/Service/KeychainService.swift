@@ -14,6 +14,7 @@ final class KeychainService {
         
         static let accessGroup = "SecuritySerivice"
         static let KEYCHAIN_TOKEN = "LOGIN_TOKEN"
+        static let APPLE_IDENTIFIER = "APPLE_IDENTIFIER"
 
         static let kSecClassValue = String(kSecClass)
         static let kSecAttrAccountValue = String(kSecAttrAccount)
@@ -28,12 +29,20 @@ final class KeychainService {
     
     private init() {}
     
+    func saveAppleIdentifier(_ userIdentifier: String) {
+        return KeychainService.shared.save(Const.APPLE_IDENTIFIER, userIdentifier)
+    }
+    
     func saveToken(token: String) {
         return KeychainService.shared.save(Const.KEYCHAIN_TOKEN, token)
     }
 
     func loadToken() -> String? {
         return KeychainService.shared.load(Const.KEYCHAIN_TOKEN)
+    }
+    
+    func loadAppleIdentifier() -> String? {
+        return KeychainService.shared.load(Const.APPLE_IDENTIFIER)
     }
 
     func isTokenValidate() -> Bool {

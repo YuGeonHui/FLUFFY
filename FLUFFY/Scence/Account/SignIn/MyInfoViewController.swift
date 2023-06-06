@@ -71,6 +71,8 @@ final class MyInfoViewController: UIViewController {
         }
     }
     
+    private let viewModel = MyInfoViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,6 +81,12 @@ final class MyInfoViewController: UIViewController {
         self.setupViews()
         self.setupAutoLayout()
         self.bindView()
+        
+        self.viewModel.bind()
+    }
+    
+    deinit {
+        self.viewModel.unbind()
     }
     
     private func setupViews() {
@@ -156,6 +164,19 @@ final class MyInfoViewController: UIViewController {
             .disposed(by: self.disposeBag)
         
         self.startButton.rx.tap
+            .withUnretained(self)
+            .bind(onNext: {
+                
+                guard let userId = KeychainService.shared.loadAppleIdentifier(), let nickname = self.nicknameField.text else {
+                    debugPrint("no userId")
+                    return
+                }
+                
+                $0.0.viewModel.signUpStarted(userId, nickname)
+            })
+            .disposed(by: self.disposeBag)
+        
+        self.viewModel.showMainView
             .withUnretained(self)
             .bind(onNext: {
                 

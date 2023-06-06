@@ -37,9 +37,9 @@ final class SignUpViewController: UIViewController {
     }
     
     private let logoImgView = UIImageView()
-
+    
     private let titleLabel = UILabel()
-
+    
     private let descLabel = UILabel()
     
     private lazy var titleStackView = UIStackView(arrangedSubviews: [logoImgView, titleLabel, descLabel])
@@ -49,7 +49,11 @@ final class SignUpViewController: UIViewController {
     private let appleSignIn = UIImageView()
     
     private let signUpButton = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
-
+    
+    private let signInFinished = PublishRelay<Void>()
+    
+    private let viewModel = SignUpViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,6 +62,8 @@ final class SignUpViewController: UIViewController {
         self.setupViews()
         self.setupAutoLayout()
         self.bindView()
+        
+        self.viewModel.bind()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,6 +72,10 @@ final class SignUpViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.tintColor = UIColor(hex: "454545")
         self.navigationItem.backBarButtonItem?.title = ""
+    }
+    
+    deinit {
+        viewModel.unbind()
     }
     
     private func setupViews() {
@@ -103,7 +113,7 @@ final class SignUpViewController: UIViewController {
             self.titleStackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             self.titleStackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             self.titleStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 56),
-
+            
             self.backImageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.backImageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             self.backImageView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
@@ -120,9 +130,59 @@ final class SignUpViewController: UIViewController {
         self.appleSignIn.rx.tapGesture()
             .when(.recognized)
             .withUnretained(self)
-            .bind(onNext: {
-                debugPrint("1111")
-                $0.0.navigationController?.pushViewController(AssociationViewController(), animated: true) })
+            .bind(onNext: { $0.0.signInTapped() })
             .disposed(by: self.disposeBag)
+        
+        self.viewModel.showAssociationView
+            .withUnretained(self)
+            .bind(onNext: { $0.0.navigationController?.pushViewController(AssociationViewController(), animated: true) })
+            .disposed(by: self.disposeBag)
+    }
+    
+    
+    private func signInTapped() {
+        
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+    }
+}
+
+extension SignUpViewController: ASAuthorizationControllerDelegate {
+    
+}
+
+extension SignUpViewController: ASAuthorizationControllerPresentationContextProviding {
+    
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        // 인증 컨트롤러가 표시될 앵커(Anchor)를 반환합니다.
+        return self.view.window!
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        // 로그인이 성공적으로 완료되었을 때의 처리를 구현합니다.
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            // Apple ID 관련 정보를 사용하여 로그인 처리를 수행합니다.
+            let userIdentifier = appleIDCredential.user
+            let fullName = appleIDCredential.fullName
+            let email = appleIDCredential.email
+            
+            // 필요한 추가적인 처리를 수행합니다.
+            debugPrint("userIdentifier: \(userIdentifier)")
+            
+            KeychainService.shared.saveAppleIdentifier(userIdentifier)
+            
+            self.viewModel.signInStarted(userIdentifier)
+        }
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        // 로그인 과정 중에 에러가 발생했을 때의 처리를 구현합니다.
+        // 에러를 적절하게 처리하는 코드를 작성하세요.
     }
 }

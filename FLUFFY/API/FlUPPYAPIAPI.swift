@@ -7,9 +7,9 @@
 
 import Foundation
  
-enum FlUPPYAPI {
+enum FlUFFYAPI {
     
-    static let baseURL: String = "54.180.2.148:8000"
+    static let baseURL: String = "http://54.180.2.148:8000"
     
     enum Header: APIHeader {
         
@@ -21,7 +21,7 @@ enum FlUPPYAPI {
         var key: String {
             
             switch self {
-            case .auth: return FlUPPYAPI.Header.authFieldName
+            case .auth: return FlUFFYAPI.Header.authFieldName
             case .contentMulti: return "Content-Type"
             }
         }

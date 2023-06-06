@@ -183,7 +183,7 @@ extension PermAgreeViewController {
         content.body = "스트레스 지수가 변경 된 일정은 없는지 확인 해보세요!"
         content.sound = UNNotificationSound.default
         
-        if let imageURL = Bundle.main.url(forResource: "fluffy_logo", withExtension: "png") {
+        if let imageURL = Bundle.main.url(forResource: "logo", withExtension: "png") {
             let attachment = try? UNNotificationAttachment(identifier: "imageAttachment", url: imageURL, options: nil)
             if let attachment = attachment {
                 content.attachments = [attachment]

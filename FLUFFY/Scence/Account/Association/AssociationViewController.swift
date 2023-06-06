@@ -61,11 +61,11 @@ final class AssociationViewController: UIViewController {
     
     private let dividerView = DividerView()
     
-    private let allAgreeImgeView = UIImageView()
-    
-    private let allAgreeTitleLabel = UILabel()
-    
-    private lazy var allAgreeStackView = UIStackView(arrangedSubviews: [allAgreeImgeView, allAgreeTitleLabel])
+//    private let allAgreeImgeView = UIImageView()
+//
+//    private let allAgreeTitleLabel = UILabel()
+//
+//    private lazy var allAgreeStackView = UIStackView(arrangedSubviews: [allAgreeImgeView, allAgreeTitleLabel])
     
     // MARK: ViewModel
     private let viewModel = AssociationViewModel()
@@ -87,13 +87,13 @@ final class AssociationViewController: UIViewController {
         self.titleStackView.translatesAutoresizingMaskIntoConstraints = false
         self.associationView.translatesAutoresizingMaskIntoConstraints = false
         self.dividerView.translatesAutoresizingMaskIntoConstraints = false
-        self.allAgreeStackView.translatesAutoresizingMaskIntoConstraints = false
+//        self.allAgreeStackView.translatesAutoresizingMaskIntoConstraints = false
         self.nextButton.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(titleStackView)
         self.view.addSubview(associationView)
         self.view.addSubview(dividerView)
-        self.view.addSubview(allAgreeStackView)
+//        self.view.addSubview(allAgreeStackView)
         self.view.addSubview(nextButton)
         
         self.logoImgView.image = UIImage(named: "fluffy_logo")
@@ -107,14 +107,14 @@ final class AssociationViewController: UIViewController {
         self.titleStackView.alignment = .leading
         self.titleStackView.spacing = Metric.stackSpacing
         
-        self.allAgreeImgeView.image = UIImage(named: "allCheck")
-        self.allAgreeImgeView.contentMode = .scaleAspectFit
-        self.allAgreeTitleLabel.attributedText = "약관 전체동의".set(style: Styles.allAgree)
-        
-        self.allAgreeStackView.spacing = Metric.allAgreeSpacing
-        self.allAgreeStackView.axis = .horizontal
-        self.allAgreeStackView.alignment = .center
-        self.allAgreeStackView.distribution = .fill
+//        self.allAgreeImgeView.image = UIImage(named: "allCheck")
+//        self.allAgreeImgeView.contentMode = .scaleAspectFit
+//        self.allAgreeTitleLabel.attributedText = "약관 전체동의".set(style: Styles.allAgree)
+//
+//        self.allAgreeStackView.spacing = Metric.allAgreeSpacing
+//        self.allAgreeStackView.axis = .horizontal
+//        self.allAgreeStackView.alignment = .center
+//        self.allAgreeStackView.distribution = .fill
     }
     
     private func setupAutoLayout() {
@@ -133,12 +133,12 @@ final class AssociationViewController: UIViewController {
             self.dividerView.heightAnchor.constraint(equalToConstant: 1),
             self.dividerView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             
-            self.allAgreeImgeView.widthAnchor.constraint(equalToConstant: Metric.allAgreeBtnSize.width),
-            self.allAgreeImgeView.heightAnchor.constraint(equalToConstant: Metric.allAgreeBtnSize.height),
-            
-            self.allAgreeStackView.topAnchor.constraint(equalTo: self.dividerView.bottomAnchor, constant: 19),
-            self.allAgreeStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-            self.allAgreeStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+//            self.allAgreeImgeView.widthAnchor.constraint(equalToConstant: Metric.allAgreeBtnSize.width),
+//            self.allAgreeImgeView.heightAnchor.constraint(equalToConstant: Metric.allAgreeBtnSize.height),
+//            
+//            self.allAgreeStackView.topAnchor.constraint(equalTo: self.dividerView.bottomAnchor, constant: 19),
+//            self.allAgreeStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+//            self.allAgreeStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
             
             self.nextButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             self.nextButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),

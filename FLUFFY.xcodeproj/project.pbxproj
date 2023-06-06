@@ -73,6 +73,8 @@
 		B6AB3E522A262586003241C2 /* PushSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AB3E512A262586003241C2 /* PushSettingViewController.swift */; };
 		B6B897FC2A2306770076D712 /* Font+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B897FB2A2306770076D712 /* Font+Ext.swift */; };
 		B6CEBA982A2F256E00ED9333 /* PermAgreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CEBA972A2F256E00ED9333 /* PermAgreeViewController.swift */; };
+		B6CEBA9A2A2F4DF100ED9333 /* AccountRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CEBA992A2F4DF100ED9333 /* AccountRequest.swift */; };
+		B6CEBA9C2A2F4EF100ED9333 /* AccountSignUpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CEBA9B2A2F4EF100ED9333 /* AccountSignUpResponse.swift */; };
 		B6EF94EE2A2D84C0006BBC8E /* Candy Beans.otf in Resources */ = {isa = PBXBuildFile; fileRef = B6EF94ED2A2D84C0006BBC8E /* Candy Beans.otf */; };
 		B6EF94F02A2D997D006BBC8E /* NicknameChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EF94EF2A2D997D006BBC8E /* NicknameChangeViewController.swift */; };
 /* End PBXBuildFile section */
@@ -147,6 +149,8 @@
 		B6AB3E512A262586003241C2 /* PushSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushSettingViewController.swift; sourceTree = "<group>"; };
 		B6B897FB2A2306770076D712 /* Font+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Ext.swift"; sourceTree = "<group>"; };
 		B6CEBA972A2F256E00ED9333 /* PermAgreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermAgreeViewController.swift; sourceTree = "<group>"; };
+		B6CEBA992A2F4DF100ED9333 /* AccountRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRequest.swift; sourceTree = "<group>"; };
+		B6CEBA9B2A2F4EF100ED9333 /* AccountSignUpResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSignUpResponse.swift; sourceTree = "<group>"; };
 		B6EF94ED2A2D84C0006BBC8E /* Candy Beans.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Candy Beans.otf"; sourceTree = "<group>"; };
 		B6EF94EF2A2D997D006BBC8E /* NicknameChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameChangeViewController.swift; sourceTree = "<group>"; };
 		E4A26D52599D7ACEF0FEB708 /* Pods_FLUFFY.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FLUFFY.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -244,6 +248,8 @@
 			children = (
 				B65B42052A28284C00E6B579 /* Account.swift */,
 				B65B42072A28286100E6B579 /* AccountAPIs.swift */,
+				B6CEBA992A2F4DF100ED9333 /* AccountRequest.swift */,
+				B6CEBA9B2A2F4EF100ED9333 /* AccountSignUpResponse.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -604,10 +610,12 @@
 				B6907DBD2A207661001B22C1 /* Encodable+Ext.swift in Sources */,
 				B65B420A2A283AFB00E6B579 /* MyPageRowView.swift in Sources */,
 				B6B897FC2A2306770076D712 /* Font+Ext.swift in Sources */,
+				B6CEBA9A2A2F4DF100ED9333 /* AccountRequest.swift in Sources */,
 				B6CEBA982A2F256E00ED9333 /* PermAgreeViewController.swift in Sources */,
 				B6907DDA2A20A44D001B22C1 /* TabBarViewController.swift in Sources */,
 				B6382BD82A25889500A40724 /* RxViewModel.swift in Sources */,
 				B696885E2A1F12CA009CC9B6 /* SceneDelegate.swift in Sources */,
+				B6CEBA9C2A2F4EF100ED9333 /* AccountSignUpResponse.swift in Sources */,
 				B6907DD82A20A278001B22C1 /* BaseViewController.swift in Sources */,
 				B69688762A1F1BF3009CC9B6 /* AppleService.swift in Sources */,
 				9C2F58BB2A27421F00B36415 /* CustomSlider.swift in Sources */,

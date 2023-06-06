@@ -17,6 +17,7 @@ extension UserDefaults {
         static let PUSH_TIME_KEY = "push_time_key"
         
         static let kIsPermAgreed = "isPermAgreed"
+        static let kIsUserScore = "IsUserScore"
     }
     
     static func isFirstAppLauch() -> Bool {
@@ -38,6 +39,16 @@ extension UserDefaults {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: Const.kIsPermAgreed)
+            UserDefaults.standard.synchronize()
+        }
+    }
+    
+    var userScore: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: Const.kIsUserScore)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Const.kIsUserScore)
             UserDefaults.standard.synchronize()
         }
     }
