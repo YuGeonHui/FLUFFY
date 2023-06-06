@@ -56,33 +56,30 @@ final class ViewController: BaseViewController {
     }
     
     // MARK: Views
-    private let nicknameLabel = UILabel().then {
-        $0.attributedText = "둥둥".set(style: Styles.nickname)
-        $0.translatesAutoresizingMaskIntoConstraints = false
-    }
+    private let nicknameLabel = UILabel()
     
-    private let statusImageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFit
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.image = UIImage(named: "GoodStatus")
+    private let statusLabel = PaddingLabel().then {
+        $0.backgroundColor = .red
+        $0.text = "WARNING"
     }
     
     private let statusDesc = UILabel().then {
         $0.attributedText = "적절한 스트레스가 도움이 되는 상태".set(style: Styles.status)
-        $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private let characterImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.image = UIImage(named: "character_warning")
+        $0.image = UIImage(named: "character_danger")
     }
     
     private let messageLabel = UILabel().then {
         $0.numberOfLines = 0
-        $0.translatesAutoresizingMaskIntoConstraints = false
         $0.attributedText = "일과 휴식의 경계가 아슬아슬해요!\n적절한 휴식시기를 놓치지 않도록 주의해주세요.".set(style: Styles.message)
     }
+    
+    private lazy var topStackView = UIStackView(arrangedSubviews: [nicknameLabel, statusLabel, statusDesc])
+    
+//    private lazy var stackView = UIStackView(arrangedSubviews: [, characterImageView, messageLabel])
     
     // MARK: ViewModel
     private let viewModel = HomeViewModel()
@@ -91,44 +88,57 @@ final class ViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupViews()
         setupAutoLayout()
         bindInputs()
         bindOutputs()
-        
+      
         viewModel.bind()
+        
+        self.view.backgroundColor = UIColor(hex: "f9f9f9")
     }
     
     deinit {
         viewModel.unbind()
     }
     
+    private func setupViews() {
+        
+        self.view.addSubview(topStackView)
+        self.view.addSubview(characterImageView)
+        self.view.addSubview(messageLabel)
+        
+        self.topStackView.translatesAutoresizingMaskIntoConstraints = false
+        self.characterImageView.translatesAutoresizingMaskIntoConstraints = false
+        self.messageLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let nickname = UserDefaults.standard.string(forKey: NICKNAME_KEY)
+        
+        guard let nickname = nickname else { return }
+        self.nicknameLabel.attributedText = nickname.set(style: Styles.nickname)
+        
+        topStackView.axis = .vertical
+        topStackView.alignment = .center
+        topStackView.spacing = 20
+    }
+    
     private func setupAutoLayout() {
         
-        self.view.addSubview(self.nicknameLabel)
-        self.view.addSubview(self.statusImageView)
-        self.view.addSubview(self.statusDesc)
-        self.view.addSubview(self.characterImageView)
-        self.view.addSubview(self.messageLabel)
-        
         NSLayoutConstraint.activate([
-            self.nicknameLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: Metric.nickBefore),
-            self.nicknameLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             
-            self.statusImageView.topAnchor.constraint(equalTo: self.nicknameLabel.bottomAnchor, constant: 11),
-            self.statusImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            self.statusImageView.widthAnchor.constraint(equalToConstant: Metric.statusBarSize.width),
-            self.statusImageView.heightAnchor.constraint(equalToConstant: Metric.statusBarSize.height),
+            self.topStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            self.topStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+            self.topStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             
-            self.statusDesc.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            self.statusDesc.topAnchor.constraint(equalTo: self.statusImageView.bottomAnchor, constant: 11),
-            
-            self.characterImageView.topAnchor.constraint(equalTo: self.statusDesc.bottomAnchor, constant: 11),
-            self.characterImageView.widthAnchor.constraint(equalToConstant: Metric.charaterSize.width),
+//            self.characterImageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+//            self.characterImageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+            self.characterImageView.topAnchor.constraint(equalTo: self.topStackView.bottomAnchor, constant: 20),
+            self.characterImageView.bottomAnchor.constraint(equalTo: self.messageLabel.topAnchor, constant: -20),
             self.characterImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            self.characterImageView.heightAnchor.constraint(equalToConstant: Metric.charaterSize.height),
             
-            self.messageLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            self.messageLabel.topAnchor.constraint(equalTo: self.characterImageView.bottomAnchor, constant: 33)
+            self.messageLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.messageLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.messageLabel.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -80)
         ])
     }
 }
@@ -155,10 +165,6 @@ extension ViewController {
     private func updateViews(_ status: Status?) {
         
         guard let status = status else { return }
-        
-        self.statusImageView.widthAnchor.constraint(equalToConstant: status.statusBarSize.width).isActive = true
-        self.statusImageView.heightAnchor.constraint(equalToConstant: status.statusBarSize.height).isActive = true
-        self.statusImageView.image = status.statusBar
         
         self.characterImageView.image = status.icon
         self.messageLabel.text = status.message

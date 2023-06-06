@@ -42,10 +42,20 @@ class MyPageViewController: UIViewController {
             $0.font = UIFont.pretendard(.regular, size: 15)
 //            $0.color = UIColor(hex: "")
         }
+        
+        static let status: Style = Style {
+            $0.font = UIFont.candyBean(.normal, size: 12)
+            $0.color = UIColor(hex: "ffffff")
+        }
     }
     
     private let nicknameLabel = UILabel().then {
-        $0.attributedText = "둥둥".set(style: Styles.nickname)
+        
+        let nickname = UserDefaults.standard.string(forKey: NICKNAME_KEY)
+        
+        guard let nickname = nickname else { return }
+        
+        $0.attributedText = nickname.set(style: Styles.nickname)
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -55,10 +65,11 @@ class MyPageViewController: UIViewController {
         $0.contentMode = .scaleAspectFit
     }
     
-    private let statusBarImageView = UIImageView().then {
+    private var statusLabel = PaddingLabel().then {
+        $0.padding = UIEdgeInsets(top: 9, left: 12, bottom: 9, right: 12)
+        $0.backgroundColor = .cyan
+        $0.attributedText = "WARNING".set(style: Styles.status)
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.image = UIImage(named: "GoodStatus")
-        $0.contentMode = .scaleAspectFit
     }
     
     private let messageLabel = UILabel().then {
@@ -114,7 +125,10 @@ class MyPageViewController: UIViewController {
     
         self.view.addSubview(nicknameLabel)
         self.view.addSubview(editImageView)
-        self.view.addSubview(statusBarImageView)
+//        self.view.addSubview(statusBarImageView)
+        
+        
+        self.view.addSubview(statusLabel)
         self.view.addSubview(messageLabel)
         self.view.addSubview(characterImageView)
         self.view.addSubview(dividerView)
@@ -136,13 +150,11 @@ class MyPageViewController: UIViewController {
         editImageView.widthAnchor.constraint(equalToConstant: Metric.iconSize.width).isActive = true
         editImageView.heightAnchor.constraint(equalToConstant: Metric.iconSize.height).isActive = true
         
-        statusBarImageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true
-        statusBarImageView.topAnchor.constraint(equalTo: self.nicknameLabel.bottomAnchor, constant: 16).isActive = true
-        statusBarImageView.widthAnchor.constraint(equalToConstant: Metric.statusBarSize.width).isActive = true
-        statusBarImageView.heightAnchor.constraint(equalToConstant: Metric.statusBarSize.height).isActive = true
+        statusLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true
+        statusLabel.topAnchor.constraint(equalTo: self.nicknameLabel.bottomAnchor, constant: 16).isActive = true
         
         messageLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true
-        messageLabel.topAnchor.constraint(equalTo: self.statusBarImageView.bottomAnchor, constant: 16).isActive = true
+        messageLabel.topAnchor.constraint(equalTo: self.statusLabel.bottomAnchor, constant: 12).isActive = true
         
         characterImageView.widthAnchor.constraint(equalToConstant: Metric.characterSize.width).isActive = true
         characterImageView.heightAnchor.constraint(equalToConstant: Metric.characterSize.height).isActive = true
@@ -152,7 +164,7 @@ class MyPageViewController: UIViewController {
         NSLayoutConstraint.activate([
             dividerView.widthAnchor.constraint(equalToConstant: Metric.dividerSize.width),
             dividerView.heightAnchor.constraint(equalToConstant: Metric.dividerSize.height),
-//            dividerView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            dividerView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             dividerView.topAnchor.constraint(equalTo: self.characterImageView.bottomAnchor, constant: 31),
             
             pushSettingView.topAnchor.constraint(equalTo: self.dividerView.bottomAnchor, constant: 30),
@@ -264,12 +276,13 @@ extension MyPageViewController {
         
         self.characterImageView.image = status.icon
         self.messageLabel.text = status.message
-        self.statusBarImageView.image = status.statusBar
+//        self.statusLabel.image = status.statusBar
     }
     
     private func showMyInfoView() {
         
-        let myInfoVC = MyInfoViewController()
+//        let myInfoVC = MyInfoViewController()
+        let myInfoVC = NicknameChangeViewController()
         self.navigationController?.pushViewController(myInfoVC, animated: true)
     }
     

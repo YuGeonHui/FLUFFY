@@ -72,6 +72,7 @@
 		B6AB3E522A262586003241C2 /* PushSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AB3E512A262586003241C2 /* PushSettingViewController.swift */; };
 		B6B897FC2A2306770076D712 /* Font+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B897FB2A2306770076D712 /* Font+Ext.swift */; };
 		B6EF94EE2A2D84C0006BBC8E /* Candy Beans.otf in Resources */ = {isa = PBXBuildFile; fileRef = B6EF94ED2A2D84C0006BBC8E /* Candy Beans.otf */; };
+		B6EF94F02A2D997D006BBC8E /* NicknameChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EF94EF2A2D997D006BBC8E /* NicknameChangeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -143,6 +144,7 @@
 		B6AB3E512A262586003241C2 /* PushSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushSettingViewController.swift; sourceTree = "<group>"; };
 		B6B897FB2A2306770076D712 /* Font+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Ext.swift"; sourceTree = "<group>"; };
 		B6EF94ED2A2D84C0006BBC8E /* Candy Beans.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Candy Beans.otf"; sourceTree = "<group>"; };
+		B6EF94EF2A2D997D006BBC8E /* NicknameChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameChangeViewController.swift; sourceTree = "<group>"; };
 		E4A26D52599D7ACEF0FEB708 /* Pods_FLUFFY.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FLUFFY.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EED37F88DB09F52E209827C0 /* Pods-FLUFFY.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FLUFFY.debug.xcconfig"; path = "Target Support Files/Pods-FLUFFY/Pods-FLUFFY.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -228,8 +230,7 @@
 		B65B41FD2A27351C00E6B579 /* MyInfo */ = {
 			isa = PBXGroup;
 			children = (
-				B65B41FE2A27352900E6B579 /* MyInfoViewController.swift */,
-				B65B42002A27357000E6B579 /* MyInfoViewModel.swift */,
+				B6EF94EF2A2D997D006BBC8E /* NicknameChangeViewController.swift */,
 			);
 			path = MyInfo;
 			sourceTree = "<group>";
@@ -284,6 +285,8 @@
 		B65BDCE82A2B310A00DEFAD8 /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
+				B65B41FE2A27352900E6B579 /* MyInfoViewController.swift */,
+				B65B42002A27357000E6B579 /* MyInfoViewModel.swift */,
 				B65BDCE02A2B30A900DEFAD8 /* SignInViewController.swift */,
 				B65BDCE92A2B311500DEFAD8 /* SignInViewModel.swift */,
 			);
@@ -604,6 +607,7 @@
 				B65B420C2A2861D300E6B579 /* Bundle+Ext.swift in Sources */,
 				B661A2DA2A2C61B600F54A44 /* String+Ext.swift in Sources */,
 				B6907DBB2A2075A9001B22C1 /* UIColor+Ext.swift in Sources */,
+				B6EF94F02A2D997D006BBC8E /* NicknameChangeViewController.swift in Sources */,
 				B6907DD42A20A0F2001B22C1 /* App.swift in Sources */,
 				B6907DCE2A207AA1001B22C1 /* ScheudlerViewController.swift in Sources */,
 				B65B42082A28286100E6B579 /* AccountAPIs.swift in Sources */,

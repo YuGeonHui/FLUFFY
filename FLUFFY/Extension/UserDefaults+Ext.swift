@@ -7,7 +7,15 @@
 
 import Foundation
 
+let NICKNAME_KEY = "nickname_key"
+let PUSH_TIME_KEY = "push_time_key"
+
 extension UserDefaults {
+    
+    enum Keys {
+        static let NICKNAME_KEY = "nickname_key"
+        static let PUSH_TIME_KEY = "push_time_key"
+    }
     
     static func isFirstAppLauch() -> Bool {
         

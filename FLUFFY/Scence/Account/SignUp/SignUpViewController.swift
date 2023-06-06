@@ -54,11 +54,18 @@ final class SignUpViewController: UIViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor(hex: "f9f9f9")
-        self.navigationController?.navigationBar.isHidden = false
         
         self.setupViews()
         self.setupAutoLayout()
         self.bindView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.tintColor = UIColor(hex: "454545")
+        self.navigationItem.backBarButtonItem?.title = ""
     }
     
     private func setupViews() {

@@ -39,12 +39,17 @@ class AppGuideViewController: UIViewController {
         view.backgroundColor = UIColor(hex: "f9f9f9")
         
         self.scrollView.delegate = self
-        self.navigationController?.navigationBar.isHidden = true
-        
+       
         self.setupViews()
         self.setupViewControllers()
         self.setupAutoLayout()
         self.bindView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     private func setupViews() {

@@ -1,57 +1,26 @@
 //
-//  MyInfoViewController.swift
+//  NicknameChangeViewController.swift
 //  FLUFFY
 //
-//  Created by geonhui Yu on 2023/05/31.
+//  Created by geonhui Yu on 2023/06/05.
 //
 
 import UIKit
 import RxCocoa
 import RxSwift
+import RxGesture
 import SwiftRichString
 
-final class MyInfoViewController: UIViewController {
+final class NicknameChangeViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     
-    private let titleLabel = UILabel()
-    
-    private let descLabel = UILabel()
-    
-    private let nicknameField = UITextField()
-    
-    private lazy var titleStackViwe = UIStackView(arrangedSubviews: [titleLabel, descLabel])
-    
-    private let dividerView = DividerView()
-    
-    private let imageView = UIImageView()
-    
-    private let cautionLabel = UILabel()
-    
-    private let startButton = CommonButtonView(background: UIColor(hex: "000000"), title: "시작하기")
-    
     private enum Metric {
-        
-        static let titleSpacing: CGFloat = 18
         
         static let btnHeight: CGFloat = 53
     }
     
     private enum Styles {
-        
-        static let fluffy: Style = Style {
-            $0.font = UIFont.candyBean(.normal, size: 25)
-            $0.color = UIColor(hex: "2d2d2d")
-            $0.minimumLineHeight = 26
-            $0.maximumLineHeight = 26
-        }
-        
-        static let title: Style = Style {
-            $0.font = UIFont.pretendard(.bold, size: 25)
-            $0.color = UIColor(hex: "2d2d2d")
-            $0.minimumLineHeight = 26
-            $0.maximumLineHeight = 26
-        }
         
         static let desc: Style = Style {
             $0.font = UIFont.pretendard(.medium, size: 13)
@@ -71,6 +40,16 @@ final class MyInfoViewController: UIViewController {
         }
     }
     
+    private let descLabel = UILabel()
+    
+    private let nicknameField = UITextField()
+    
+    private let dividerView = DividerView()
+    
+    private let cautionLabel = UILabel()
+    
+    private let startButton = CommonButtonView(background: UIColor(hex: "000000"), title: "시작하기")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -83,23 +62,17 @@ final class MyInfoViewController: UIViewController {
     
     private func setupViews() {
         
-        self.titleStackViwe.translatesAutoresizingMaskIntoConstraints = false
-        self.startButton.translatesAutoresizingMaskIntoConstraints = false
+        self.descLabel.translatesAutoresizingMaskIntoConstraints = false
         self.nicknameField.translatesAutoresizingMaskIntoConstraints = false
-        self.imageView.translatesAutoresizingMaskIntoConstraints = false
         self.dividerView.translatesAutoresizingMaskIntoConstraints = false
         self.cautionLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.startButton.translatesAutoresizingMaskIntoConstraints = false
         
-        self.view.addSubview(titleStackViwe)
-        self.view.addSubview(startButton)
-        self.view.addSubview(nicknameField)
-        self.view.addSubview(imageView)
+        self.view.addSubview(descLabel)
         self.view.addSubview(dividerView)
+        self.view.addSubview(nicknameField)
         self.view.addSubview(cautionLabel)
-        
-        let style = StyleXML(base: Styles.title, ["b": Styles.fluffy])
-        self.titleLabel.attributedText = "<b>Fluffy</b>에서 사용할\n닉네임을 입력해주세요!".set(style: style)
-        self.titleLabel.numberOfLines = 0
+        self.view.addSubview(startButton)
         
         self.descLabel.attributedText = "한글 및 영문, 숫자, 특수문자 만 사용 가능하며 최소 2글자 이상,\n최대 10자 이하까지만 등록 가능합니다.".set(style: Styles.desc)
         self.descLabel.numberOfLines = 0
@@ -107,25 +80,20 @@ final class MyInfoViewController: UIViewController {
         self.nicknameField.attributedPlaceholder = "닉네임 입력".set(style: Styles.nicknameField)
         self.nicknameField.clearButtonMode = .whileEditing
         
-        self.titleStackViwe.axis = .vertical
-        self.titleStackViwe.alignment = .leading
-        self.titleStackViwe.distribution = .fill
-        self.titleStackViwe.spacing = Metric.titleSpacing
-        
-        self.imageView.image = UIImage(named: "nicknameBackground")
-        self.imageView.contentMode = .scaleAspectFit
+        self.startButton.isUserInteractionEnabled = false
     }
     
     private func setupAutoLayout() {
         
         NSLayoutConstraint.activate([
-            titleStackViwe.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-            titleStackViwe.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-            titleStackViwe.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 56),
+            
+            self.descLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 33),
+            self.descLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+            self.descLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
             
             self.nicknameField.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             self.nicknameField.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-            self.nicknameField.topAnchor.constraint(equalTo: self.titleStackViwe.bottomAnchor, constant: 20),
+            self.nicknameField.topAnchor.constraint(equalTo: self.descLabel.bottomAnchor, constant: 20),
             
             self.dividerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             self.dividerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
@@ -136,12 +104,9 @@ final class MyInfoViewController: UIViewController {
             self.cautionLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             self.cautionLabel.topAnchor.constraint(equalTo: self.dividerView.bottomAnchor, constant: 7),
             
-            self.imageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 120),
-            self.imageView.bottomAnchor.constraint(equalTo: self.startButton.topAnchor, constant: -70),
-            
             self.startButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             self.startButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-            self.startButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -53),
+            self.startButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             self.startButton.heightAnchor.constraint(equalToConstant: Metric.btnHeight)
         ])
     }
@@ -153,12 +118,12 @@ final class MyInfoViewController: UIViewController {
             .withUnretained(self)
             .bind(onNext: { $0.0.setValidateInput($0.1) })
             .disposed(by: self.disposeBag)
-        
-        self.startButton.rx.tap
-            .withUnretained(self)
-            .bind(onNext: { $0.0.navigationController?.popViewController(animated: true) })
-            .disposed(by: self.disposeBag)
     }
+}
+
+
+
+extension NicknameChangeViewController {
     
     private func setValidateInput(_ text: String?) {
         

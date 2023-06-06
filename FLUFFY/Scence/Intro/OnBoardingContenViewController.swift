@@ -89,14 +89,14 @@ final class OnBoardingContenViewController: UIViewController {
         
         NSLayoutConstraint.activate([
         
-            stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 38),
             stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             stackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             
-            guideImgeView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            guideImgeView.topAnchor.constraint(equalTo: self.stackView.bottomAnchor, constant: 58),
-            guideImgeView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-            guideImgeView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20)
+//            guideImgeView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 100),
+            guideImgeView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 45),
+            guideImgeView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -45),
+            guideImgeView.topAnchor.constraint(equalTo: self.stackView.bottomAnchor, constant: 70)
         ])
     }
 }

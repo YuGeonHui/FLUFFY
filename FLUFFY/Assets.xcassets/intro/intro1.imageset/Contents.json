@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "intro0.png",
+      "filename" : "onBoarding1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "onBoarding1 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "onBoarding1 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

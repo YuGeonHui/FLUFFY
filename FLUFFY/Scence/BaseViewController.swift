@@ -47,8 +47,8 @@ class BaseViewController: UIViewController {
     
     private func setupBackButton() {
         
-        let attributes = [NSAttributedString.Key.font: UIFont.pretendard(.bold, size: 25),
-                          NSAttributedString.Key.foregroundColor: UIColor(hex: "454545"),
+        let attributes = [NSAttributedString.Key.font: UIFont.pretendard(.bold, size: 20),
+                          NSAttributedString.Key.foregroundColor: UIColor(hex: "2d2d2d"),
                           NSAttributedString.Key.baselineOffset: -3] as [NSAttributedString.Key : Any]
      
         let backButtonItem = UIBarButtonItem(title: "마이페이지", style: .plain, target: nil, action: nil)
@@ -56,15 +56,6 @@ class BaseViewController: UIViewController {
         navigationItem.backBarButtonItem = backButtonItem
 
         navigationItem.backBarButtonItem?.setTitleTextAttributes(attributes, for: .normal)
-    }
-    
-    private func setupBackButton2() {
-        
-        let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        navigationItem.backBarButtonItem = backButton
-        
-        let backImage = UIImage(named: "icon_back")?.withAlignmentRectInsets(UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0))
-        backButton.setBackButtonBackgroundImage(backImage, for: .normal, barMetrics: .default)
     }
     
     @objc private func showMyPageVC() {

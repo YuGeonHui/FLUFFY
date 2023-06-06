@@ -88,6 +88,7 @@ final class PushSettingViewController: UIViewController {
         timePickerView.layer.cornerRadius = 5
         timePickerView.clipsToBounds = true
         timePickerView.tintColor = UIColor.clear
+        timePickerView.text = "오후 10:00"
         
         let rightInsetView = UIView(frame: CGRect(x: 0, y: 0, width: 35, height: Metric.timePickerHeight))
         
