@@ -72,6 +72,7 @@
 		B6AB3E4F2A2620C5003241C2 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AB3E4E2A2620C5003241C2 /* MyPageViewModel.swift */; };
 		B6AB3E522A262586003241C2 /* PushSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AB3E512A262586003241C2 /* PushSettingViewController.swift */; };
 		B6B897FC2A2306770076D712 /* Font+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B897FB2A2306770076D712 /* Font+Ext.swift */; };
+		B6CEBA982A2F256E00ED9333 /* PermAgreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CEBA972A2F256E00ED9333 /* PermAgreeViewController.swift */; };
 		B6EF94EE2A2D84C0006BBC8E /* Candy Beans.otf in Resources */ = {isa = PBXBuildFile; fileRef = B6EF94ED2A2D84C0006BBC8E /* Candy Beans.otf */; };
 		B6EF94F02A2D997D006BBC8E /* NicknameChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EF94EF2A2D997D006BBC8E /* NicknameChangeViewController.swift */; };
 /* End PBXBuildFile section */
@@ -145,6 +146,7 @@
 		B6AB3E4E2A2620C5003241C2 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		B6AB3E512A262586003241C2 /* PushSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushSettingViewController.swift; sourceTree = "<group>"; };
 		B6B897FB2A2306770076D712 /* Font+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Ext.swift"; sourceTree = "<group>"; };
+		B6CEBA972A2F256E00ED9333 /* PermAgreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermAgreeViewController.swift; sourceTree = "<group>"; };
 		B6EF94ED2A2D84C0006BBC8E /* Candy Beans.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Candy Beans.otf"; sourceTree = "<group>"; };
 		B6EF94EF2A2D997D006BBC8E /* NicknameChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameChangeViewController.swift; sourceTree = "<group>"; };
 		E4A26D52599D7ACEF0FEB708 /* Pods_FLUFFY.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FLUFFY.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -251,6 +253,7 @@
 			children = (
 				B65BDCD72A2B2C6D00DEFAD8 /* OnBoardingViewController.swift */,
 				B65BDCEE2A2C27DA00DEFAD8 /* OnBoardingContenViewController.swift */,
+				B6CEBA972A2F256E00ED9333 /* PermAgreeViewController.swift */,
 			);
 			path = Intro;
 			sourceTree = "<group>";
@@ -601,6 +604,7 @@
 				B6907DBD2A207661001B22C1 /* Encodable+Ext.swift in Sources */,
 				B65B420A2A283AFB00E6B579 /* MyPageRowView.swift in Sources */,
 				B6B897FC2A2306770076D712 /* Font+Ext.swift in Sources */,
+				B6CEBA982A2F256E00ED9333 /* PermAgreeViewController.swift in Sources */,
 				B6907DDA2A20A44D001B22C1 /* TabBarViewController.swift in Sources */,
 				B6382BD82A25889500A40724 /* RxViewModel.swift in Sources */,
 				B696885E2A1F12CA009CC9B6 /* SceneDelegate.swift in Sources */,

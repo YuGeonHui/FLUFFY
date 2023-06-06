@@ -20,13 +20,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         var firstVC: UIViewController = TabBarViewController()
         let isFirst = UserDefaults.isFirstAppLauch()
 
-        if !isFirst {
-            firstVC = AppGuideViewController()
+        if isFirst {
+            firstVC = UINavigationController(rootViewController: AppGuideViewController())
+        } else if !UserDefaults.standard.isPermAgreed {
+            firstVC = PermAgreeViewController()
         }
         
         window = UIWindow(windowScene: windowScene)
         
-        window?.rootViewController = UINavigationController(rootViewController: firstVC)
+        window?.rootViewController = firstVC
+        
 //        window?.rootViewController = secondVC
         
         window?.makeKeyAndVisible()

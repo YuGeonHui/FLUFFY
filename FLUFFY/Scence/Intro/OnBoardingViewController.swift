@@ -88,7 +88,6 @@ class AppGuideViewController: UIViewController {
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: 20),
             scrollView.bottomAnchor.constraint(equalTo: nextButton.topAnchor),
-//            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             
             nextButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             nextButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
@@ -148,8 +147,7 @@ class AppGuideViewController: UIViewController {
         self.nextButton.rx.tap
             .observe(on: MainScheduler.instance)
             .withUnretained(self)
-            .bind(onNext: {
-                $0.0.navigationController?.pushViewController(SignUpViewController(), animated: true) })
+            .bind(onNext: { $0.0.moveToNextScene() })
             .disposed(by: self.disposeBag)
     }
 }
@@ -159,5 +157,15 @@ extension AppGuideViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let pageIndex = Int(floor(scrollView.contentOffset.x / scrollView.frame.width))
         pageControl.currentPage = pageIndex
+    }
+}
+
+extension AppGuideViewController {
+    
+    private func moveToNextScene() {
+        
+        if !UserDefaults.standard.isPermAgreed {
+            self.navigationController?.pushViewController(PermAgreeViewController(), animated: true)
+        }
     }
 }

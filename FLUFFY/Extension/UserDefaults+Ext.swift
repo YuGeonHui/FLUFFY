@@ -12,9 +12,11 @@ let PUSH_TIME_KEY = "push_time_key"
 
 extension UserDefaults {
     
-    enum Keys {
+    enum Const {
         static let NICKNAME_KEY = "nickname_key"
         static let PUSH_TIME_KEY = "push_time_key"
+        
+        static let kIsPermAgreed = "isPermAgreed"
     }
     
     static func isFirstAppLauch() -> Bool {
@@ -28,5 +30,15 @@ extension UserDefaults {
         }
         
         return isFirstLaunch
+    }
+    
+    var isPermAgreed: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: Const.kIsPermAgreed)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Const.kIsPermAgreed)
+            UserDefaults.standard.synchronize()
+        }
     }
 }
