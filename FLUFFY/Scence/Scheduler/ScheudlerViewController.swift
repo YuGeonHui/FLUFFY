@@ -26,7 +26,7 @@ class ScheudlerViewController: BaseViewController {
     
     private lazy var statusLabel : UILabel = {
         let label = UILabel()
-        label.text = "\(userName)님의 현재 상태"
+        label.text = "동동님의 현재 상태"
         label.font = UIFont.pretendard(.medium, size: 15)
         label.textColor = UIColor(red: 0.321, green: 0.321, blue: 0.321, alpha: 1)
         return label
@@ -37,6 +37,13 @@ class ScheudlerViewController: BaseViewController {
         image.image = UIImage(named: "WarningStatus")
         return image
     }()
+    
+    private lazy var statusButton : UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(statusButtonIsClicked), for: .touchUpInside)
+        return button
+    }()
+    
     
     private let titleLabel : UILabel = {
         let label = UILabel()
@@ -137,12 +144,20 @@ class ScheudlerViewController: BaseViewController {
     override func viewDidLoad() {
         getUser()
         super.viewDidLoad()
+        print("viewdidload")
         self.view.backgroundColor = .white
         print("today - \(selectedDate)")
         self.configure()
         setEvents()
-        
-        
+    }
+    
+    @objc private func statusButtonIsClicked() {
+        if KeychainService.shared.loadToken() == nil {
+            let vc = SignUpViewController()
+            vc.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc, animated: true)
+            self.tabBarController?.tabBar.isHidden = true
+        }
     }
     
     private func configure() {
@@ -168,13 +183,22 @@ class ScheudlerViewController: BaseViewController {
     }
     
     private func getUser() {
-        User().getUserName(self)
+        if KeychainService.shared.loadToken() != nil {
+            User().getUserName(self)
+        } else {
+            print("비로그인")
+            self.statusLabel.text = "로그인이 필요해요!"
+            self.statusIamge.image = UIImage(named: "LoginStatus")
+        }
+        
     }
     
     func didSuccess(_ response: UserInfo) {
-        self.userName = response.userNickname
-        print("username - \(userName)")
-        self.view.layoutIfNeeded()
+        if let getUserName = response.userNickname {
+            self.statusLabel.text = "\(getUserName)" + "님의 현재 상태"
+        } else {
+            
+        }
     }
     
     private func configureFSCalendar() {
@@ -193,12 +217,14 @@ class ScheudlerViewController: BaseViewController {
     }
     
     private func configureStatus() {
+        
         self.view.addSubview(self.statusLabel)
         self.view.addSubview(self.statusIamge)
-        
+        self.view.addSubview(self.statusButton)
         
         self.statusLabel.translatesAutoresizingMaskIntoConstraints = false
         self.statusIamge.translatesAutoresizingMaskIntoConstraints = false
+        self.statusButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             self.statusLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 14),
@@ -206,7 +232,9 @@ class ScheudlerViewController: BaseViewController {
             self.statusIamge.centerYAnchor.constraint(equalTo: self.statusLabel.centerYAnchor),
             self.statusIamge.heightAnchor.constraint(equalToConstant: 18),
             self.statusIamge.widthAnchor.constraint(equalToConstant: 54),
-            self.statusIamge.leadingAnchor.constraint(equalTo: self.statusLabel.trailingAnchor, constant: 5)
+            self.statusIamge.leadingAnchor.constraint(equalTo: self.statusLabel.trailingAnchor, constant: 5),
+            self.statusButton.centerXAnchor.constraint(equalTo: self.statusIamge.centerXAnchor),
+            self.statusButton.centerYAnchor.constraint(equalTo: self.statusIamge.centerYAnchor)
         ])
     }
     
@@ -305,9 +333,11 @@ extension ScheudlerViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 수정 모달 팝업 - 통신해서 해당 날짜에 기존 데이터 없으면 실행 x
-        let vc = EditModalViewController()
-        vc.selectedDate = selectedDate
-        present(vc, animated: true)
+        if KeychainService.shared.loadToken() != nil {
+            let vc = EditModalViewController()
+            vc.selectedDate = selectedDate
+            present(vc, animated: true)
+        }
     }
 }
 

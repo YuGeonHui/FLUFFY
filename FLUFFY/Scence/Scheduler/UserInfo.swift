@@ -8,8 +8,8 @@
 import Foundation
 
 struct UserInfo: Decodable {
-    let userNickname: String
-    let userPoint: Int
+    let userNickname: String?
+    let userPoint: Double
     let userCreatedTime: String
     
     enum CodingKeys: String, CodingKey {
