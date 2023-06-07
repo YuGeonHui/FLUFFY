@@ -38,7 +38,7 @@ final class MyInfoViewModel: RxViewModel {
         
         let url = AccountAPI.signUp.url
         let request = AccountSignUpRequest(uuid: userIdentifier, nickname: nickname).dictionary
-        let header : HTTPHeaders = ["Content-Type" : "application/json"]
+        let header: HTTPHeaders = ["Content-Type" : "application/json"]
         
         AF.request(
             url, // [주소]
@@ -55,6 +55,8 @@ final class MyInfoViewModel: RxViewModel {
             case .success(let value):
 
                 // result -> Token
+                debugPrint("signup Finish!!!!!: \(value.token)")
+                
                 UserDefaults.standard.set(nickname, forKey: NICKNAME_KEY)
                 self._showMainView.accept(())
                 

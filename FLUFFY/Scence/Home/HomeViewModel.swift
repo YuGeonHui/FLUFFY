@@ -55,7 +55,9 @@ final class HomeViewModel: RxViewModel, HomeViewModelInputs, HomeViewModelOutput
             
             switch result {
             case .success(let response):
+                
                 print("Response:", response)
+                UserDefaults.standard.userScore = response.point ?? 0.0
                 
             case .failure(let error):
                 print("Error:", error)

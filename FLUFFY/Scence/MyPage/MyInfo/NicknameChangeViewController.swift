@@ -10,6 +10,7 @@ import RxCocoa
 import RxSwift
 import RxGesture
 import SwiftRichString
+import Alamofire
 
 final class NicknameChangeViewController: UIViewController {
     
@@ -88,6 +89,8 @@ final class NicknameChangeViewController: UIViewController {
         
         self.saveButton.isUserInteractionEnabled = false
     }
+    
+    private let apiworker = NetworkService()
     
     private func setupNicknameField() {
         
@@ -169,7 +172,27 @@ extension NicknameChangeViewController {
     
     private func withdrawTapped() {
         
-        // 회원탈퇴 로직 추가
+        guard let token = KeychainService.shared.loadToken() else { return }
+        
+        let url = AccountAPI.remove.url
+        let headers: HTTPHeaders? = HTTPHeaders([FlUFFYAPI.Header.authFieldName: FlUFFYAPI.Header.auth(token).value])
+        
+        self.apiworker.getRequest(url: url, method: .delete, headers: headers) {(result: Result<AccountRemoveResponse, Error>) in
+            switch result {
+            case .success(let response):
+                
+                print(response)
+                
+                self.navigationController?.popViewController(animated: true)
+                KeychainService.shared.deleteToken()
+                
+                // 화면닫기 이후 갱신 필요
+                
+            case .failure(let error):
+                
+                print(error)
+            }
+        }
     }
     
     private func saveButtonTapped() {

@@ -12,5 +12,18 @@ struct AccountResponse: Codable {
 }
 
 struct AccountUserResponse: Codable {
-    let point: String
+    
+    let nickname: String?
+    let point: Double?
+    let dateStr: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case nickname = "user_nickname"
+        case point = "user_point"
+        case dateStr = "user_created_time"
+    }
+}
+
+struct AccountRemoveResponse: Codable {
+    let msg: String
 }

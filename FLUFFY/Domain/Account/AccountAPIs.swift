@@ -13,6 +13,7 @@ enum AccountAPI {
     case signUp
     case userInfo
     case check
+    case remove
 
     var url: String {
         
@@ -21,6 +22,9 @@ enum AccountAPI {
         case .signUp: return "\(FlUFFYAPI.baseURL)/api/account/signup"
         case .userInfo: return "\(FlUFFYAPI.baseURL)/api/user/info"
         case .check: return "\(FlUFFYAPI.baseURL)/api/account/check"
+            
+            // 탈퇴 시, 토근도 지울 것!
+        case .remove: return "\(FlUFFYAPI.baseURL)/api/user/secession"
         }
     }
 }
