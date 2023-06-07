@@ -40,6 +40,11 @@ final class ViewController: BaseViewController {
             $0.alignment = .center
         }
         
+        static let statusBar: Style = Style {
+            $0.font = UIFont.candyBean(.normal, size: 19)
+            $0.color = UIColor(hex: "ffffff")
+        }
+        
         static let message: Style = Style {
             $0.font = UIFont.pretendard(.medium, size: 15)
             $0.color = UIColor(hex: "2d2d2d")
@@ -49,7 +54,7 @@ final class ViewController: BaseViewController {
         }
         
         static let status: Style = Style {
-            $0.font = UIFont.pretendard(.semiBold, size: 19)
+            $0.font = UIFont.pretendard(.semiBold, size: 14)
             $0.color = UIColor(hex: "19c8ff")
             $0.alignment = .center
         }
@@ -59,9 +64,9 @@ final class ViewController: BaseViewController {
     private let nicknameLabel = UILabel()
     
     private let statusLabel = PaddingLabel().then {
-        $0.backgroundColor = .red
-        $0.text = "WARNING"
-        $0.padding = UIEdgeInsets(top: 12, left: 8, bottom: 8, right: 12)
+        $0.backgroundColor = UIColor(hex: "19c8ff")
+        $0.attributedText = "Good".set(style: Styles.statusBar)
+        $0.padding = UIEdgeInsets(top: 11, left: 8, bottom: 9, right: 12)
     }
     
     private let statusDesc = UILabel().then {
@@ -70,12 +75,12 @@ final class ViewController: BaseViewController {
     
     private let characterImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
-        $0.image = UIImage(named: "character_danger")
+        $0.image = UIImage(named: "character_good")
     }
     
     private let messageLabel = UILabel().then {
         $0.numberOfLines = 0
-        $0.attributedText = "일과 휴식의 경계가 아슬아슬해요!\n적절한 휴식시기를 놓치지 않도록 주의해주세요.".set(style: Styles.message)
+        $0.attributedText = "스트레스 관리를 잘 하고 계시네요 !\n현재 상태를 유지하도록 꾸준히 노력해봐요.".set(style: Styles.message)
     }
     
     private lazy var topStackView = UIStackView(arrangedSubviews: [nicknameLabel, statusLabel, statusDesc])

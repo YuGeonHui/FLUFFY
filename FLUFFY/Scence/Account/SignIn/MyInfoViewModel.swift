@@ -7,6 +7,7 @@
 
 import UIKit
 import RxCocoa
+import Alamofire
 import RxSwift
 
 final class MyInfoViewModel: RxViewModel {
@@ -36,33 +37,31 @@ final class MyInfoViewModel: RxViewModel {
     private func signUp(_ userIdentifier: String, _ nickname: String) {
         
         let url = AccountAPI.signUp.url
-        let request = AccountSignUpRequest(uuid: userIdentifier, nickname: nickname)
+        let request = AccountSignUpRequest(uuid: userIdentifier, nickname: nickname).dictionary
+        let header : HTTPHeaders = ["Content-Type" : "application/json"]
         
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: request.dictionary) else {
-            print("Failed to convert parameters to JSON data")
-            return
-        }
-        
-//        debugPrint("jsonData: \(jsonData)")
-        
-        self.apiworker.performRequest(url: url, method: .post, parameters: jsonData, headers: nil) { (result: Result<AccountResponse, Error>) in
+        AF.request(
+            url, // [주소]
+            method: .post, // [전송 타입]
+            parameters: request, // [전송 데이터]
+            encoding: JSONEncoding.default, // [인코딩 스타일]
+            headers: header // [헤더 지정]
+        )
+        .validate(statusCode: 200..<300)
+        .responseDecodable(of: AccountResponse.self, completionHandler: { response in
             
-            switch result {
-            case .success(let response):
-                // 성공적으로 응답을 받았을 때의 처리
-                print("Response:", response)
-                let token = response.msg
-                KeychainService.shared.saveToken(token: token)
+            switch response.result {
                 
+            case .success(let value):
+
+                // result -> Token
+                UserDefaults.standard.set(nickname, forKey: NICKNAME_KEY)
                 self._showMainView.accept(())
                 
             case .failure(let error):
-                // 통신 중 에러가 발생했을 때의 처리
                 
-                self._showMainView.accept(())
-                
-                print("Error:", error)
+                print(error.localizedDescription)
             }
-        }
+        })
     }
 }

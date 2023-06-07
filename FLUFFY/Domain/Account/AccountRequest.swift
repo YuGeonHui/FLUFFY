@@ -7,6 +7,10 @@
 
 import Foundation
 
+struct CheckUserInfoRequest: Codable {
+    let uuid: String
+}
+
 struct AccountSignInRequest: Codable {
     let uuid: String
 }

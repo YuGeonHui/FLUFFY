@@ -51,7 +51,7 @@ final class HomeViewModel: RxViewModel, HomeViewModelInputs, HomeViewModelOutput
         
         let headers: HTTPHeaders? = HTTPHeaders([FlUFFYAPI.Header.authFieldName: FlUFFYAPI.Header.auth(token).value])
         
-        self.apiworker.performRequest(url: url, method: .get, parameters: nil as Empty?, headers: headers) { (result: Result<AccountResponse, Error>) in
+        self.apiworker.performRequest(url: url, method: .get, parameters: nil as Empty?, headers: headers) { (result: Result<AccountUserResponse, Error>) in
             
             switch result {
             case .success(let response):

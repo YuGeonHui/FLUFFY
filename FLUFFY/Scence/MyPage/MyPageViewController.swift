@@ -47,6 +47,11 @@ class MyPageViewController: UIViewController {
             $0.font = UIFont.candyBean(.normal, size: 15)
             $0.color = UIColor(hex: "ffffff")
         }
+        
+        static let goodDesc: Style = Style {
+            $0.font = UIFont.pretendard(.semiBold, size: 14)
+            $0.color = UIColor(hex: "19c8ff")
+        }
     }
     
     private lazy var nicknameLabel = UILabel().then {
@@ -119,11 +124,7 @@ class MyPageViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let nickname = UserDefaults.standard.string(forKey: NICKNAME_KEY)
-        
-        guard let nickname = nickname else { return }
-        
-        nicknameLabel.attributedText = nickname.set(style: Styles.nickname)
+        self.updateViews()
     }
     
     private func setupViews() {
@@ -265,6 +266,22 @@ class MyPageViewController: UIViewController {
             .disposed(by: self.disposeBag)
     }
     
+    private func updateViews() {
+        
+        guard let _ = KeychainService.shared.loadToken() else { return }
+        
+        let nickname = UserDefaults.standard.string(forKey: NICKNAME_KEY)
+        
+        guard let nickname = nickname else { return }
+        self.nicknameLabel.attributedText = nickname.set(style: Styles.nickname)
+        
+        self.statusLabel.padding = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        self.statusLabel.backgroundColor = UIColor(hex: "19c8ff")
+        self.statusLabel.attributedText = "good".set(style: Styles.status)
+        
+        self.messageLabel.attributedText = "적절한 스트레스가 도움이 되는 상태".set(style: Styles.goodDesc)
+    }
+    
     deinit {
         viewModel.unbind()
     }
@@ -277,9 +294,12 @@ extension MyPageViewController {
         
         guard let status = status else { return }
         
-        self.characterImageView.image = status.icon
-        self.messageLabel.text = status.message
-//        self.statusLabel.image = status.statusBar
+        self.characterImageView.image = status.character
+        self.statusLabel.attributedText = status.desc.set(style: Styles.goodDesc)
+        self.statusLabel.backgroundColor = status.background
+        self.statusLabel.padding = UIEdgeInsets(top: 8, left: 11, bottom: 9, right: 11)
+        
+        self.view.setNeedsLayout()
     }
     
     private func showMyInfoView() {

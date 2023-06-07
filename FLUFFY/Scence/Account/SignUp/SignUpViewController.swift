@@ -137,6 +137,11 @@ final class SignUpViewController: UIViewController {
             .withUnretained(self)
             .bind(onNext: { $0.0.navigationController?.pushViewController(AssociationViewController(), animated: true) })
             .disposed(by: self.disposeBag)
+        
+        self.viewModel.showMainView
+            .withUnretained(self)
+            .bind(onNext: { $0.0.navigationController?.popViewController(animated: true) })
+            .disposed(by: self.disposeBag)
     }
     
     
@@ -169,15 +174,16 @@ extension SignUpViewController: ASAuthorizationControllerPresentationContextProv
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
             // Apple ID 관련 정보를 사용하여 로그인 처리를 수행합니다.
             let userIdentifier = appleIDCredential.user
-            let fullName = appleIDCredential.fullName
-            let email = appleIDCredential.email
+//            let fullName = appleIDCredential.fullName
+//            let email = appleIDCredential.email
             
             // 필요한 추가적인 처리를 수행합니다.
             debugPrint("userIdentifier: \(userIdentifier)")
             
             KeychainService.shared.saveAppleIdentifier(userIdentifier)
             
-            self.viewModel.signInStarted(userIdentifier)
+            self.viewModel.checkUserInfo(userIdentifier)
+//            self.viewModel.signInStarted(userIdentifier)
         }
     }
     

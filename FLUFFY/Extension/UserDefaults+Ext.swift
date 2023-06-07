@@ -43,9 +43,9 @@ extension UserDefaults {
         }
     }
     
-    var userScore: Int {
+    var userScore: Double {
         get {
-            return UserDefaults.standard.integer(forKey: Const.kIsUserScore)
+            return UserDefaults.standard.double(forKey: Const.kIsUserScore)
         }
         set {
             UserDefaults.standard.set(newValue, forKey: Const.kIsUserScore)

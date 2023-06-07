@@ -69,4 +69,15 @@ enum Status: Equatable, CaseIterable, Codable {
         case .danger: return UIImage(named: "dangerIcon")
         }
     }
+    
+    var background: UIColor? {
+        
+        switch self {
+        case .unknow: return UIColor(hex: "89bfff")
+        case .safe: return UIColor(hex: "19c8ff")
+        case .caution: return UIColor(hex: "a3e74d")
+        case .warning: return UIColor(hex: "ffa217")
+        case .danger: return UIColor(hex: "ff1717")
+        }
+    }
 }

@@ -12,6 +12,11 @@ import RxCocoa
 final class MyPageViewModel: RxViewModel {
     
     // MARK: Inputs
+    private let _fetch = PublishRelay<Void>()
+    func fetchInfo() {
+        return self._fetch.accept(())
+    }
+    
     private let _tapMyInfo = PublishRelay<Void>()
     func tapMyInfo() {
         self._tapMyInfo.accept(())
@@ -71,6 +76,16 @@ final class MyPageViewModel: RxViewModel {
     
     override func bind() {
         
+        self._fetch
+            .withUnretained(self)
+            .bind(onNext: {
+    
+                let stauts = $0.0.getUserStatus(UserDefaults.standard.userScore)
+                
+                $0.0._viewValue.accept(stauts)
+            })
+            .disposed(by: self.disposeBag)
+        
         self._tapMyInfo
             .withUnretained(self)
             .bind(onNext: { $0._showMyInfo.accept($1) })
@@ -95,5 +110,16 @@ final class MyPageViewModel: RxViewModel {
             .withUnretained(self)
             .bind(onNext: { $0._showTerm.accept($1) })
             .disposed(by: self.disposeBag)
+    }
+    
+    private func getUserStatus(_ userPoint: Double) -> Status {
+        
+        switch userPoint {
+        case ..<0: return .unknow
+        case 0...15: return .safe
+        case 16...30: return .caution
+        case 31...50: return .danger
+        default: return .warning
+        }
     }
 }

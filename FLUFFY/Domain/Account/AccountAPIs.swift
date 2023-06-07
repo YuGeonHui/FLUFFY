@@ -12,6 +12,7 @@ enum AccountAPI {
     case signIn
     case signUp
     case userInfo
+    case check
 
     var url: String {
         
@@ -19,6 +20,7 @@ enum AccountAPI {
         case .signIn: return "\(FlUFFYAPI.baseURL)/api/account/signin"
         case .signUp: return "\(FlUFFYAPI.baseURL)/api/account/signup"
         case .userInfo: return "\(FlUFFYAPI.baseURL)/api/user/info"
+        case .check: return "\(FlUFFYAPI.baseURL)/api/account/check"
         }
     }
 }

@@ -8,10 +8,9 @@
 import Foundation
 
 struct AccountResponse: Codable {
-    let msg: String
+    let token: String
 }
 
 struct AccountUserResponse: Codable {
     let point: String
 }
-//001998.ac7dcf9c18644f97868ca895a857733d.0744
