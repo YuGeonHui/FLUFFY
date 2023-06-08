@@ -58,6 +58,40 @@ final class MyInfoViewModel: RxViewModel {
                 debugPrint("signup Finish!!!!!: \(value.token)")
                 
                 UserDefaults.standard.set(nickname, forKey: NICKNAME_KEY)
+                self.signIn(userIdentifier)
+//                self._showMainView.accept(())
+                
+            case .failure(let error):
+                
+                print(error.localizedDescription)
+            }
+        })
+    }
+    
+    private func signIn(_ userIdentifier: String) {
+        
+        let url = AccountAPI.signIn.url
+        let request = AccountSignInRequest(uuid: userIdentifier).dictionary
+        let header : HTTPHeaders = ["Content-Type" : "application/json"]
+        
+        AF.request(
+            url, // [주소]
+            method: .post, // [전송 타입]
+            parameters: request, // [전송 데이터]
+            encoding: JSONEncoding.default, // [인코딩 스타일]
+            headers: header // [헤더 지정]
+        )
+        .validate(statusCode: 200..<300)
+        .responseDecodable(of: AccountResponse.self, completionHandler: { response in
+            
+            switch response.result {
+                
+            case .success(let value):
+                
+                let token = value.token
+                KeychainService.shared.saveToken(token: token)
+                
+                debugPrint("token: \(token)")
                 self._showMainView.accept(())
                 
             case .failure(let error):

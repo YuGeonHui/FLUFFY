@@ -39,6 +39,8 @@ final class HomeViewController: BaseViewController {
             $0.font = UIFont.pretendard(.medium, size: 15)
             $0.color = UIColor(hex: "2d2d2d")
             $0.alignment = .center
+            $0.minimumLineHeight = 26
+            $0.maximumLineHeight = 26
         }
         
         static let logIn: Style = Style {
@@ -111,7 +113,7 @@ final class HomeViewController: BaseViewController {
             logInButton.topAnchor.constraint(equalTo: self.characterImageView.bottomAnchor, constant: 35),
             
             logInDesc.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            logInDesc.topAnchor.constraint(equalTo: self.logInButton.bottomAnchor, constant: 8),
+            logInDesc.topAnchor.constraint(equalTo: self.logInButton.bottomAnchor, constant: 12),
         ])
     }
     

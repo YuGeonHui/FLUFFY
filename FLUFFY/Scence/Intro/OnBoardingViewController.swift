@@ -37,7 +37,9 @@ class AppGuideViewController: UIViewController {
         return pageControl
     }()
     
-    private let skipButton = UILabel()
+    private let skipButton = UILabel().then {
+        $0.isHidden = true
+    }
     
     private let nextButton = CommonButtonView(background: UIColor(hex: "89bfff"), title: "시작하기")
     

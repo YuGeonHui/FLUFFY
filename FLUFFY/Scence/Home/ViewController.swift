@@ -66,7 +66,7 @@ final class ViewController: BaseViewController {
     private let statusLabel = PaddingLabel().then {
         $0.backgroundColor = UIColor(hex: "19c8ff")
         $0.attributedText = "Good".set(style: Styles.statusBar)
-        $0.padding = UIEdgeInsets(top: 11, left: 8, bottom: 9, right: 12)
+        $0.padding = UIEdgeInsets(top: 4, left: 11, bottom: 4, right: 12)
     }
     
     private let statusDesc = UILabel().then {
@@ -139,7 +139,7 @@ final class ViewController: BaseViewController {
         
         NSLayoutConstraint.activate([
             
-            self.topStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            self.topStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 45),
             self.topStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
             self.topStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
 

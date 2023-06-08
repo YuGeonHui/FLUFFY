@@ -167,10 +167,15 @@ final class NicknameChangeViewController: UIViewController {
 extension NicknameChangeViewController {
     
     private func signOutTapped() {
+        
+        debugPrint("로그아웃!!!!")
+        
         KeychainService.shared.deleteToken()
     }
     
     private func withdrawTapped() {
+        
+        debugPrint("회원탈퇴!!!!")
         
         guard let token = KeychainService.shared.loadToken() else { return }
         
