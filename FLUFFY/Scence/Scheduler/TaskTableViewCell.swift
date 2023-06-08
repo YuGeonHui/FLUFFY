@@ -37,7 +37,7 @@ class TaskTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let statusIcon : UIImageView = {
+    let statusIcon : UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "0")
         return image

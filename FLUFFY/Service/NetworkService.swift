@@ -11,7 +11,7 @@ import Alamofire
 struct NetworkService {
     
     // MARK: - Perform Request
-    func performRequest<T: Decodable, U: Encodable>(url: String, method: HTTPMethod, parameters: U?, headers: HTTPHeaders?, completion: @escaping (Result<T, Error>) -> Void) {
+    func performRequest<T: Decodable, U: Codable>(url: String, method: HTTPMethod, parameters: U?, headers: HTTPHeaders?, completion: @escaping (Result<T, Error>) -> Void) {
         
         AF.request(
             url,
@@ -49,6 +49,7 @@ struct NetworkService {
             }
         }
     }
+    
 }
 
 

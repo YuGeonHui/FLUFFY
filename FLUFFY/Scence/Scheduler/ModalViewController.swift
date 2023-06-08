@@ -7,6 +7,7 @@
 
 import UIKit
 import PanModal
+import Alamofire
 
 class ModalViewController: UIViewController{
     
@@ -17,6 +18,8 @@ class ModalViewController: UIViewController{
     var sliderValue = 0
     
     var weeklyValue = 0
+    
+    private var dateValue = 0
     
     private var pickerDate : Date?
     
@@ -34,6 +37,17 @@ class ModalViewController: UIViewController{
         "너무 힘든 하루.. 스트레스 100%"
     ]
     
+    private let url = "http://54.180.2.148:8000/"
+    
+    private let networkService = NetworkService()
+
+    
+    private let headers: HTTPHeaders = [
+        "Authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDE3Mzc0NjIsImlhdCI6MTY4NjE4NTQ2Miwic3ViIjoiYWJjIn0.aGUyz8axiTLXv89Cj3oY0m_XPVSbm5huZ9iW4fsOw20",
+        "Content-Type": "application/json"
+    ]
+    
+    
     private lazy var checkButton : UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "checkmark"), for: .normal)
@@ -45,9 +59,19 @@ class ModalViewController: UIViewController{
     
     @objc private func buttonIsClikced() {
         self.dismiss(animated: true)
-        print("modal select - \(selectedDate)")
+        print("schedule_date - \(Int(selectedDate)!)")
+        print("stress_step - \(weeklyValue)")
+        print("schedule_time - \(dateValue)")
+        print("schedule_content -\(taskTextField.text ?? "error")")
+        
+        guard let text = taskTextField.text else {return}
+        
+        guard let date = Int(selectedDate) else {return}
+        
+        postScheduler(scheduleContent: text, scheduleDate: date, scheduleTime: dateValue, stressStep: weeklyValue)
         // 서버로 weeklyvalue 주기 (주간 점수 통신을 위해)
     }
+    
     
     
     private let taskTextField : UITextField = {
@@ -57,6 +81,7 @@ class ModalViewController: UIViewController{
         textField.borderStyle = .none
         textField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 16.0, height: 0.0))
         textField.leftViewMode = .unlessEditing
+        textField.becomeFirstResponder()
         return textField
     }()
     
@@ -69,7 +94,7 @@ class ModalViewController: UIViewController{
         picker.locale = Locale(identifier: "ko_KR")
         return picker
     }()
-
+    
     
     private let dateTextField : UITextField = {
         let textField = UITextField()
@@ -147,6 +172,31 @@ class ModalViewController: UIViewController{
         self.configure()
     }
     
+    private func postScheduler(scheduleContent: String, scheduleDate: Int, scheduleTime: Int, stressStep: Int) {
+        
+        let url = url + "api/scheduling"
+        
+        let header : HTTPHeaders = headers
+        
+        AF.request(url,
+                   method: .post,
+                   parameters: ScheduleInfo(scheduleContent: scheduleContent, scheduleDate: scheduleDate, scheduleTime: scheduleTime, stressStep: stressStep),
+                   encoder: JSONParameterEncoder.default,
+                   headers: header)
+        .validate(statusCode: 200..<300)
+        .responseData { response in
+            switch response.result {
+            case .success(let res):
+                print("응답 코드 :: ", response.response?.statusCode ?? 0)
+                print("응답 데이터 :: ", String(data: res, encoding: .utf8) ?? "")
+                
+            case .failure(let err):
+                print("응답 코드 :: ", response.response?.statusCode ?? 0)
+                print("에 러 :: ", err.localizedDescription)
+            }
+        }
+    }
+    
     private func createToolBar() -> UIToolbar {
         
         let toolbar = UIToolbar()
@@ -164,9 +214,15 @@ class ModalViewController: UIViewController{
         dateFormmater.dateFormat = "a h:mm"
         dateFormmater.locale = Locale(identifier: "ko_KR")
         
+        let df = DateFormatter()
+        df.dateFormat = "HHmm"
+        
         let date = dateFormmater.string(from: datePicker.date)
         dateTextField.text = date
         dateTextField.font = UIFont.pretendard(.medium, size: 15)
+        
+        let value = df.string(from: datePicker.date)
+        dateValue = Int(value)!
         
         self.view.endEditing(true)
     }

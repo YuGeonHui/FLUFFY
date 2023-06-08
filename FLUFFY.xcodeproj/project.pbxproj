@@ -11,10 +11,12 @@
 		9C2F58B52A26454B00B36415 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2F58B42A26454B00B36415 /* TaskTableViewCell.swift */; };
 		9C2F58BB2A27421F00B36415 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2F58BA2A27421F00B36415 /* CustomSlider.swift */; };
 		9C3628F32A26001900562713 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3628F22A26001900562713 /* ModalViewController.swift */; };
-		9C5A12472A2AE7C800E04FC3 /* ScheduleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A12462A2AE7C800E04FC3 /* ScheduleManager.swift */; };
 		9C5A12492A2DCC7F00E04FC3 /* EditModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A12482A2DCC7F00E04FC3 /* EditModalViewController.swift */; };
 		9C5A124D2A2F80C600E04FC3 /* SchedulerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A124C2A2F80C600E04FC3 /* SchedulerModel.swift */; };
 		9C5A124F2A2F8B7F00E04FC3 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A124E2A2F8B7F00E04FC3 /* UserInfo.swift */; };
+		9C5A12512A30D7BC00E04FC3 /* SchedulerRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A12502A30D7BC00E04FC3 /* SchedulerRequest.swift */; };
+		9C5A12532A30DE8E00E04FC3 /* ScheduleInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A12522A30DE8E00E04FC3 /* ScheduleInfo.swift */; };
+		9C5A12552A31A58100E04FC3 /* ScheduleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A12542A31A58100E04FC3 /* ScheduleRequest.swift */; };
 		B629BAD82A26EF3800561538 /* PushSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B629BAD72A26EF3800561538 /* PushSettingViewModel.swift */; };
 		B6382BC92A23949300A40724 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B6382BC02A23949300A40724 /* Pretendard-ExtraBold.otf */; };
 		B6382BCA2A23949300A40724 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = B6382BC12A23949300A40724 /* Pretendard-Light.otf */; };
@@ -86,10 +88,12 @@
 		9C2F58B42A26454B00B36415 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		9C2F58BA2A27421F00B36415 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		9C3628F22A26001900562713 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
-		9C5A12462A2AE7C800E04FC3 /* ScheduleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleManager.swift; sourceTree = "<group>"; };
 		9C5A12482A2DCC7F00E04FC3 /* EditModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditModalViewController.swift; sourceTree = "<group>"; };
 		9C5A124C2A2F80C600E04FC3 /* SchedulerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerModel.swift; sourceTree = "<group>"; };
 		9C5A124E2A2F8B7F00E04FC3 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		9C5A12502A30D7BC00E04FC3 /* SchedulerRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerRequest.swift; sourceTree = "<group>"; };
+		9C5A12522A30DE8E00E04FC3 /* ScheduleInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleInfo.swift; sourceTree = "<group>"; };
+		9C5A12542A31A58100E04FC3 /* ScheduleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleRequest.swift; sourceTree = "<group>"; };
 		B629BAD72A26EF3800561538 /* PushSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushSettingViewModel.swift; sourceTree = "<group>"; };
 		B6382BC02A23949300A40724 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
 		B6382BC12A23949300A40724 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
@@ -355,10 +359,12 @@
 			children = (
 				B6907DCD2A207AA1001B22C1 /* ScheudlerViewController.swift */,
 				9C5A124C2A2F80C600E04FC3 /* SchedulerModel.swift */,
+				9C5A12542A31A58100E04FC3 /* ScheduleRequest.swift */,
 				9C5A124E2A2F8B7F00E04FC3 /* UserInfo.swift */,
+				9C5A12522A30DE8E00E04FC3 /* ScheduleInfo.swift */,
+				9C5A12502A30D7BC00E04FC3 /* SchedulerRequest.swift */,
 				9C3628F22A26001900562713 /* ModalViewController.swift */,
 				9C5A12482A2DCC7F00E04FC3 /* EditModalViewController.swift */,
-				9C5A12462A2AE7C800E04FC3 /* ScheduleManager.swift */,
 				9C2F58BA2A27421F00B36415 /* CustomSlider.swift */,
 				9C2F58B42A26454B00B36415 /* TaskTableViewCell.swift */,
 			);
@@ -607,6 +613,7 @@
 			files = (
 				9C2F58B52A26454B00B36415 /* TaskTableViewCell.swift in Sources */,
 				B6AB3E522A262586003241C2 /* PushSettingViewController.swift in Sources */,
+				9C5A12512A30D7BC00E04FC3 /* SchedulerRequest.swift in Sources */,
 				B69688602A1F12CA009CC9B6 /* ViewController.swift in Sources */,
 				B696885C2A1F12CA009CC9B6 /* AppDelegate.swift in Sources */,
 				B65BDCEA2A2B311500DEFAD8 /* SignInViewModel.swift in Sources */,
@@ -634,6 +641,7 @@
 				B65B42082A28286100E6B579 /* AccountAPIs.swift in Sources */,
 				B65B42012A27357000E6B579 /* MyInfoViewModel.swift in Sources */,
 				B65B41FA2A27311D00E6B579 /* Opener.swift in Sources */,
+				9C5A12552A31A58100E04FC3 /* ScheduleRequest.swift in Sources */,
 				B65BDCE12A2B30A900DEFAD8 /* SignInViewController.swift in Sources */,
 				B6382BDA2A2588FC00A40724 /* HomeViewValue.swift in Sources */,
 				B6907DC22A20771C001B22C1 /* FlUPPYAPIAPI.swift in Sources */,
@@ -650,6 +658,7 @@
 				B6907DCC2A207A95001B22C1 /* MyPageViewController.swift in Sources */,
 				B6907DBF2A2076AF001B22C1 /* UserDefaults+Ext.swift in Sources */,
 				B6907DC42A207743001B22C1 /* API.swift in Sources */,
+				9C5A12532A30DE8E00E04FC3 /* ScheduleInfo.swift in Sources */,
 				B65BDCDB2A2B2CDF00DEFAD8 /* CommonButtonView.swift in Sources */,
 				B6907DCA2A207A7F001B22C1 /* HomeViewController.swift in Sources */,
 				B629BAD82A26EF3800561538 /* PushSettingViewModel.swift in Sources */,
@@ -662,7 +671,6 @@
 				B65BDCE42A2B30F800DEFAD8 /* SignUpViewModel.swift in Sources */,
 				B6907DD62A20A205001B22C1 /* HomeViewModel.swift in Sources */,
 				B65BDCEF2A2C27DA00DEFAD8 /* OnBoardingContenViewController.swift in Sources */,
-				9C5A12472A2AE7C800E04FC3 /* ScheduleManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -813,9 +821,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = FLUFFY/FLUFFY.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = ZP6YLB995M;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FLUFFY/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = FLUFFY;
@@ -833,6 +841,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.geonhee.FLUFFY;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -849,9 +858,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = FLUFFY/FLUFFY.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = ZP6YLB995M;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FLUFFY/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = FLUFFY;
@@ -869,6 +878,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.geonhee.FLUFFY;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

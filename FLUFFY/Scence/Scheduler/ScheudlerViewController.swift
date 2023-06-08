@@ -8,6 +8,7 @@
 import UIKit
 import PanModal
 import FSCalendar
+import Alamofire
 
 class ScheudlerViewController: BaseViewController {
     
@@ -22,6 +23,8 @@ class ScheudlerViewController: BaseViewController {
     private var todayDate : Date?
     
     private var userName = "동동"
+    
+    private var allDate : [AllScheduleDate] = []
     
     
     private lazy var statusLabel : UILabel = {
@@ -137,8 +140,7 @@ class ScheudlerViewController: BaseViewController {
         let vc = ModalViewController()
         vc.selectedDate = self.selectedDate
         self.presentPanModal(vc)
-        
-        
+    
     }
     
     override func viewDidLoad() {
@@ -149,6 +151,15 @@ class ScheudlerViewController: BaseViewController {
         print("today - \(selectedDate)")
         self.configure()
         setEvents()
+//        self.tableView.reloadData()
+        User().getAllSchedule(selectedDate: selectedDate, self)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        DispatchQueue.main.async {
+            self.view.layoutIfNeeded()
+        }
+        self.tableView.reloadData()
     }
     
     @objc private func statusButtonIsClicked() {
@@ -200,6 +211,13 @@ class ScheudlerViewController: BaseViewController {
             
         }
     }
+    
+    func scheduleGetDidSuccess(_ response: [AllScheduleDate]) {
+        self.allDate = response
+        print("alldate - \(allDate)")
+        self.tableView.reloadData()
+    }
+    
     
     private func configureFSCalendar() {
         self.view.addSubview(calendar)
@@ -293,11 +311,13 @@ class ScheudlerViewController: BaseViewController {
     
     private func configureAddButton() {
         self.tableView.addSubview(self.addButton)
-        if KeychainService.shared.loadToken() != nil {
-            addButton.isHidden = false
-        } else {
-            addButton.isHidden = true
-        }
+        
+        //        if KeychainService.shared.loadToken() != nil {
+        //            addButton.isHidden = false
+        //        } else {
+        //            addButton.isHidden = true
+        //        }
+        
         self.addButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             self.addButton.heightAnchor.constraint(equalToConstant: 68),
@@ -313,12 +333,41 @@ class ScheudlerViewController: BaseViewController {
 extension ScheudlerViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 1
+        return allDate.isEmpty ? 1 : allDate.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as? TaskTableViewCell else {return UITableViewCell()}
-        cell.selectionStyle = .none
+        print("indexPath -\(indexPath)")
+        print("indexpath.row -\(indexPath.row)")
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as? TaskTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        let result = self.allDate
+        
+        if indexPath.row < result.count {
+            let task = result[indexPath.row]
+            
+            cell.taskLabel.text = task.scheduleContent
+            cell.timeLabel.text = String(task.scheduleTime)
+            
+            cell.selectionStyle = .none
+            
+            switch task.stressStep {
+            case ..<5:
+                cell.statusIcon.image = UIImage(named: "4")
+            case 5:
+                cell.statusIcon.image = UIImage(named: "0")
+            case 6...:
+                cell.statusIcon.image = UIImage(named: "-4")
+            default:
+                cell.statusIcon.image = UIImage(named: "0")
+            }
+        } else {
+            // 인덱스가 유효하지 않을 때에는 기본 UITableViewCell을 반환합니다.
+            return TaskTableViewCell()
+        }
+        
         return cell
     }
     
@@ -333,14 +382,16 @@ extension ScheudlerViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 수정 모달 팝업 - 통신해서 해당 날짜에 기존 데이터 없으면 실행 x
-        if KeychainService.shared.loadToken() != nil {
-            let vc = EditModalViewController()
-            vc.selectedDate = selectedDate
-            present(vc, animated: true)
-        }
+//        if KeychainService.shared.loadToken() != nil {
+//            let vc = EditModalViewController()
+//            vc.selectedDate = self.selectedDate
+//            present(vc, animated: true)
+//        }
+        let vc = EditModalViewController()
+        vc.selectedDate = self.selectedDate
+        self.presentPanModal(vc)
     }
 }
-
 
 extension ScheudlerViewController: UISheetPresentationControllerDelegate {
     func sheetPresentationControllerDidChangeSelectedDetentIdentifier(_ sheetPresentationController: UISheetPresentationController) {
@@ -363,6 +414,8 @@ extension ScheudlerViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
         selectedDate = date.toString()
         print("selectedDate = \(selectedDate)")
         setEvents()
+        User().getAllSchedule(selectedDate: selectedDate, self)
+        
     }
     
     // 이벤트 닷 표시 개수
