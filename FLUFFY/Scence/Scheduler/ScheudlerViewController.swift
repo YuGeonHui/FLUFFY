@@ -104,6 +104,7 @@ class ScheudlerViewController: BaseViewController {
     
     private let tableView : UITableView = {
         let view = UITableView()
+        view.backgroundColor = UIColor(hex: "F9F9F9")
         return view
     }()
     
@@ -120,9 +121,10 @@ class ScheudlerViewController: BaseViewController {
         let calendar = FSCalendar(frame: .zero)
         calendar.weekdayHeight = 15
         calendar.headerHeight = 0
-        calendar.appearance.eventDefaultColor = UIColor(hex: "C6C6C6")
+//        calendar.appearance.eventDefaultColor = UIColor(hex: "C6C6C6")
+        calendar.appearance.eventSelectionColor = UIColor(hex: "FF0000")
         calendar.appearance.headerTitleFont = UIFont.pretendard(.bold, size: 15)
-        calendar.appearance.weekdayFont = UIFont.pretendard(.bold, size: 11)
+        calendar.appearance.weekdayFont = UIFont.pretendard(.medium, size: 11)
         calendar.appearance.headerTitleColor = UIColor(hex: "2D2D2D")
         calendar.appearance.weekdayTextColor = UIColor(hex: "ADADAD")
         calendar.appearance.titleTodayColor = UIColor(hex: "0600FE")
@@ -136,6 +138,12 @@ class ScheudlerViewController: BaseViewController {
         calendar.appearance.titleFont = UIFont.pretendard(.bold, size: 15)
         
         return calendar
+    }()
+    
+    private let emptyView : UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(hex: "F9F9F9")
+        return view
     }()
     
     
@@ -152,32 +160,38 @@ class ScheudlerViewController: BaseViewController {
     }
     
     override func viewDidLoad() {
+//        self.view.backgroundColor = .blue
         getUser()
         super.viewDidLoad()
         print("-----스케쥴 viewdidload-----")
-        self.view.backgroundColor = .white
+//        self.view.backgroundColor = .white
         self.configure()
         setEvents()
         User().getAllSchedule(selectedDate: selectedDate, self)
+        getUserPoint()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         print("---- 스케쥴 viewWillAppear-----")
-        User().getAllSchedule(selectedDate: selectedDate, self)
+        print("getUser 결과")
+        getUser()
+        print("getAllSchedule 결과")
+//        User().getAllSchedule(selectedDate: selectedDate, self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         print("---- 스케쥴 viewDidAppear-----")
+        User().getAllSchedule(selectedDate: selectedDate, self)
     }
     
     
     override func viewWillDisappear(_ animated: Bool) {
         print("---- 스케쥴 viewWillDisappear-----")
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         print("---- 스케쥴 viewDidDisappear-----")
-        self.tableView.reloadData()
 
     }
     
@@ -195,11 +209,24 @@ class ScheudlerViewController: BaseViewController {
         self.configureStatus()
         self.configureTitleLabel()
         self.configureFSCalendar()
+        self.configureEmptyView()
         self.configureNextButton()
         self.configurePreviousButton()
         self.configureAddButton()
         self.configureTableView()
         
+    }
+    
+    private func configureEmptyView() {
+        self.view.addSubview(emptyView)
+        emptyView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            emptyView.topAnchor.constraint(equalTo: calendar.bottomAnchor, constant: 10),
+            emptyView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            emptyView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            emptyView.heightAnchor.constraint(equalToConstant: 20)
+        ])
     }
     
     private func setEvents() {
@@ -216,6 +243,7 @@ class ScheudlerViewController: BaseViewController {
         if KeychainService.shared.loadToken() != nil {
             User().getUserName(self)
         } else {
+            print("토큰 없음")
             self.statusLabel.text = "로그인이 필요해요!"
             self.statusIamge.image = UIImage(named: "LoginStatus")
         }
@@ -225,16 +253,35 @@ class ScheudlerViewController: BaseViewController {
     func didSuccess(_ response: UserInfo) {
         if let getUserName = response.userNickname {
             self.statusLabel.text = "\(getUserName)" + "님의 현재 상태"
+            let point = UserDefaults.standard.double(forKey: "userScore")
+            switch point {
+            case ...15:
+                self.statusIamge.image = UIImage(named: "GoodStatus")
+            case 16...30:
+                self.statusIamge.image = UIImage(named: "CautionStatus")
+            case 31...50:
+                self.statusIamge.image = UIImage(named: "WarningStatus")
+            case 51...:
+                self.statusIamge.image = UIImage(named: "DangerStatus")
+            default:
+                self.statusIamge.image = UIImage(named: "GoodStatus")
+            }
+            self.view.layoutIfNeeded()
         } else {
-            
+            let point = UserDefaults.standard.double(forKey: "userScore")
+            print("userPoint - \(point)")
         }
+    }
+    
+    private func getUserPoint() {
+        guard let userPoint = UserDefaults.standard.string(forKey: "userStore") else {return}
+        print("userPoint -\(userPoint)")
     }
     
     func scheduleGetDidSuccess(_ response: [AllScheduleDate]) {
         self.allDate = response
         DispatchQueue.main.async {
             self.tableView.reloadData()
-            self.view.layoutIfNeeded()
         }
         
     }
@@ -252,8 +299,8 @@ class ScheudlerViewController: BaseViewController {
         
         NSLayoutConstraint.activate([
             calendar.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 17),
-            calendar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-            calendar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+            calendar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
+            calendar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
             calendar.heightAnchor.constraint(equalToConstant: 60)
         ])
         
@@ -323,11 +370,12 @@ class ScheudlerViewController: BaseViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         tableView.rowHeight = 64
+//        tableView.rowHeight = 90
         tableView.separatorStyle = .none
         tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.identifier)
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.tableView.topAnchor.constraint(equalTo: self.calendar.bottomAnchor, constant: 26),
+            self.tableView.topAnchor.constraint(equalTo: self.emptyView.bottomAnchor),
             self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
@@ -368,11 +416,26 @@ extension ScheudlerViewController : UITableViewDelegate, UITableViewDataSource {
         
         let result = self.allDate
         
+        
         if indexPath.row < result.count {
             let task = result[indexPath.row]
+            let time = String(task.scheduleTime)
+            
+            let prefix = String(time.prefix(2))
+            let suffix = String(time.suffix(2))
+            var numPrefix = Int(prefix)!
+            
+            if numPrefix > 12 {
+                numPrefix -= 12
+                let result = "오후 \(numPrefix):\(suffix)"
+                cell.timeLabel.text = result
+            } else {
+                let result = "오전 \(numPrefix):\(suffix)"
+                cell.timeLabel.text = result
+            }
             
             cell.taskLabel.text = task.scheduleContent
-            cell.timeLabel.text = String(task.scheduleTime)
+            
             
             cell.selectionStyle = .none
             
@@ -393,7 +456,6 @@ extension ScheudlerViewController : UITableViewDelegate, UITableViewDataSource {
                 cell.selectionStyle = .none
                 return cell
             }()
-            //            return TaskTableViewCell()
             return taskCell
         }
         return cell
@@ -401,46 +463,30 @@ extension ScheudlerViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            print("-----함수 실행 전-----")
-            print("indexPath.row - \(indexPath.row)")
-            print("allDate count - \(allDate.count)")
+        
             if allDate.isEmpty {
                 self.tableView.reloadData()
-                print("is Empty")
+                
             } else if indexPath.row == 0 && indexPath.row + 1 == allDate.count {
                 let id = allDate[indexPath.row].id
-                
-                print("-----업데이트 전-----")
-                print("indexPath.row - \(indexPath.row)")
-                print("allDate count - \(allDate.count)")
-                
                 tableView.beginUpdates()
                 
-                print("-----업데이트 중-----")
-                print("indexPath.row - \(indexPath.row)")
-                print("allDate count - \(allDate.count)")
+               
                 
                 allDate.remove(at: indexPath.row)
                 User().deleteSchedule(id: id, self)
                 
                 tableView.endUpdates()
                 
-                print("-----업데이트 후-----")
-                print("indexPath.row - \(indexPath.row)")
-                print("allDate count - \(allDate.count)")
+               
                 self.tableView.reloadData()
             } else {
                 let id = allDate[indexPath.row].id
                 
-                print("-----업데이트 전-----")
-                print("indexPath.row - \(indexPath.row)")
-                print("allDate count - \(allDate.count)")
+                
                 
                 tableView.beginUpdates()
                 
-                print("-----업데이트 중-----")
-                print("indexPath.row - \(indexPath.row)")
-                print("allDate count - \(allDate.count)")
                 
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 allDate.remove(at: indexPath.row)
@@ -448,9 +494,6 @@ extension ScheudlerViewController : UITableViewDelegate, UITableViewDataSource {
                 
                 tableView.endUpdates()
                 
-                print("-----업데이트 후-----")
-                print("indexPath.row - \(indexPath.row)")
-                print("allDate count - \(allDate.count)")
             }
         } else if editingStyle == .insert {
             
@@ -458,12 +501,6 @@ extension ScheudlerViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // 수정 모달 팝업 - 통신해서 해당 날짜에 기존 데이터 없으면 실행 x
-        //        if KeychainService.shared.loadToken() != nil {
-        //            let vc = EditModalViewController()
-        //            vc.selectedDate = self.selectedDate
-        //            present(vc, animated: true)
-        //        }
         if allDate.isEmpty {
             
         } else {

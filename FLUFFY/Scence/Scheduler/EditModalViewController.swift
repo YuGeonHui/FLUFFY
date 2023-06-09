@@ -15,11 +15,11 @@ class EditModalViewController: UIViewController{
     
     private let url = "http://54.180.2.148:8000/"
     
-    private let headers: HTTPHeaders = [
-        "Authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDE3Mzc0NjIsImlhdCI6MTY4NjE4NTQ2Miwic3ViIjoiYWJjIn0.aGUyz8axiTLXv89Cj3oY0m_XPVSbm5huZ9iW4fsOw20",
-        "Content-Type": "application/json"
-    ]
-    
+//    private let headers: HTTPHeaders = [
+//        "Authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDE3Mzc0NjIsImlhdCI6MTY4NjE4NTQ2Miwic3ViIjoiYWJjIn0.aGUyz8axiTLXv89Cj3oY0m_XPVSbm5huZ9iW4fsOw20",
+//        "Content-Type": "application/json"
+//    ]
+//
     var selectedDate : String = ""
     
     var sliderValue = 0
@@ -199,6 +199,7 @@ class EditModalViewController: UIViewController{
         let prefix = String(date.prefix(2))
         let suffix = String(date.suffix(2))
         var numPrefix = Int(prefix)!
+        let value = response.stressStep - 5
         if numPrefix > 12 {
             numPrefix -= 12
             let result = "오후 \(numPrefix):\(suffix)"
@@ -209,11 +210,10 @@ class EditModalViewController: UIViewController{
             self.dateTextField.text = result
             self.dateTextField.font = UIFont.pretendard(.medium, size: 15)
         }
-        
-//        self.dateTextField.text = date.toStr()
-//        print("dateTextFiedld text - \(date.toStr())")
-//        self.dateTextField.font = UIFont.pretendard(.medium, size: 15)
-//        slider.setValue(<#T##value: Float##Float#>, animated: <#T##Bool#>)
+        slider.setValue(Float(value), animated: false)
+        stressLabel.text = stressWord[response.stressStep]
+        print("slider value - \(slider.value)")
+        print("value -\(value)")
     }
     
     

@@ -46,10 +46,10 @@ class ModalViewController: UIViewController{
     private let networkService = NetworkService()
     
     
-    private let headers: HTTPHeaders = [
-        "Authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDE3Mzc0NjIsImlhdCI6MTY4NjE4NTQ2Miwic3ViIjoiYWJjIn0.aGUyz8axiTLXv89Cj3oY0m_XPVSbm5huZ9iW4fsOw20",
-        "Content-Type": "application/json"
-    ]
+//    private let headers: HTTPHeaders = [
+//        "Authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDE3Mzc0NjIsImlhdCI6MTY4NjE4NTQ2Miwic3ViIjoiYWJjIn0.aGUyz8axiTLXv89Cj3oY0m_XPVSbm5huZ9iW4fsOw20",
+//        "Content-Type": "application/json"
+//    ]
     
     
     private lazy var checkButton : UIButton = {
@@ -180,29 +180,40 @@ class ModalViewController: UIViewController{
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print("viewWillDisAppear")
+        print("모달 viewWillDisAppear")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("모달 viewWillAppear")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("모달 viewDidAppear")
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        print("모달 내려감")
+        print("모달 viewDidDisappear")
     }
     
     private func postScheduler(scheduleContent: String, scheduleDate: Int, scheduleTime: Int, stressStep: Int) {
         
+        guard let token = KeychainService.shared.loadToken() else {return}
+        let headers: HTTPHeaders? = HTTPHeaders([FlUFFYAPI.Header.authFieldName: FlUFFYAPI.Header.auth(token).value])
+        
         let url = url + "api/scheduling"
         
-        let header : HTTPHeaders = headers
+//        let header : HTTPHeaders = headers
         
         AF.request(url,
                    method: .post,
                    parameters: ScheduleInfo(scheduleContent: scheduleContent, scheduleDate: scheduleDate, scheduleTime: scheduleTime, stressStep: stressStep),
                    encoder: JSONParameterEncoder.default,
-                   headers: header).responseDecodable(of: UserScore.self) { response in
+                   headers: headers).responseDecodable(of: UserScore.self) { response in
             switch response.result {
             case .success(let res):
                 print("응답 코드 :: ", response.response?.statusCode ?? 0)
-                print("응답 데이터 - \(res.userPoint)")
                 UserDefaults.standard.set(res.userPoint, forKey: "userScore")
+                
             case .failure(let err):
                 print("응답 코드 :: ", response.response?.statusCode ?? 0)
                 print("에 러 :: ", err.localizedDescription)

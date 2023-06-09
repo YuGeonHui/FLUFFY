@@ -63,6 +63,7 @@ class TaskTableViewCell: UITableViewCell {
     
     private func addContentView() {
         contentView.addSubview(statusIcon)
+        contentView.backgroundColor = UIColor(hex: "F9F9F9")
         statusIcon.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             statusIcon.topAnchor.constraint(equalTo: contentView.topAnchor),
