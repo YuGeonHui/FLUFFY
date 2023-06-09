@@ -56,7 +56,55 @@ struct User {
                 print("요청 실패: \(error)")
             }
         }
+    }
+    
+    func getEditSchedule(selectedDate: String, _ viewController: EditModalViewController) {
         
+        let url = url + "api/scheduling/" + "\(selectedDate)"
+        
+        AF.request(url, method: .get, headers: postHeaders).responseDecodable(of: [AllScheduleDate].self) { response in
+            switch response.result {
+            case .success(let response): // 응답이 성공적으로 받아졌을 때
+                // schedules는 [AllScheduleDate] 타입으로 디코딩된 배열입니다.
+                // 받은 데이터를 사용하여 작업을 수행할 수 있습니다.
+                viewController.scheduleGetSuccess(response)
+                
+            case .failure(let error): // 요청이 실패했을 때
+                print("get edit 요청 실패: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func getDetailSchedule(id: Int, _ viewController: EditModalViewController) {
+        
+        let url = url + "api/scheduling/detail/" + "\(id)"
+        
+        AF.request(url, method: .get, headers: postHeaders).responseDecodable(of: AllScheduleDate.self) { response in
+            switch response.result {
+            case .success(let response):
+                viewController.updateSchedule(response)
+            case .failure(let error):
+                print("get detail 요청 실패: \(error.localizedDescription)")
+            }
+        }
+        
+    }
+    
+    func deleteSchedule(id: Int, _ viewController: ScheudlerViewController) {
+        
+        let url = url + "api/scheduling"
+        let parameters = [ "schedule_id" : id]
+        
+        AF.request(url, method: .delete, parameters: parameters, encoding: JSONEncoding.default, headers: postHeaders)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: UserScore.self) { response in
+                switch response.result {
+                case .success(let response):
+                    viewController.deleteScheduleSuccess(response)
+                case .failure(let err):
+                    print("요청 실패: \(err.localizedDescription)")
+                }
+            }
     }
 }
 

@@ -10,6 +10,8 @@ import PanModal
 import FSCalendar
 import Alamofire
 
+
+
 class ScheudlerViewController: BaseViewController {
     
     private let apiService = NetworkService()
@@ -26,6 +28,7 @@ class ScheudlerViewController: BaseViewController {
     
     private var allDate : [AllScheduleDate] = []
     
+    private var userScore = 0.0
     
     private lazy var statusLabel : UILabel = {
         let label = UILabel()
@@ -139,28 +142,45 @@ class ScheudlerViewController: BaseViewController {
     @objc private func addButtonClicked(_ sender: UIButton) {
         let vc = ModalViewController()
         vc.selectedDate = self.selectedDate
+        vc.closeAction = { [weak self] in
+            self?.tableView.reloadData()
+            self?.view.layoutIfNeeded()
+            print("reload 완료")
+        }
         self.presentPanModal(vc)
-    
+        
     }
     
     override func viewDidLoad() {
         getUser()
         super.viewDidLoad()
-        print("viewdidload")
+        print("-----스케쥴 viewdidload-----")
         self.view.backgroundColor = .white
-        print("today - \(selectedDate)")
         self.configure()
         setEvents()
-//        self.tableView.reloadData()
         User().getAllSchedule(selectedDate: selectedDate, self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        DispatchQueue.main.async {
-            self.view.layoutIfNeeded()
-        }
-        self.tableView.reloadData()
+        print("---- 스케쥴 viewWillAppear-----")
+        User().getAllSchedule(selectedDate: selectedDate, self)
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("---- 스케쥴 viewDidAppear-----")
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        print("---- 스케쥴 viewWillDisappear-----")
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        print("---- 스케쥴 viewDidDisappear-----")
+        self.tableView.reloadData()
+
+    }
+    
     
     @objc private func statusButtonIsClicked() {
         if KeychainService.shared.loadToken() == nil {
@@ -188,16 +208,14 @@ class ScheudlerViewController: BaseViewController {
         dfMatter.dateFormat = "yyyyMMdd"
         
         guard let myFirstEvent = dfMatter.date(from: selectedDate) else {return}
-        print("myFirstEvent: \(myFirstEvent)")
         
-        grayEvents = [myFirstEvent]
+        redEvents = [myFirstEvent]
     }
     
     private func getUser() {
         if KeychainService.shared.loadToken() != nil {
             User().getUserName(self)
         } else {
-            print("비로그인")
             self.statusLabel.text = "로그인이 필요해요!"
             self.statusIamge.image = UIImage(named: "LoginStatus")
         }
@@ -214,8 +232,15 @@ class ScheudlerViewController: BaseViewController {
     
     func scheduleGetDidSuccess(_ response: [AllScheduleDate]) {
         self.allDate = response
-        print("alldate - \(allDate)")
-        self.tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.view.layoutIfNeeded()
+        }
+        
+    }
+    
+    func deleteScheduleSuccess(_ response: UserScore) {
+        print("response - \(response)")
     }
     
     
@@ -337,8 +362,6 @@ extension ScheudlerViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("indexPath -\(indexPath)")
-        print("indexpath.row -\(indexPath.row)")
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as? TaskTableViewCell else {
             return UITableViewCell()
         }
@@ -365,16 +388,70 @@ extension ScheudlerViewController : UITableViewDelegate, UITableViewDataSource {
             }
         } else {
             // 인덱스가 유효하지 않을 때에는 기본 UITableViewCell을 반환합니다.
-            return TaskTableViewCell()
+            let taskCell : UITableViewCell = {
+                let cell = TaskTableViewCell()
+                cell.selectionStyle = .none
+                return cell
+            }()
+            //            return TaskTableViewCell()
+            return taskCell
         }
-        
         return cell
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // 통신 - DB에서 데이터 삭제 메서드
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            print("-----함수 실행 전-----")
+            print("indexPath.row - \(indexPath.row)")
+            print("allDate count - \(allDate.count)")
+            if allDate.isEmpty {
+                self.tableView.reloadData()
+                print("is Empty")
+            } else if indexPath.row == 0 && indexPath.row + 1 == allDate.count {
+                let id = allDate[indexPath.row].id
+                
+                print("-----업데이트 전-----")
+                print("indexPath.row - \(indexPath.row)")
+                print("allDate count - \(allDate.count)")
+                
+                tableView.beginUpdates()
+                
+                print("-----업데이트 중-----")
+                print("indexPath.row - \(indexPath.row)")
+                print("allDate count - \(allDate.count)")
+                
+                allDate.remove(at: indexPath.row)
+                User().deleteSchedule(id: id, self)
+                
+                tableView.endUpdates()
+                
+                print("-----업데이트 후-----")
+                print("indexPath.row - \(indexPath.row)")
+                print("allDate count - \(allDate.count)")
+                self.tableView.reloadData()
+            } else {
+                let id = allDate[indexPath.row].id
+                
+                print("-----업데이트 전-----")
+                print("indexPath.row - \(indexPath.row)")
+                print("allDate count - \(allDate.count)")
+                
+                tableView.beginUpdates()
+                
+                print("-----업데이트 중-----")
+                print("indexPath.row - \(indexPath.row)")
+                print("allDate count - \(allDate.count)")
+                
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                allDate.remove(at: indexPath.row)
+                User().deleteSchedule(id: id, self)
+                
+                tableView.endUpdates()
+                
+                print("-----업데이트 후-----")
+                print("indexPath.row - \(indexPath.row)")
+                print("allDate count - \(allDate.count)")
+            }
         } else if editingStyle == .insert {
             
         }
@@ -382,14 +459,20 @@ extension ScheudlerViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 수정 모달 팝업 - 통신해서 해당 날짜에 기존 데이터 없으면 실행 x
-//        if KeychainService.shared.loadToken() != nil {
-//            let vc = EditModalViewController()
-//            vc.selectedDate = self.selectedDate
-//            present(vc, animated: true)
-//        }
-        let vc = EditModalViewController()
-        vc.selectedDate = self.selectedDate
-        self.presentPanModal(vc)
+        //        if KeychainService.shared.loadToken() != nil {
+        //            let vc = EditModalViewController()
+        //            vc.selectedDate = self.selectedDate
+        //            present(vc, animated: true)
+        //        }
+        if allDate.isEmpty {
+            
+        } else {
+            let vc = EditModalViewController()
+            vc.selectedDate = self.selectedDate
+            vc.index = indexPath.row
+            self.presentPanModal(vc)
+        }
+        
     }
 }
 
@@ -405,14 +488,11 @@ extension ScheudlerViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         self.titleLabel.text = self.dateFormatter.string(from: calendar.currentPage)
-        print("current: \(calendar.currentPage)")
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         calendar.appearance.titleTodayColor = UIColor(hex: "2D2D2D")
-        print("date: \(date)")
         selectedDate = date.toString()
-        print("selectedDate = \(selectedDate)")
         setEvents()
         User().getAllSchedule(selectedDate: selectedDate, self)
         
@@ -454,6 +534,12 @@ extension Date {
     func toString() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"
+        return dateFormatter.string(from: self)
+    }
+    
+    func toStr() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "a hh:mm"
         return dateFormatter.string(from: self)
     }
 }

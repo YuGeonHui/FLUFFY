@@ -25,7 +25,7 @@ struct AllScheduleDate: Codable {
     let scheduleContent: String
     let scheduleTime: Int
     let createdTime: String
-
+    
     enum CodingKeys: String, CodingKey {
         case scheduleDate = "schedule_date"
         case id
@@ -36,4 +36,13 @@ struct AllScheduleDate: Codable {
         case createdTime = "created_time"
     }
 }
+
+struct UserScore: Codable {
+    let userPoint: Double
+    
+    enum CodingKeys: String, CodingKey {
+        case userPoint = "user_point"
+    }
+}
+
 

@@ -9,7 +9,10 @@ import UIKit
 import PanModal
 import Alamofire
 
+
 class ModalViewController: UIViewController{
+    
+    var closeAction: (() -> ())?
     
     private let apiService = NetworkService()
     
@@ -18,6 +21,7 @@ class ModalViewController: UIViewController{
     var sliderValue = 0
     
     var weeklyValue = 0
+    
     
     private var dateValue = 0
     
@@ -40,7 +44,7 @@ class ModalViewController: UIViewController{
     private let url = "http://54.180.2.148:8000/"
     
     private let networkService = NetworkService()
-
+    
     
     private let headers: HTTPHeaders = [
         "Authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDE3Mzc0NjIsImlhdCI6MTY4NjE4NTQ2Miwic3ViIjoiYWJjIn0.aGUyz8axiTLXv89Cj3oY0m_XPVSbm5huZ9iW4fsOw20",
@@ -58,7 +62,6 @@ class ModalViewController: UIViewController{
     }()
     
     @objc private func buttonIsClikced() {
-        self.dismiss(animated: true)
         print("schedule_date - \(Int(selectedDate)!)")
         print("stress_step - \(weeklyValue)")
         print("schedule_time - \(dateValue)")
@@ -69,6 +72,8 @@ class ModalViewController: UIViewController{
         guard let date = Int(selectedDate) else {return}
         
         postScheduler(scheduleContent: text, scheduleDate: date, scheduleTime: dateValue, stressStep: weeklyValue)
+        closeAction?()
+        self.dismiss(animated: true)
         // 서버로 weeklyvalue 주기 (주간 점수 통신을 위해)
     }
     
@@ -166,10 +171,20 @@ class ModalViewController: UIViewController{
         print("weeklyValue : \(weeklyValue)")
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         self.configure()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("viewWillDisAppear")
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        print("모달 내려감")
     }
     
     private func postScheduler(scheduleContent: String, scheduleDate: Int, scheduleTime: Int, stressStep: Int) {
@@ -182,14 +197,12 @@ class ModalViewController: UIViewController{
                    method: .post,
                    parameters: ScheduleInfo(scheduleContent: scheduleContent, scheduleDate: scheduleDate, scheduleTime: scheduleTime, stressStep: stressStep),
                    encoder: JSONParameterEncoder.default,
-                   headers: header)
-        .validate(statusCode: 200..<300)
-        .responseData { response in
+                   headers: header).responseDecodable(of: UserScore.self) { response in
             switch response.result {
             case .success(let res):
                 print("응답 코드 :: ", response.response?.statusCode ?? 0)
-                print("응답 데이터 :: ", String(data: res, encoding: .utf8) ?? "")
-                
+                print("응답 데이터 - \(res.userPoint)")
+                UserDefaults.standard.set(res.userPoint, forKey: "userScore")
             case .failure(let err):
                 print("응답 코드 :: ", response.response?.statusCode ?? 0)
                 print("에 러 :: ", err.localizedDescription)
@@ -390,6 +403,8 @@ extension ModalViewController: PanModalPresentable {
     var cornerRadius: CGFloat {
         return 12
     }
+    
+    
 }
 
 
