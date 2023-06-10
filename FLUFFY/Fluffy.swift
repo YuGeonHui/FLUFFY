@@ -7,7 +7,9 @@
 
 import Foundation
 
+typealias FluffyView = Fluffy.View
+
 enum Fluffy {
     
-    enum Scence {}
+    enum View {}
 }

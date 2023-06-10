@@ -20,3 +20,12 @@ struct HomeViewResponse: Equatable, Codable {
         case createdAt = "user_created_time"
     }
 }
+
+extension FluffyHomeView: Equatable {
+    
+    struct ViewValue {
+        
+        let nickname: String?
+        let status: Status
+    }
+}
