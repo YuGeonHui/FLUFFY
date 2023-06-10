@@ -121,7 +121,7 @@ class ScheudlerViewController: BaseViewController {
         let calendar = FSCalendar(frame: .zero)
         calendar.weekdayHeight = 15
         calendar.headerHeight = 0
-//        calendar.appearance.eventDefaultColor = UIColor(hex: "C6C6C6")
+        //        calendar.appearance.eventDefaultColor = UIColor(hex: "C6C6C6")
         calendar.appearance.eventSelectionColor = UIColor(hex: "FF0000")
         calendar.appearance.headerTitleFont = UIFont.pretendard(.bold, size: 15)
         calendar.appearance.weekdayFont = UIFont.pretendard(.medium, size: 11)
@@ -151,6 +151,7 @@ class ScheudlerViewController: BaseViewController {
         let vc = ModalViewController()
         vc.selectedDate = self.selectedDate
         vc.closeAction = { [weak self] in
+            self?.getUser()
             self?.tableView.reloadData()
             self?.view.layoutIfNeeded()
             print("reload 완료")
@@ -160,11 +161,11 @@ class ScheudlerViewController: BaseViewController {
     }
     
     override func viewDidLoad() {
-//        self.view.backgroundColor = .blue
+        //        self.view.backgroundColor = .blue
         getUser()
         super.viewDidLoad()
         print("-----스케쥴 viewdidload-----")
-//        self.view.backgroundColor = .white
+        //        self.view.backgroundColor = .white
         self.configure()
         setEvents()
         User().getAllSchedule(selectedDate: selectedDate, self)
@@ -176,11 +177,13 @@ class ScheudlerViewController: BaseViewController {
         print("getUser 결과")
         getUser()
         print("getAllSchedule 결과")
-//        User().getAllSchedule(selectedDate: selectedDate, self)
+        self.tabBarController?.tabBar.isHidden = false
+        User().getAllSchedule(selectedDate: selectedDate, self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         print("---- 스케쥴 viewDidAppear-----")
+        getUser()
         User().getAllSchedule(selectedDate: selectedDate, self)
     }
     
@@ -192,7 +195,7 @@ class ScheudlerViewController: BaseViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         print("---- 스케쥴 viewDidDisappear-----")
-
+        
     }
     
     
@@ -239,13 +242,25 @@ class ScheudlerViewController: BaseViewController {
         redEvents = [myFirstEvent]
     }
     
+    func setBlueEvents() {
+        let dfMatter = DateFormatter()
+        dfMatter.locale = Locale(identifier: "ko_KR")
+        dfMatter.dateFormat = "yyyyMMdd"
+        
+        guard let myFirstEvent = dfMatter.date(from: selectedDate) else {return}
+        
+        blueEvents = [myFirstEvent]
+    }
+    
     private func getUser() {
         if KeychainService.shared.loadToken() != nil {
             User().getUserName(self)
+            self.view.layoutIfNeeded()
         } else {
             print("토큰 없음")
+            User().getUserName(self)
             self.statusLabel.text = "로그인이 필요해요!"
-            self.statusIamge.image = UIImage(named: "LoginStatus")
+            self.statusIamge.image = UIImage(named: "loginStatus")
         }
         
     }
@@ -253,6 +268,7 @@ class ScheudlerViewController: BaseViewController {
     func didSuccess(_ response: UserInfo) {
         if let getUserName = response.userNickname {
             self.statusLabel.text = "\(getUserName)" + "님의 현재 상태"
+            self.statusLabel.text = "플러피님의 현재 상태"
             let point = UserDefaults.standard.double(forKey: "userScore")
             switch point {
             case ...15:
@@ -266,9 +282,29 @@ class ScheudlerViewController: BaseViewController {
             default:
                 self.statusIamge.image = UIImage(named: "GoodStatus")
             }
-            self.view.layoutIfNeeded()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.view.layoutIfNeeded()
+            }
+            
         } else {
             let point = UserDefaults.standard.double(forKey: "userScore")
+            switch point {
+            case ...15:
+                self.statusIamge.image = UIImage(named: "GoodStatus")
+            case 16...30:
+                self.statusIamge.image = UIImage(named: "CautionStatus")
+            case 31...50:
+                self.statusIamge.image = UIImage(named: "WarningStatus")
+            case 51...:
+                self.statusIamge.image = UIImage(named: "DangerStatus")
+            default:
+                self.statusIamge.image = UIImage(named: "GoodStatus")
+            }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.view.layoutIfNeeded()
+            }
             print("userPoint - \(point)")
         }
     }
@@ -370,7 +406,7 @@ class ScheudlerViewController: BaseViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         tableView.rowHeight = 64
-//        tableView.rowHeight = 90
+        //        tableView.rowHeight = 90
         tableView.separatorStyle = .none
         tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.identifier)
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -424,17 +460,20 @@ extension ScheudlerViewController : UITableViewDelegate, UITableViewDataSource {
             let prefix = String(time.prefix(2))
             let suffix = String(time.suffix(2))
             var numPrefix = Int(prefix)!
+            let otherPrefix = String(time.prefix(1))
             
             if numPrefix > 12 {
                 numPrefix -= 12
                 let result = "오후 \(numPrefix):\(suffix)"
                 cell.timeLabel.text = result
             } else {
-                let result = "오전 \(numPrefix):\(suffix)"
+                let result = "오전 0\(otherPrefix):\(suffix)"
                 cell.timeLabel.text = result
             }
             
             cell.taskLabel.text = task.scheduleContent
+            cell.taskLabel.font = UIFont.pretendard(.semiBold, size: 18)
+            cell.taskLabel.textColor = UIColor(hex: "2D2D2D")
             
             
             cell.selectionStyle = .none
@@ -463,7 +502,7 @@ extension ScheudlerViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-        
+            
             if allDate.isEmpty {
                 self.tableView.reloadData()
                 
@@ -471,14 +510,14 @@ extension ScheudlerViewController : UITableViewDelegate, UITableViewDataSource {
                 let id = allDate[indexPath.row].id
                 tableView.beginUpdates()
                 
-               
+                
                 
                 allDate.remove(at: indexPath.row)
                 User().deleteSchedule(id: id, self)
                 
                 tableView.endUpdates()
                 
-               
+                
                 self.tableView.reloadData()
             } else {
                 let id = allDate[indexPath.row].id
@@ -506,10 +545,16 @@ extension ScheudlerViewController : UITableViewDelegate, UITableViewDataSource {
         } else {
             let vc = EditModalViewController()
             vc.selectedDate = self.selectedDate
+            vc.closeEditAction = { [weak self] in
+                self?.getUser()
+                self?.tableView.reloadData()
+                self?.view.layoutIfNeeded()
+                print("reload 완료")
+            }
             vc.index = indexPath.row
             self.presentPanModal(vc)
         }
-        
+        self.setBlueEvents()
     }
 }
 

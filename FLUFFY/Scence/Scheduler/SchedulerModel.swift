@@ -15,18 +15,6 @@ struct User {
     
     private let url = "http://54.180.2.148:8000/"
     
-    
-    
-//    private let headers: HTTPHeaders = [
-//        "Authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDA4MTQ5NTAsImlhdCI6MTY4NTI2Mjk1MCwic3ViIjoidGVzdCJ9._DA6jFmamgQnlgTAnx6dtnLkmjJigIabsxOl83GAj8Y",
-//        "Content-Type": "application/json"
-//    ]
-//
-//    private let postHeaders: HTTPHeaders = [
-//        "Authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDE3Mzc0NjIsImlhdCI6MTY4NjE4NTQ2Miwic3ViIjoiYWJjIn0.aGUyz8axiTLXv89Cj3oY0m_XPVSbm5huZ9iW4fsOw20",
-//        "Content-Type": "application/json"
-//    ]
-    
     func getUserName(_ viewController: ScheudlerViewController) {
         
         guard let token = KeychainService.shared.loadToken() else {return}

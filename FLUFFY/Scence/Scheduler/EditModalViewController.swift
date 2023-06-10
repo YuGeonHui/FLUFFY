@@ -15,12 +15,9 @@ class EditModalViewController: UIViewController{
     
     private let url = "http://54.180.2.148:8000/"
     
-//    private let headers: HTTPHeaders = [
-//        "Authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDE3Mzc0NjIsImlhdCI6MTY4NjE4NTQ2Miwic3ViIjoiYWJjIn0.aGUyz8axiTLXv89Cj3oY0m_XPVSbm5huZ9iW4fsOw20",
-//        "Content-Type": "application/json"
-//    ]
-//
     var selectedDate : String = ""
+    
+    var closeEditAction: (() -> ())?
     
     var sliderValue = 0
     
@@ -33,6 +30,9 @@ class EditModalViewController: UIViewController{
     private var dateValue = 0
     
     private var pickerDate : Date?
+    
+    private var created : Date?
+    
     
     private let stressWord : [String] = [
         "스트레스 완전 회복~! 100%",
@@ -74,11 +74,12 @@ class EditModalViewController: UIViewController{
         print("schedule_time - \(dateValue)")
         print("schedule_content -\(taskTextField.text ?? "error")")
         
-//        guard let text = taskTextField.text else {return}
-//        
-//        guard let date = Int(selectedDate) else {return}
+        guard let text = taskTextField.text else {return}
         
-
+        guard let date = Int(selectedDate) else {return}
+        
+        putScheduler(scheduleContent: text, scheduleDate: date, scheduleTime: dateValue, stressStep: weeklyValue, scheduleId: scheduleID)
+        closeEditAction?()
         self.dismiss(animated: true)
         // weekly value 주간 점수 통신
     }
@@ -185,6 +186,35 @@ class EditModalViewController: UIViewController{
         User().getEditSchedule(selectedDate: selectedDate, self)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        print("editModalView ViewWillAppear")
+    }
+    
+    private func putScheduler(scheduleContent: String, scheduleDate: Int, scheduleTime: Int, stressStep: Int, scheduleId : Int) {
+        
+        guard let token = KeychainService.shared.loadToken() else {return}
+        let headers: HTTPHeaders? = HTTPHeaders([FlUFFYAPI.Header.authFieldName: FlUFFYAPI.Header.auth(token).value])
+        
+        let url = url + "api/scheduling"
+        
+        AF.request(url,
+                   method: .put,
+                   parameters: PutSchedule(scheduleContent: scheduleContent, scheduleDate: scheduleDate, scheduleTime: scheduleTime, stressStep: stressStep, scheduleID: scheduleId),
+                   encoder: JSONParameterEncoder.default,
+                   headers: headers).responseDecodable(of: UserScore.self) { response in
+            switch response.result {
+            case .success(let res):
+                print("응답 코드 :: ", response.response?.statusCode ?? 0)
+                UserDefaults.standard.set(res.userPoint, forKey: "userScore")
+                print("res.userPoint, \(res.userPoint)")
+            case .failure(let err):
+                print("응답 코드 :: ", response.response?.statusCode ?? 0)
+                print("에 러 :: ", err.localizedDescription)
+            }
+        }
+    }
+    
+    
     func scheduleGetSuccess(_ response: [AllScheduleDate]) {
         let result = response[self.index]
         scheduleID = result.id
@@ -194,6 +224,7 @@ class EditModalViewController: UIViewController{
     func updateSchedule( _ response: AllScheduleDate) {
         self.taskTextField.text = response.scheduleContent
         print("response - \(response)")
+        
         
         let date = String(response.scheduleTime)
         let prefix = String(date.prefix(2))

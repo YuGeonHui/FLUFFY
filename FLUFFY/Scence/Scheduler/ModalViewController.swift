@@ -14,6 +14,8 @@ class ModalViewController: UIViewController{
     
     var closeAction: (() -> ())?
     
+    
+    
     private let apiService = NetworkService()
     
     var selectedDate : String = ""
@@ -213,7 +215,7 @@ class ModalViewController: UIViewController{
             case .success(let res):
                 print("응답 코드 :: ", response.response?.statusCode ?? 0)
                 UserDefaults.standard.set(res.userPoint, forKey: "userScore")
-                
+                print("res.userPoint, \(res.userPoint)")
             case .failure(let err):
                 print("응답 코드 :: ", response.response?.statusCode ?? 0)
                 print("에 러 :: ", err.localizedDescription)

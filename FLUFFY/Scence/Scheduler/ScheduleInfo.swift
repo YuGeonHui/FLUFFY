@@ -19,6 +19,19 @@ struct ScheduleInfo: Codable {
     }
 }
 
+struct PutSchedule: Codable {
+    let scheduleContent: String
+    let scheduleDate, scheduleTime, stressStep, scheduleID: Int
+
+    enum CodingKeys: String, CodingKey {
+        case scheduleContent = "schedule_content"
+        case scheduleDate = "schedule_date"
+        case scheduleTime = "schedule_time"
+        case stressStep = "stress_step"
+        case scheduleID = "schedule_id"
+    }
+}
+
 
 struct AllScheduleDate: Codable {
     let scheduleDate, id, stressStep, userID: Int

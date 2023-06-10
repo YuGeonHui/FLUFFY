@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,16 +26,16 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="mbr-df-l5y">
-                                <rect key="frame" x="0.0" y="351" width="393" height="72"/>
+                                <rect key="frame" x="0.0" y="351" width="393" height="71.333333333333314"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="멘칼케어의 새로운 시작" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KD6-Mb-t64">
-                                        <rect key="frame" x="132.66666666666666" y="0.0" width="127.99999999999997" height="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="멘탈케어의 새로운 시작" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KD6-Mb-t64">
+                                        <rect key="frame" x="132" y="0.0" width="129" height="16.333333333333332"/>
                                         <fontDescription key="fontDescription" name="Pretendard-Medium" family="Pretendard" pointSize="14"/>
                                         <color key="textColor" red="0.41960784313725491" green="0.41960784313725491" blue="0.41960784313725491" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fluffy_logo" translatesAutoresizingMaskIntoConstraints="NO" id="5QN-Ia-6np">
-                                        <rect key="frame" x="131" y="29" width="131" height="43"/>
+                                        <rect key="frame" x="131" y="28.333333333333314" width="131" height="43"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="43" id="61g-ew-hVZ"/>
                                             <constraint firstAttribute="width" constant="131" id="kvB-R5-FDS"/>
