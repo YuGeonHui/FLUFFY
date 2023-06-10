@@ -61,12 +61,6 @@ final class AssociationViewController: UIViewController {
     
     private let dividerView = DividerView()
     
-//    private let allAgreeImgeView = UIImageView()
-//
-//    private let allAgreeTitleLabel = UILabel()
-//
-//    private lazy var allAgreeStackView = UIStackView(arrangedSubviews: [allAgreeImgeView, allAgreeTitleLabel])
-    
     // MARK: ViewModel
     private let viewModel = AssociationViewModel()
 
@@ -132,13 +126,6 @@ final class AssociationViewController: UIViewController {
             self.dividerView.widthAnchor.constraint(equalToConstant: 350),
             self.dividerView.heightAnchor.constraint(equalToConstant: 1),
             self.dividerView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            
-//            self.allAgreeImgeView.widthAnchor.constraint(equalToConstant: Metric.allAgreeBtnSize.width),
-//            self.allAgreeImgeView.heightAnchor.constraint(equalToConstant: Metric.allAgreeBtnSize.height),
-//            
-//            self.allAgreeStackView.topAnchor.constraint(equalTo: self.dividerView.bottomAnchor, constant: 19),
-//            self.allAgreeStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-//            self.allAgreeStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
             
             self.nextButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             self.nextButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),

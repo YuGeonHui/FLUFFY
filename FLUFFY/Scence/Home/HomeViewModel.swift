@@ -10,15 +10,7 @@ import RxSwift
 import RxCocoa
 import Alamofire
 
-protocol HomeViewModelInputs {
-    
-}
-
-protocol HomeViewModelOutputs {
-    
-}
-
-final class HomeViewModel: RxViewModel, HomeViewModelInputs, HomeViewModelOutputs {
+final class HomeViewModel: RxViewModel {
     
     private let _fetch = PublishRelay<Void>()
     func fetchInfo() {

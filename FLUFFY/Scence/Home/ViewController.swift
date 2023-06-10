@@ -92,17 +92,12 @@ final class ViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupViews()
-        setupAutoLayout()
-        bindInputs()
-        bindOutputs()
-      
-        viewModel.bind()
-        
         self.view.backgroundColor = UIColor(hex: "f9f9f9")
         
-        self.bindInputs()
-        self.bindOutputs()
+        setupViews()
+        setupAutoLayout()
+    
+        viewModel.bind()
         
         self.viewModel.fetchInfo()
     }
@@ -122,6 +117,7 @@ final class ViewController: BaseViewController {
         self.statusLabel.backgroundColor = status.background
         self.statusDesc.text = status.desc
         self.statusDesc.textColor = status.background
+        self.characterImageView.image = status.character
     }
     
     deinit {
@@ -171,37 +167,4 @@ final class ViewController: BaseViewController {
             self.messageLabel.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -80)
         ])
     }
-}
-
-// MARK: Bindings
-extension ViewController {
-    
-    private func bindInputs() {
-        
-    }
-    
-    private func bindOutputs() {
-        
-//        self.viewModel.valueChanged
-//            .observe(on: MainScheduler.instance)
-//            .withUnretained(self)
-//            .bind(onNext: { $0.0.updateViews($0.1) })
-//            .disposed(by: self.disposeBag)
-    }
-}
-
-extension ViewController {
-    
-    private func updateViews(_ status: Status?) {
-        
-        guard let status = status else { return }
-        
-        self.characterImageView.image = status.icon
-        self.messageLabel.text = status.message
-    }
-}
-
-extension ViewController {
-    
-    
 }

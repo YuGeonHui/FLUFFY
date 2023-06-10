@@ -19,6 +19,24 @@ final class TabBarViewController: UITabBarController {
         UITabBar.appearance().backgroundColor = .white
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let homeTabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "homeIconOff"), selectedImage: UIImage(named: "homeIconOn"))
+        let schedulerBartItem = UITabBarItem(title: "Schedule", image: UIImage(named: "Date_range"), selectedImage: UIImage(named: "Date_range_fill"))
+        
+        var homeVC = generateNavController(vc: HomeViewController(), tabBarItem: homeTabBarItem)
+        
+        if KeychainService.shared.isTokenValidate() {
+            homeVC = generateNavController(vc: ViewController(), tabBarItem: homeTabBarItem)
+        }
+        
+        let schedulerVC = generateNavController(vc: ScheudlerViewController(), tabBarItem: schedulerBartItem)
+        
+        self.viewControllers = [homeVC, schedulerVC]
+//        self.selectedIndex = 0
+    }
+    
     private func setupViews() {
         
         let homeTabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "homeIconOff"), selectedImage: UIImage(named: "homeIconOn"))
