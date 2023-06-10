@@ -7,16 +7,30 @@
 
 import UIKit
 import PanModal
+import Alamofire
 
 class EditModalViewController: UIViewController{
     
     private let apiService = NetworkService()
     
+    private let url = "http://54.180.2.148:8000/"
+    
+//    private let headers: HTTPHeaders = [
+//        "Authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDE3Mzc0NjIsImlhdCI6MTY4NjE4NTQ2Miwic3ViIjoiYWJjIn0.aGUyz8axiTLXv89Cj3oY0m_XPVSbm5huZ9iW4fsOw20",
+//        "Content-Type": "application/json"
+//    ]
+//
     var selectedDate : String = ""
     
     var sliderValue = 0
     
     var weeklyValue = 0
+    
+    var scheduleID = 0
+    
+    var index = 0
+    
+    private var dateValue = 0
     
     private var pickerDate : Date?
     
@@ -43,7 +57,7 @@ class EditModalViewController: UIViewController{
         button.addTarget(self, action: #selector(editIsClikced), for: .touchUpInside)
         return button
     }()
-
+    
     
     private lazy var trashButton : UIButton = {
         let button = UIButton()
@@ -55,8 +69,17 @@ class EditModalViewController: UIViewController{
     }()
     
     @objc private func editIsClikced() {
+        print("schedule_date - \(Int(selectedDate)!)")
+        print("stress_step - \(weeklyValue)")
+        print("schedule_time - \(dateValue)")
+        print("schedule_content -\(taskTextField.text ?? "error")")
+        
+//        guard let text = taskTextField.text else {return}
+//        
+//        guard let date = Int(selectedDate) else {return}
+        
+
         self.dismiss(animated: true)
-        print("modal select - \(selectedDate)")
         // weekly value 주간 점수 통신
     }
     
@@ -83,7 +106,7 @@ class EditModalViewController: UIViewController{
         picker.locale = Locale(identifier: "ko_KR")
         return picker
     }()
-
+    
     
     private let dateTextField : UITextField = {
         let textField = UITextField()
@@ -159,7 +182,40 @@ class EditModalViewController: UIViewController{
         super.viewDidLoad()
         view.backgroundColor = .white
         self.configure()
+        User().getEditSchedule(selectedDate: selectedDate, self)
     }
+    
+    func scheduleGetSuccess(_ response: [AllScheduleDate]) {
+        let result = response[self.index]
+        scheduleID = result.id
+        User().getDetailSchedule(id: scheduleID, self)
+    }
+    
+    func updateSchedule( _ response: AllScheduleDate) {
+        self.taskTextField.text = response.scheduleContent
+        print("response - \(response)")
+        
+        let date = String(response.scheduleTime)
+        let prefix = String(date.prefix(2))
+        let suffix = String(date.suffix(2))
+        var numPrefix = Int(prefix)!
+        let value = response.stressStep - 5
+        if numPrefix > 12 {
+            numPrefix -= 12
+            let result = "오후 \(numPrefix):\(suffix)"
+            self.dateTextField.text = result
+            self.dateTextField.font = UIFont.pretendard(.medium, size: 15)
+        } else {
+            let result = "오전 \(numPrefix):\(suffix)"
+            self.dateTextField.text = result
+            self.dateTextField.font = UIFont.pretendard(.medium, size: 15)
+        }
+        slider.setValue(Float(value), animated: false)
+        stressLabel.text = stressWord[response.stressStep]
+        print("slider value - \(slider.value)")
+        print("value -\(value)")
+    }
+    
     
     private func createToolBar() -> UIToolbar {
         
@@ -178,9 +234,15 @@ class EditModalViewController: UIViewController{
         dateFormmater.dateFormat = "a h:mm"
         dateFormmater.locale = Locale(identifier: "ko_KR")
         
+        let df = DateFormatter()
+        df.dateFormat = "HHmm"
+        
         let date = dateFormmater.string(from: datePicker.date)
         dateTextField.text = date
         dateTextField.font = UIFont.pretendard(.medium, size: 15)
+        
+        let value = df.string(from: datePicker.date)
+        dateValue = Int(value)!
         
         self.view.endEditing(true)
     }

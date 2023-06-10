@@ -8,6 +8,14 @@
 import Foundation
 
 extension String {
-    
+    func toDate() -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "a hh:mm"
+        if let date = dateFormatter.date(from: self) {
+            return date
+        } else {
+            return nil
+        }
+    }
     
 }

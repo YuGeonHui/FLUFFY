@@ -8,6 +8,9 @@
 import UIKit
 import PanModal
 import FSCalendar
+import Alamofire
+
+
 
 class ScheudlerViewController: BaseViewController {
     
@@ -23,6 +26,9 @@ class ScheudlerViewController: BaseViewController {
     
     private var userName = "동동"
     
+    private var allDate : [AllScheduleDate] = []
+    
+    private var userScore = 0.0
     
     private lazy var statusLabel : UILabel = {
         let label = UILabel()
@@ -98,6 +104,7 @@ class ScheudlerViewController: BaseViewController {
     
     private let tableView : UITableView = {
         let view = UITableView()
+        view.backgroundColor = UIColor(hex: "F9F9F9")
         return view
     }()
     
@@ -114,9 +121,10 @@ class ScheudlerViewController: BaseViewController {
         let calendar = FSCalendar(frame: .zero)
         calendar.weekdayHeight = 15
         calendar.headerHeight = 0
-        calendar.appearance.eventDefaultColor = UIColor(hex: "C6C6C6")
+//        calendar.appearance.eventDefaultColor = UIColor(hex: "C6C6C6")
+        calendar.appearance.eventSelectionColor = UIColor(hex: "FF0000")
         calendar.appearance.headerTitleFont = UIFont.pretendard(.bold, size: 15)
-        calendar.appearance.weekdayFont = UIFont.pretendard(.bold, size: 11)
+        calendar.appearance.weekdayFont = UIFont.pretendard(.medium, size: 11)
         calendar.appearance.headerTitleColor = UIColor(hex: "2D2D2D")
         calendar.appearance.weekdayTextColor = UIColor(hex: "ADADAD")
         calendar.appearance.titleTodayColor = UIColor(hex: "0600FE")
@@ -132,24 +140,61 @@ class ScheudlerViewController: BaseViewController {
         return calendar
     }()
     
+    private let emptyView : UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(hex: "F9F9F9")
+        return view
+    }()
+    
     
     @objc private func addButtonClicked(_ sender: UIButton) {
         let vc = ModalViewController()
         vc.selectedDate = self.selectedDate
+        vc.closeAction = { [weak self] in
+            self?.tableView.reloadData()
+            self?.view.layoutIfNeeded()
+            print("reload 완료")
+        }
         self.presentPanModal(vc)
-        
         
     }
     
     override func viewDidLoad() {
+//        self.view.backgroundColor = .blue
         getUser()
         super.viewDidLoad()
-        print("viewdidload")
-        self.view.backgroundColor = .white
-        print("today - \(selectedDate)")
+        print("-----스케쥴 viewdidload-----")
+//        self.view.backgroundColor = .white
         self.configure()
         setEvents()
+        User().getAllSchedule(selectedDate: selectedDate, self)
+        getUserPoint()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("---- 스케쥴 viewWillAppear-----")
+        print("getUser 결과")
+        getUser()
+        print("getAllSchedule 결과")
+//        User().getAllSchedule(selectedDate: selectedDate, self)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("---- 스케쥴 viewDidAppear-----")
+        User().getAllSchedule(selectedDate: selectedDate, self)
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        print("---- 스케쥴 viewWillDisappear-----")
+        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        print("---- 스케쥴 viewDidDisappear-----")
+
+    }
+    
     
     @objc private func statusButtonIsClicked() {
         if KeychainService.shared.loadToken() == nil {
@@ -164,11 +209,24 @@ class ScheudlerViewController: BaseViewController {
         self.configureStatus()
         self.configureTitleLabel()
         self.configureFSCalendar()
+        self.configureEmptyView()
         self.configureNextButton()
         self.configurePreviousButton()
         self.configureAddButton()
         self.configureTableView()
         
+    }
+    
+    private func configureEmptyView() {
+        self.view.addSubview(emptyView)
+        emptyView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            emptyView.topAnchor.constraint(equalTo: calendar.bottomAnchor, constant: 10),
+            emptyView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            emptyView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            emptyView.heightAnchor.constraint(equalToConstant: 20)
+        ])
     }
     
     private func setEvents() {
@@ -177,16 +235,15 @@ class ScheudlerViewController: BaseViewController {
         dfMatter.dateFormat = "yyyyMMdd"
         
         guard let myFirstEvent = dfMatter.date(from: selectedDate) else {return}
-        print("myFirstEvent: \(myFirstEvent)")
         
-        grayEvents = [myFirstEvent]
+        redEvents = [myFirstEvent]
     }
     
     private func getUser() {
         if KeychainService.shared.loadToken() != nil {
             User().getUserName(self)
         } else {
-            print("비로그인")
+            print("토큰 없음")
             self.statusLabel.text = "로그인이 필요해요!"
             self.statusIamge.image = UIImage(named: "LoginStatus")
         }
@@ -196,10 +253,43 @@ class ScheudlerViewController: BaseViewController {
     func didSuccess(_ response: UserInfo) {
         if let getUserName = response.userNickname {
             self.statusLabel.text = "\(getUserName)" + "님의 현재 상태"
+            let point = UserDefaults.standard.double(forKey: "userScore")
+            switch point {
+            case ...15:
+                self.statusIamge.image = UIImage(named: "GoodStatus")
+            case 16...30:
+                self.statusIamge.image = UIImage(named: "CautionStatus")
+            case 31...50:
+                self.statusIamge.image = UIImage(named: "WarningStatus")
+            case 51...:
+                self.statusIamge.image = UIImage(named: "DangerStatus")
+            default:
+                self.statusIamge.image = UIImage(named: "GoodStatus")
+            }
+            self.view.layoutIfNeeded()
         } else {
-            
+            let point = UserDefaults.standard.double(forKey: "userScore")
+            print("userPoint - \(point)")
         }
     }
+    
+    private func getUserPoint() {
+        guard let userPoint = UserDefaults.standard.string(forKey: "userStore") else {return}
+        print("userPoint -\(userPoint)")
+    }
+    
+    func scheduleGetDidSuccess(_ response: [AllScheduleDate]) {
+        self.allDate = response
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+        
+    }
+    
+    func deleteScheduleSuccess(_ response: UserScore) {
+        print("response - \(response)")
+    }
+    
     
     private func configureFSCalendar() {
         self.view.addSubview(calendar)
@@ -209,8 +299,8 @@ class ScheudlerViewController: BaseViewController {
         
         NSLayoutConstraint.activate([
             calendar.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 17),
-            calendar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-            calendar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+            calendar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
+            calendar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
             calendar.heightAnchor.constraint(equalToConstant: 60)
         ])
         
@@ -280,11 +370,12 @@ class ScheudlerViewController: BaseViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         tableView.rowHeight = 64
+//        tableView.rowHeight = 90
         tableView.separatorStyle = .none
         tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.identifier)
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.tableView.topAnchor.constraint(equalTo: self.calendar.bottomAnchor, constant: 26),
+            self.tableView.topAnchor.constraint(equalTo: self.emptyView.bottomAnchor),
             self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
@@ -293,11 +384,13 @@ class ScheudlerViewController: BaseViewController {
     
     private func configureAddButton() {
         self.tableView.addSubview(self.addButton)
-        if KeychainService.shared.loadToken() != nil {
-            addButton.isHidden = false
-        } else {
-            addButton.isHidden = true
-        }
+        
+        //        if KeychainService.shared.loadToken() != nil {
+        //            addButton.isHidden = false
+        //        } else {
+        //            addButton.isHidden = true
+        //        }
+        
         self.addButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             self.addButton.heightAnchor.constraint(equalToConstant: 68),
@@ -313,34 +406,112 @@ class ScheudlerViewController: BaseViewController {
 extension ScheudlerViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 1
+        return allDate.isEmpty ? 1 : allDate.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as? TaskTableViewCell else {return UITableViewCell()}
-        cell.selectionStyle = .none
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as? TaskTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        let result = self.allDate
+        
+        
+        if indexPath.row < result.count {
+            let task = result[indexPath.row]
+            let time = String(task.scheduleTime)
+            
+            let prefix = String(time.prefix(2))
+            let suffix = String(time.suffix(2))
+            var numPrefix = Int(prefix)!
+            
+            if numPrefix > 12 {
+                numPrefix -= 12
+                let result = "오후 \(numPrefix):\(suffix)"
+                cell.timeLabel.text = result
+            } else {
+                let result = "오전 \(numPrefix):\(suffix)"
+                cell.timeLabel.text = result
+            }
+            
+            cell.taskLabel.text = task.scheduleContent
+            
+            
+            cell.selectionStyle = .none
+            
+            switch task.stressStep {
+            case ..<5:
+                cell.statusIcon.image = UIImage(named: "4")
+            case 5:
+                cell.statusIcon.image = UIImage(named: "0")
+            case 6...:
+                cell.statusIcon.image = UIImage(named: "-4")
+            default:
+                cell.statusIcon.image = UIImage(named: "0")
+            }
+        } else {
+            // 인덱스가 유효하지 않을 때에는 기본 UITableViewCell을 반환합니다.
+            let taskCell : UITableViewCell = {
+                let cell = TaskTableViewCell()
+                cell.selectionStyle = .none
+                return cell
+            }()
+            return taskCell
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // 통신 - DB에서 데이터 삭제 메서드
-            tableView.deleteRows(at: [indexPath], with: .fade)
+        
+            if allDate.isEmpty {
+                self.tableView.reloadData()
+                
+            } else if indexPath.row == 0 && indexPath.row + 1 == allDate.count {
+                let id = allDate[indexPath.row].id
+                tableView.beginUpdates()
+                
+               
+                
+                allDate.remove(at: indexPath.row)
+                User().deleteSchedule(id: id, self)
+                
+                tableView.endUpdates()
+                
+               
+                self.tableView.reloadData()
+            } else {
+                let id = allDate[indexPath.row].id
+                
+                
+                
+                tableView.beginUpdates()
+                
+                
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                allDate.remove(at: indexPath.row)
+                User().deleteSchedule(id: id, self)
+                
+                tableView.endUpdates()
+                
+            }
         } else if editingStyle == .insert {
             
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // 수정 모달 팝업 - 통신해서 해당 날짜에 기존 데이터 없으면 실행 x
-        if KeychainService.shared.loadToken() != nil {
+        if allDate.isEmpty {
+            
+        } else {
             let vc = EditModalViewController()
-            vc.selectedDate = selectedDate
-            present(vc, animated: true)
+            vc.selectedDate = self.selectedDate
+            vc.index = indexPath.row
+            self.presentPanModal(vc)
         }
+        
     }
 }
-
 
 extension ScheudlerViewController: UISheetPresentationControllerDelegate {
     func sheetPresentationControllerDidChangeSelectedDetentIdentifier(_ sheetPresentationController: UISheetPresentationController) {
@@ -354,15 +525,14 @@ extension ScheudlerViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         self.titleLabel.text = self.dateFormatter.string(from: calendar.currentPage)
-        print("current: \(calendar.currentPage)")
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         calendar.appearance.titleTodayColor = UIColor(hex: "2D2D2D")
-        print("date: \(date)")
         selectedDate = date.toString()
-        print("selectedDate = \(selectedDate)")
         setEvents()
+        User().getAllSchedule(selectedDate: selectedDate, self)
+        
     }
     
     // 이벤트 닷 표시 개수
@@ -401,6 +571,12 @@ extension Date {
     func toString() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"
+        return dateFormatter.string(from: self)
+    }
+    
+    func toStr() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "a hh:mm"
         return dateFormatter.string(from: self)
     }
 }
