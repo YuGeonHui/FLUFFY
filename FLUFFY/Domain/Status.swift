@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftRichString
 
 enum Status: Equatable, CaseIterable, Codable {
     
@@ -19,10 +20,10 @@ enum Status: Equatable, CaseIterable, Codable {
         
         switch self {
         case .unknow: return ""
-        case .safe: return "안전"
-        case .caution: return "주의"
-        case .warning: return "경고"
-        case .danger: return "위험"
+        case .safe: return "GOOD"
+        case .caution: return "CAUTION"
+        case .warning: return "WARNING"
+        case .danger: return "DANGER"
         }
     }
     

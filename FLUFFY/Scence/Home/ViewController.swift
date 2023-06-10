@@ -114,10 +114,29 @@ final class ViewController: BaseViewController {
         
         guard let nickname = nickname else { return }
         self.nicknameLabel.attributedText = nickname.set(style: Styles.nickname)
+        
+        let status = self.getUserStatus(UserDefaults.standard.userScore)
+        
+        self.statusLabel.text = status.localizable
+        self.statusLabel.font = UIFont.candyBean(.normal, size: 19)
+        self.statusLabel.backgroundColor = status.background
+        self.statusDesc.text = status.desc
+        self.statusDesc.textColor = status.background
     }
     
     deinit {
         viewModel.unbind()
+    }
+    
+    private func getUserStatus(_ userPoint: Double) -> Status {
+        
+        switch userPoint {
+        case ..<0: return .unknow
+        case 0...15: return .safe
+        case 16...30: return .caution
+        case 31...50: return .danger
+        default: return .warning
+        }
     }
     
     private func setupViews() {

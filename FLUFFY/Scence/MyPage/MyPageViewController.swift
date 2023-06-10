@@ -124,7 +124,31 @@ class MyPageViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.updateViews()
+        let nickname = UserDefaults.standard.string(forKey: NICKNAME_KEY)
+        
+        guard let nickname = nickname else { return }
+        self.nicknameLabel.attributedText = nickname.set(style: Styles.nickname)
+        
+        let status = self.getUserStatus(UserDefaults.standard.userScore)
+        
+        self.statusLabel.text = status.localizable
+        self.statusLabel.font = UIFont.candyBean(.normal, size: 19)
+        self.statusLabel.backgroundColor = status.background
+        self.messageLabel.text = status.desc
+        self.messageLabel.textColor = status.background
+        
+        self.characterImageView.image = status.icon
+    }
+    
+    private func getUserStatus(_ userPoint: Double) -> Status {
+        
+        switch userPoint {
+        case ..<0: return .unknow
+        case 0...15: return .safe
+        case 16...30: return .caution
+        case 31...50: return .danger
+        default: return .warning
+        }
     }
     
     private func setupViews() {
@@ -169,7 +193,7 @@ class MyPageViewController: UIViewController {
             dividerView.widthAnchor.constraint(equalToConstant: Metric.dividerSize.width),
             dividerView.heightAnchor.constraint(equalToConstant: Metric.dividerSize.height),
             dividerView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            dividerView.topAnchor.constraint(equalTo: self.characterImageView.bottomAnchor, constant: 21),
+            dividerView.topAnchor.constraint(equalTo: self.messageLabel.bottomAnchor, constant: 21),
             
             pushSettingView.topAnchor.constraint(equalTo: self.dividerView.bottomAnchor, constant: 30),
             pushSettingView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
@@ -266,22 +290,6 @@ class MyPageViewController: UIViewController {
             .disposed(by: self.disposeBag)
     }
     
-    private func updateViews() {
-        
-        guard let _ = KeychainService.shared.loadToken() else { return }
-        
-        let nickname = UserDefaults.standard.string(forKey: NICKNAME_KEY)
-        
-        guard let nickname = nickname else { return }
-        self.nicknameLabel.attributedText = nickname.set(style: Styles.nickname)
-        
-        self.statusLabel.padding = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
-        self.statusLabel.backgroundColor = UIColor(hex: "19c8ff")
-        self.statusLabel.attributedText = "GOOD".set(style: Styles.status)
-        
-        self.messageLabel.attributedText = "적절한 스트레스가 도움이 되는 상태".set(style: Styles.goodDesc)
-    }
-    
     deinit {
         viewModel.unbind()
     }
@@ -304,7 +312,6 @@ extension MyPageViewController {
     
     private func showMyInfoView() {
         
-//        let myInfoVC = MyInfoViewController()
         let myInfoVC = NicknameChangeViewController()
         self.navigationController?.pushViewController(myInfoVC, animated: true)
     }
