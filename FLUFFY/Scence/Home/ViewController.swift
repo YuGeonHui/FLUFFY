@@ -65,7 +65,7 @@ final class ViewController: BaseViewController {
     
     private let statusLabel = PaddingLabel().then {
         $0.backgroundColor = UIColor(hex: "19c8ff")
-        $0.attributedText = "Good".set(style: Styles.statusBar)
+        $0.attributedText = "GOOD".set(style: Styles.statusBar)
         $0.padding = UIEdgeInsets(top: 4, left: 11, bottom: 4, right: 12)
     }
     

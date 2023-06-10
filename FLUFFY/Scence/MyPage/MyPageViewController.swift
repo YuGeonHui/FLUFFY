@@ -277,7 +277,7 @@ class MyPageViewController: UIViewController {
         
         self.statusLabel.padding = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         self.statusLabel.backgroundColor = UIColor(hex: "19c8ff")
-        self.statusLabel.attributedText = "good".set(style: Styles.status)
+        self.statusLabel.attributedText = "GOOD".set(style: Styles.status)
         
         self.messageLabel.attributedText = "적절한 스트레스가 도움이 되는 상태".set(style: Styles.goodDesc)
     }
