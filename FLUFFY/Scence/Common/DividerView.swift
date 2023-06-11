@@ -13,7 +13,6 @@ final class DividerView: UIView {
         super.init(frame: frame)
         
         self.setupView()
-        self.setupAutoLayout()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -21,18 +20,10 @@ final class DividerView: UIView {
     }
     
     private func setupView() {
+        
         self.backgroundColor = UIColor(hex: "b1b1b1")
         self.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    private func setupAutoLayout() {
         
-        guard let superview = superview else { return }
-        
-        NSLayoutConstraint.activate([
-            leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: 20),
-            trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -20),
-            heightAnchor.constraint(equalToConstant: 1)
-        ])
+        self.heightAnchor.constraint(equalToConstant: 1).isActive = true
     }
 }

@@ -59,7 +59,7 @@ extension FluffyHomeView {
                     UserDefaults.standard.userScore = response.point ?? 0.0
                     
                 case .failure(let error):
-                    print("Error:", error)
+                    print("Error:", error.localizedDescription)
                 }
             }
         }

@@ -106,7 +106,6 @@ extension FluffyHomeView {
                 
                 self.tagView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
                 self.tagView.topAnchor.constraint(equalTo: self.imageView.bottomAnchor, constant: Metric.NoLogin.imageAfter),
-//
                 self.stateLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
                 self.stateLabel.topAnchor.constraint(equalTo: self.tagView.bottomAnchor, constant: Metric.NoLogin.tagAfter),
             ])
@@ -139,6 +138,17 @@ extension FluffyHomeView {
                 .observe(on: MainScheduler.instance)
                 .withUnretained(self)
                 .bind(onNext: { $0.updateViews($1) })
+                .disposed(by: self.disposeBag)
+            
+            self.tagView.rx.tapGesture()
+                .when(.recognized)
+                .filter { _ in !KeychainService.shared.isTokenValidate() }
+                .withUnretained(self)
+                .bind(onNext: {
+                    $0.0.tabBarController?.tabBar.isHidden = true
+                    
+                    $0.0.navigationController?.pushViewController(SignUpViewController(), animated: true)
+                })
                 .disposed(by: self.disposeBag)
         }
         
