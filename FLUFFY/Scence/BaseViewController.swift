@@ -64,7 +64,8 @@ class BaseViewController: UIViewController {
         
         self.tabBarController?.tabBar.isHidden = true
         
-        let myPageVC = MyPageViewController()
+//        let myPageVC = MyPageViewController()
+        let myPageVC = FluffyMyPageViewController()
         self.navigationController?.pushViewController(myPageVC, animated: true)
     }
 }

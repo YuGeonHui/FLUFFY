@@ -29,25 +29,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
         
     }
-    
-//    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-//
-//        let center = UNUserNotificationCenter.current()
-//        center.delegate = self
-//        center.requestAuthorization(options: [.alert, .sound]) { granted, error in
-//            print(granted, error)
-//        }
-//
-//        return true
-//    }
-    
 }
-
-//extension AppDelegate: UNUserNotificationCenterDelegate {
-//    // foreground에서 시스템 푸시를 수신했을 때 해당 메소드가 호출
-//    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-//        completionHandler([.sound, .badge, .banner])
-//    }
-//}
-
 

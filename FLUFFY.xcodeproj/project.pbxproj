@@ -21,6 +21,9 @@
 		B626B4512A34BC2300DF9942 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B626B4502A34BC2300DF9942 /* HomeView.swift */; };
 		B626B4532A34BC7C00DF9942 /* HomeViewStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B626B4522A34BC7C00DF9942 /* HomeViewStyles.swift */; };
 		B626B4552A34BE3F00DF9942 /* HomeViewStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B626B4542A34BE3F00DF9942 /* HomeViewStrings.swift */; };
+		B626B4572A35623700DF9942 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B626B4562A35623700DF9942 /* MyPageView.swift */; };
+		B626B4592A35628000DF9942 /* MyPageViewStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B626B4582A35628000DF9942 /* MyPageViewStyles.swift */; };
+		B626B45C2A35634900DF9942 /* MyPageViewStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B626B45B2A35634900DF9942 /* MyPageViewStrings.swift */; };
 		B629BAD82A26EF3800561538 /* PushSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B629BAD72A26EF3800561538 /* PushSettingViewModel.swift */; };
 		B6382BC92A23949300A40724 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B6382BC02A23949300A40724 /* Pretendard-ExtraBold.otf */; };
 		B6382BCA2A23949300A40724 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = B6382BC12A23949300A40724 /* Pretendard-Light.otf */; };
@@ -102,6 +105,9 @@
 		B626B4502A34BC2300DF9942 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B626B4522A34BC7C00DF9942 /* HomeViewStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewStyles.swift; sourceTree = "<group>"; };
 		B626B4542A34BE3F00DF9942 /* HomeViewStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewStrings.swift; sourceTree = "<group>"; };
+		B626B4562A35623700DF9942 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
+		B626B4582A35628000DF9942 /* MyPageViewStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewStyles.swift; sourceTree = "<group>"; };
+		B626B45B2A35634900DF9942 /* MyPageViewStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewStrings.swift; sourceTree = "<group>"; };
 		B629BAD72A26EF3800561538 /* PushSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushSettingViewModel.swift; sourceTree = "<group>"; };
 		B6382BC02A23949300A40724 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
 		B6382BC12A23949300A40724 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
@@ -358,6 +364,9 @@
 				B6907DCB2A207A95001B22C1 /* MyPageViewController.swift */,
 				B6AB3E4E2A2620C5003241C2 /* MyPageViewModel.swift */,
 				B65B42092A283AFB00E6B579 /* MyPageRowView.swift */,
+				B626B4562A35623700DF9942 /* MyPageView.swift */,
+				B626B4582A35628000DF9942 /* MyPageViewStyles.swift */,
+				B626B45B2A35634900DF9942 /* MyPageViewStrings.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -624,7 +633,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C2F58B52A26454B00B36415 /* TaskTableViewCell.swift in Sources */,
+				B626B45C2A35634900DF9942 /* MyPageViewStrings.swift in Sources */,
 				B6AB3E522A262586003241C2 /* PushSettingViewController.swift in Sources */,
+				B626B4572A35623700DF9942 /* MyPageView.swift in Sources */,
 				9C5A12512A30D7BC00E04FC3 /* SchedulerRequest.swift in Sources */,
 				B69688602A1F12CA009CC9B6 /* ViewController.swift in Sources */,
 				B696885C2A1F12CA009CC9B6 /* AppDelegate.swift in Sources */,
@@ -653,6 +664,7 @@
 				B6907DD42A20A0F2001B22C1 /* App.swift in Sources */,
 				B6907DCE2A207AA1001B22C1 /* ScheudlerViewController.swift in Sources */,
 				B65B42082A28286100E6B579 /* AccountAPIs.swift in Sources */,
+				B626B4592A35628000DF9942 /* MyPageViewStyles.swift in Sources */,
 				B65B42012A27357000E6B579 /* MyInfoViewModel.swift in Sources */,
 				B65B41FA2A27311D00E6B579 /* Opener.swift in Sources */,
 				9C5A12552A31A58100E04FC3 /* ScheduleRequest.swift in Sources */,
