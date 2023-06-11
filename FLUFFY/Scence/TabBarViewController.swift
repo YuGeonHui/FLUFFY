@@ -24,12 +24,7 @@ final class TabBarViewController: UITabBarController {
         let homeTabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "homeIconOff"), selectedImage: UIImage(named: "homeIconOn"))
         let schedulerBartItem = UITabBarItem(title: "Schedule", image: UIImage(named: "Date_range"), selectedImage: UIImage(named: "Date_range_fill"))
         
-        var homeVC = generateNavController(vc: HomeViewController(), tabBarItem: homeTabBarItem)
-        
-        if KeychainService.shared.isTokenValidate() {
-            homeVC = generateNavController(vc: ViewController(), tabBarItem: homeTabBarItem)
-        }
-        
+        let homeVC = generateNavController(vc: FluffyHomeViewController(), tabBarItem: homeTabBarItem)
         let schedulerVC = generateNavController(vc: ScheudlerViewController(), tabBarItem: schedulerBartItem)
         
         self.viewControllers = [homeVC, schedulerVC]

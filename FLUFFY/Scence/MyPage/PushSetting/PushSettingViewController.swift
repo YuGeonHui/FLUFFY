@@ -6,8 +6,13 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import SwiftRichString
 
 final class PushSettingViewController: UIViewController {
+    
+    private let disposeBag = DisposeBag()
     
     private enum Metric {
         
@@ -24,6 +29,8 @@ final class PushSettingViewController: UIViewController {
         static let titleAfter: CGFloat = 60
         
         static let titleBefore: CGFloat = 12
+        
+        static let btnHeight: CGFloat = 53
     }
     
     private let titleLabel = UILabel().then {
@@ -53,6 +60,10 @@ final class PushSettingViewController: UIViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    private let saveButton = CommonButtonView(background: UIColor(hex: "000000"), title: "저장하기").then {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -60,6 +71,7 @@ final class PushSettingViewController: UIViewController {
         
         setupViews()
         createDatePicker()
+        bindView()
     }
     
     private func createToolBar() -> UIToolbar {
@@ -121,6 +133,7 @@ final class PushSettingViewController: UIViewController {
         
         self.view.addSubview(titleStackView)
         self.view.addSubview(timePickerView)
+        self.view.addSubview(saveButton)
         
         titleStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: Metric.titleBefore).isActive = true
         titleStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Metric.spacing).isActive = true
@@ -129,7 +142,21 @@ final class PushSettingViewController: UIViewController {
         timePickerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Metric.spacing).isActive = true
         timePickerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -Metric.spacing).isActive = true
         timePickerView.topAnchor.constraint(equalTo: self.titleStackView.bottomAnchor, constant: Metric.titleAfter).isActive = true
-        
         timePickerView.heightAnchor.constraint(equalToConstant: Metric.timePickerHeight).isActive = true
+        
+        NSLayoutConstraint.activate([
+            saveButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+            saveButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+            saveButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            saveButton.heightAnchor.constraint(equalToConstant: Metric.btnHeight)
+        ])
+    }
+    
+    private func bindView() {
+        
+        self.saveButton.buttonTapped
+            .withUnretained(self)
+            .bind(onNext: { $0.0.navigationController?.popViewController(animated: true) })
+            .disposed(by: self.disposeBag)
     }
 }

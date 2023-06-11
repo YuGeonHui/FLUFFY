@@ -9,7 +9,6 @@ import Foundation
 import RxSwift
 import RxCocoa
 import Then
-//import RxGesture
 import SwiftRichString
 
 class MyPageViewController: UIViewController {
@@ -55,7 +54,6 @@ class MyPageViewController: UIViewController {
     }
     
     private lazy var nicknameLabel = UILabel().then {
-        $0.attributedText = "환영해요!".set(style: Styles.nickname)
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -66,21 +64,16 @@ class MyPageViewController: UIViewController {
     }
     
     private var statusLabel = PaddingLabel().then {
-        $0.padding = UIEdgeInsets(top: 5, left: 7.5, bottom: 5, right: 7.5)
-        $0.backgroundColor = UIColor(hex: "89bfff")
-        $0.attributedText = "Log in >".set(style: Styles.status)
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private let messageLabel = UILabel().then {
-        $0.attributedText = "로그인하고 번아웃 예방하기".set(style: Styles.desc)
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private let characterImageView = UIImageView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.contentMode = .scaleAspectFit
-        $0.image = UIImage(named: "goodIcon")
     }
     
     private let dividerView = DividerView()
@@ -123,6 +116,22 @@ class MyPageViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        guard KeychainService.shared.isTokenValidate() else {
+            
+            self.nicknameLabel.attributedText = "환영해요!".set(style: Styles.nickname)
+            self.editImageView.isHidden = true
+            
+            self.statusLabel.padding = UIEdgeInsets(top: 5, left: 7.5, bottom: 5, right: 7.5)
+            self.statusLabel.backgroundColor = UIColor(hex: "89bfff")
+            self.statusLabel.attributedText = "Log in >".set(style: Styles.status)
+            
+            self.messageLabel.attributedText = "로그인하고 번아웃 예방하기".set(style: Styles.desc)
+            
+            self.characterImageView.image = UIImage(named: "goodIcon")
+            
+            return
+        }
         
         let nickname = UserDefaults.standard.string(forKey: NICKNAME_KEY)
         

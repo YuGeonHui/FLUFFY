@@ -22,6 +22,12 @@ struct AccountUserResponse: Codable {
         case point = "user_point"
         case dateStr = "user_created_time"
     }
+    
+    init() {
+        self.nickname = ""
+        self.point = 0.0
+        self.dateStr = ""
+    }
 }
 
 struct AccountRemoveResponse: Codable {

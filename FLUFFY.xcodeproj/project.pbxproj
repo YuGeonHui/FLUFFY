@@ -17,6 +17,10 @@
 		9C5A12512A30D7BC00E04FC3 /* SchedulerRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A12502A30D7BC00E04FC3 /* SchedulerRequest.swift */; };
 		9C5A12532A30DE8E00E04FC3 /* ScheduleInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A12522A30DE8E00E04FC3 /* ScheduleInfo.swift */; };
 		9C5A12552A31A58100E04FC3 /* ScheduleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A12542A31A58100E04FC3 /* ScheduleRequest.swift */; };
+		B626B44F2A34B08700DF9942 /* Fluffy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B626B44E2A34B08700DF9942 /* Fluffy.swift */; };
+		B626B4512A34BC2300DF9942 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B626B4502A34BC2300DF9942 /* HomeView.swift */; };
+		B626B4532A34BC7C00DF9942 /* HomeViewStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B626B4522A34BC7C00DF9942 /* HomeViewStyles.swift */; };
+		B626B4552A34BE3F00DF9942 /* HomeViewStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B626B4542A34BE3F00DF9942 /* HomeViewStrings.swift */; };
 		B629BAD82A26EF3800561538 /* PushSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B629BAD72A26EF3800561538 /* PushSettingViewModel.swift */; };
 		B6382BC92A23949300A40724 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B6382BC02A23949300A40724 /* Pretendard-ExtraBold.otf */; };
 		B6382BCA2A23949300A40724 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = B6382BC12A23949300A40724 /* Pretendard-Light.otf */; };
@@ -94,6 +98,10 @@
 		9C5A12502A30D7BC00E04FC3 /* SchedulerRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerRequest.swift; sourceTree = "<group>"; };
 		9C5A12522A30DE8E00E04FC3 /* ScheduleInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleInfo.swift; sourceTree = "<group>"; };
 		9C5A12542A31A58100E04FC3 /* ScheduleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleRequest.swift; sourceTree = "<group>"; };
+		B626B44E2A34B08700DF9942 /* Fluffy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fluffy.swift; sourceTree = "<group>"; };
+		B626B4502A34BC2300DF9942 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		B626B4522A34BC7C00DF9942 /* HomeViewStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewStyles.swift; sourceTree = "<group>"; };
+		B626B4542A34BE3F00DF9942 /* HomeViewStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewStrings.swift; sourceTree = "<group>"; };
 		B629BAD72A26EF3800561538 /* PushSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushSettingViewModel.swift; sourceTree = "<group>"; };
 		B6382BC02A23949300A40724 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
 		B6382BC12A23949300A40724 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
@@ -388,6 +396,9 @@
 				B6907DC92A207A7F001B22C1 /* HomeViewController.swift */,
 				B6907DD52A20A205001B22C1 /* HomeViewModel.swift */,
 				B6382BD92A2588FC00A40724 /* HomeViewValue.swift */,
+				B626B4502A34BC2300DF9942 /* HomeView.swift */,
+				B626B4522A34BC7C00DF9942 /* HomeViewStyles.swift */,
+				B626B4542A34BE3F00DF9942 /* HomeViewStrings.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -429,6 +440,7 @@
 				B69688662A1F12CB009CC9B6 /* LaunchScreen.storyboard */,
 				B69688692A1F12CB009CC9B6 /* Info.plist */,
 				B6907DD32A20A0F2001B22C1 /* App.swift */,
+				B626B44E2A34B08700DF9942 /* Fluffy.swift */,
 			);
 			path = FLUFFY;
 			sourceTree = "<group>";
@@ -627,9 +639,11 @@
 				B6CEBA982A2F256E00ED9333 /* PermAgreeViewController.swift in Sources */,
 				B6907DDA2A20A44D001B22C1 /* TabBarViewController.swift in Sources */,
 				B6382BD82A25889500A40724 /* RxViewModel.swift in Sources */,
+				B626B44F2A34B08700DF9942 /* Fluffy.swift in Sources */,
 				B696885E2A1F12CA009CC9B6 /* SceneDelegate.swift in Sources */,
 				B6CEBA9C2A2F4EF100ED9333 /* AccountSignUpResponse.swift in Sources */,
 				B6907DD82A20A278001B22C1 /* BaseViewController.swift in Sources */,
+				B626B4532A34BC7C00DF9942 /* HomeViewStyles.swift in Sources */,
 				B69688762A1F1BF3009CC9B6 /* AppleService.swift in Sources */,
 				9C2F58BB2A27421F00B36415 /* CustomSlider.swift in Sources */,
 				B65B420C2A2861D300E6B579 /* Bundle+Ext.swift in Sources */,
@@ -657,6 +671,7 @@
 				B65BDCDF2A2B309600DEFAD8 /* AssociationViewController.swift in Sources */,
 				B6907DCC2A207A95001B22C1 /* MyPageViewController.swift in Sources */,
 				B6907DBF2A2076AF001B22C1 /* UserDefaults+Ext.swift in Sources */,
+				B626B4512A34BC2300DF9942 /* HomeView.swift in Sources */,
 				B6907DC42A207743001B22C1 /* API.swift in Sources */,
 				9C5A12532A30DE8E00E04FC3 /* ScheduleInfo.swift in Sources */,
 				B65BDCDB2A2B2CDF00DEFAD8 /* CommonButtonView.swift in Sources */,
@@ -670,6 +685,7 @@
 				9C3628F32A26001900562713 /* ModalViewController.swift in Sources */,
 				B65BDCE42A2B30F800DEFAD8 /* SignUpViewModel.swift in Sources */,
 				B6907DD62A20A205001B22C1 /* HomeViewModel.swift in Sources */,
+				B626B4552A34BE3F00DF9942 /* HomeViewStrings.swift in Sources */,
 				B65BDCEF2A2C27DA00DEFAD8 /* OnBoardingContenViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
