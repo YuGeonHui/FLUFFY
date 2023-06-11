@@ -47,13 +47,6 @@ class ModalViewController: UIViewController{
     
     private let networkService = NetworkService()
     
-    
-//    private let headers: HTTPHeaders = [
-//        "Authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDE3Mzc0NjIsImlhdCI6MTY4NjE4NTQ2Miwic3ViIjoiYWJjIn0.aGUyz8axiTLXv89Cj3oY0m_XPVSbm5huZ9iW4fsOw20",
-//        "Content-Type": "application/json"
-//    ]
-    
-    
     private lazy var checkButton : UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "checkmark"), for: .normal)
@@ -90,6 +83,13 @@ class ModalViewController: UIViewController{
         textField.leftViewMode = .unlessEditing
         textField.becomeFirstResponder()
         return textField
+    }()
+    
+    private let timeChooseLabel : UILabel = {
+        let label = UILabel()
+        label.text = "시간 선택"
+        label.font = UIFont.pretendard(.medium, size: 15)
+        return label
     }()
     
     
@@ -250,6 +250,8 @@ class ModalViewController: UIViewController{
         let value = df.string(from: datePicker.date)
         dateValue = Int(value)!
         
+        self.timeChooseLabel.text = ""
+        
         self.view.endEditing(true)
     }
     
@@ -257,6 +259,7 @@ class ModalViewController: UIViewController{
         self.configureTaskTextField()
         self.configureDateTextField()
         self.createDatePicker()
+        self.configureTimeChooseLabel()
         self.configureLineView()
         self.configureCheckButton()
         self.configureChooseLabel()
@@ -276,6 +279,16 @@ class ModalViewController: UIViewController{
             taskTextField.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 25),
             taskTextField.heightAnchor.constraint(equalToConstant: 36),
             taskTextField.widthAnchor.constraint(equalToConstant: 220)
+        ])
+    }
+    
+    private func configureTimeChooseLabel() {
+        self.view.addSubview(timeChooseLabel)
+        self.timeChooseLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            timeChooseLabel.centerXAnchor.constraint(equalTo: self.dateTextField.centerXAnchor),
+            timeChooseLabel.centerYAnchor.constraint(equalTo: self.dateTextField.centerYAnchor)
         ])
     }
     
