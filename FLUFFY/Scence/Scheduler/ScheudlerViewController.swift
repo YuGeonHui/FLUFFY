@@ -72,7 +72,8 @@ class ScheudlerViewController: BaseViewController {
     }()
     
     private var currentPage: Date?
-    private lazy var today: Date = {
+    
+    private let today: Date = {
         return Date()
     }()
     
@@ -123,9 +124,9 @@ class ScheudlerViewController: BaseViewController {
         calendar.headerHeight = 0
         //        calendar.appearance.eventDefaultColor = UIColor(hex: "C6C6C6")
         calendar.appearance.eventSelectionColor = UIColor(hex: "FF0000")
-        calendar.appearance.headerTitleFont = UIFont.pretendard(.bold, size: 15)
+//        calendar.appearance.headerTitleFont = UIFont.pretendard(.bold, size: 11)
         calendar.appearance.weekdayFont = UIFont.pretendard(.medium, size: 11)
-        calendar.appearance.headerTitleColor = UIColor(hex: "2D2D2D")
+//        calendar.appearance.headerTitleColor = UIColor(hex: "2D2D2D")
         calendar.appearance.weekdayTextColor = UIColor(hex: "ADADAD")
         calendar.appearance.titleTodayColor = UIColor(hex: "0600FE")
         calendar.appearance.todayColor = .clear
