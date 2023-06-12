@@ -59,7 +59,7 @@ extension String.MyPage.Notice {
 extension String.MyPage.Inquire {
     
     static var title: String {
-        return "공지사항"
+        return "문의하기"
     }
 }
 

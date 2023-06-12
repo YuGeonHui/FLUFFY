@@ -94,11 +94,6 @@ final class NicknameChangeViewController: UIViewController {
     
     private func setupNicknameField() {
         
-//        let nickname = UserDefaults.standard.string(forKey: NICKNAME_KEY)
-//
-//        guard let nickname = nickname else { return }
-//
-//        self.nicknameField.attributedText = nickname.set(style: Styles.nicknameField)
         self.nicknameField.attributedPlaceholder = "닉네임 입력".set(style: Styles.nicknameField)
         self.nicknameField.clearButtonMode = .whileEditing
     }

@@ -14,13 +14,13 @@ extension FluffyMyPageView {
         
         static let loginInset: UIEdgeInsets = UIEdgeInsets(top: 3, left: 8, bottom: 3, right: 8)
         
-        static var leadingAnchor: CGFloat = 20
-        
-        static var trailingAnchor: CGFloat = -20
-        
-        static var topAnchor: CGFloat = 26
-        
+        static let iconSize: CGSize = CGSize(width: 21, height: 21)
         static var iconBefore: CGFloat = 4
+        static let iconTopAnchor: CGFloat = 6
+        
+        static var leadingAnchor: CGFloat = 20
+        static var trailingAnchor: CGFloat = -20
+        static var topAnchor: CGFloat = 26
         
         static var titleAfter: CGFloat = 18
         

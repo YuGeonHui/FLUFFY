@@ -101,8 +101,8 @@ extension FluffyMyPageView {
             self.descLabel.attributedText = _Str.loginDesc.set(style: Styles.loginDesc)
             
             self.iconView.image = UIImage(named: "pencil")
-            self.iconView.isHidden = true
             self.iconView.contentMode = .scaleAspectFit
+            self.iconView.isHidden = !KeychainService.shared.isTokenValidate()
             
             self.imageView.image = UIImage(named: "goodIcon")
             self.imageView.contentMode = .scaleAspectFit
@@ -119,6 +119,9 @@ extension FluffyMyPageView {
                 self.titleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Metric.leadingAnchor),
                 self.titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: Metric.topAnchor),
                 
+                self.iconView.widthAnchor.constraint(equalToConstant: Metric.iconSize.width),
+                self.iconView.heightAnchor.constraint(equalToConstant: Metric.iconSize.height),
+                self.iconView.topAnchor.constraint(equalTo: self.titleLabel.topAnchor, constant: Metric.iconTopAnchor),
                 self.iconView.leadingAnchor.constraint(equalTo: self.titleLabel.trailingAnchor, constant: Metric.iconBefore),
                 
                 self.tagView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Metric.leadingAnchor),
@@ -171,6 +174,7 @@ extension FluffyMyPageView {
                 .when(.recognized)
             
             Observable.of(nickTapped, editTapped).merge()
+                .filter { _ in KeychainService.shared.isTokenValidate() }
                 .withUnretained(self)
                 .bind(onNext: { $0.0.viewModel.tapMyInfo() })
                 .disposed(by: self.disposeBag)
@@ -239,12 +243,17 @@ extension FluffyMyPageView {
             
             guard let status = status else { return }
             
-            self.imageView.image = status.character
+            let nickname = UserDefaults.standard.string(forKey: NICKNAME_KEY)
+            
+            guard let nickname = nickname else { return }
+            self.titleLabel.attributedText = nickname.set(style: Styles.title)
+            
+            self.imageView.image = status.icon
             
             self.descLabel.text = status.desc
             self.descLabel.textColor = status.background
             
-            self.tagView.attributedText = status.desc.set(style: Styles.goodDesc)
+            self.tagView.text = status.localizable
             self.tagView.backgroundColor = status.background
             self.tagView.padding = Metric.loginInset
             

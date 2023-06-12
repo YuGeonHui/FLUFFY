@@ -191,8 +191,8 @@ extension PermAgreeViewController {
         }
         
         var dateComponents = DateComponents()
-        dateComponents.hour = 14
-        dateComponents.minute = 05
+        dateComponents.hour = 22
+        dateComponents.minute = 00
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
         
