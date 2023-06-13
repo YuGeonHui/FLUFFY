@@ -122,6 +122,7 @@ class ScheudlerViewController: BaseViewController {
         let calendar = FSCalendar(frame: .zero)
         calendar.weekdayHeight = 15
         calendar.headerHeight = 0
+        calendar.transitionCoordinator.cachedMonthSize.height = 140
         //        calendar.appearance.eventDefaultColor = UIColor(hex: "C6C6C6")
         calendar.appearance.eventSelectionColor = UIColor(hex: "FF0000")
 //        calendar.appearance.headerTitleFont = UIFont.pretendard(.bold, size: 11)
@@ -407,7 +408,6 @@ class ScheudlerViewController: BaseViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         tableView.rowHeight = 64
-        //        tableView.rowHeight = 90
         tableView.separatorStyle = .none
         tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.identifier)
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
