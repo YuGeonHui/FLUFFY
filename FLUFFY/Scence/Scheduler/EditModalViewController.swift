@@ -85,6 +85,7 @@ class EditModalViewController: UIViewController{
     }
     
     @objc private func trashIsClikced() {
+        User().deleteSchedule(id: scheduleID, ScheudlerViewController())
         self.dismiss(animated: true)
     }
     

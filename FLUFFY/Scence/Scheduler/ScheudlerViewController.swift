@@ -24,7 +24,7 @@ class ScheudlerViewController: BaseViewController {
     
     private var todayDate : Date?
     
-    private var userName = "동동"
+//    private var userName = "동동"
     
     private var allDate : [AllScheduleDate] = []
     
@@ -38,7 +38,7 @@ class ScheudlerViewController: BaseViewController {
         return label
     }()
     
-    private let statusIamge : UIImageView = {
+    private let statusImage : UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "WarningStatus")
         return image
@@ -123,11 +123,8 @@ class ScheudlerViewController: BaseViewController {
         calendar.weekdayHeight = 15
         calendar.headerHeight = 0
         calendar.transitionCoordinator.cachedMonthSize.height = 140
-        //        calendar.appearance.eventDefaultColor = UIColor(hex: "C6C6C6")
         calendar.appearance.eventSelectionColor = UIColor(hex: "FF0000")
-//        calendar.appearance.headerTitleFont = UIFont.pretendard(.bold, size: 11)
         calendar.appearance.weekdayFont = UIFont.pretendard(.medium, size: 11)
-//        calendar.appearance.headerTitleColor = UIColor(hex: "2D2D2D")
         calendar.appearance.weekdayTextColor = UIColor(hex: "ADADAD")
         calendar.appearance.titleTodayColor = UIColor(hex: "0600FE")
         calendar.appearance.todayColor = .clear
@@ -163,11 +160,9 @@ class ScheudlerViewController: BaseViewController {
     }
     
     override func viewDidLoad() {
-        //        self.view.backgroundColor = .blue
         getUser()
         super.viewDidLoad()
         print("-----스케쥴 viewdidload-----")
-        //        self.view.backgroundColor = .white
         self.configure()
         setEvents()
         User().getAllSchedule(selectedDate: selectedDate, self)
@@ -181,6 +176,7 @@ class ScheudlerViewController: BaseViewController {
         print("getAllSchedule 결과")
         self.tabBarController?.tabBar.isHidden = false
         User().getAllSchedule(selectedDate: selectedDate, self)
+        configureAddButton()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -260,9 +256,9 @@ class ScheudlerViewController: BaseViewController {
             self.view.layoutIfNeeded()
         } else {
             print("토큰 없음")
-            User().getUserName(self)
+            //            User().getUserName(self)
             self.statusLabel.text = "로그인이 필요해요!"
-            self.statusIamge.image = UIImage(named: "loginStatus")
+            self.statusImage.image = UIImage(named: "loginStatus")
         }
         
     }
@@ -270,19 +266,22 @@ class ScheudlerViewController: BaseViewController {
     func didSuccess(_ response: UserInfo) {
         if let getUserName = response.userNickname {
             self.statusLabel.text = "\(getUserName)" + "님의 현재 상태"
-            self.statusLabel.text = "플러피님의 현재 상태"
+            print("getUserName - \(getUserName)")
+            
             let point = UserDefaults.standard.double(forKey: "userScore")
+            print("userPoint -\(point)")
+            
             switch point {
-            case ...15:
-                self.statusIamge.image = UIImage(named: "GoodStatus")
-            case 16...30:
-                self.statusIamge.image = UIImage(named: "CautionStatus")
-            case 31...50:
-                self.statusIamge.image = UIImage(named: "WarningStatus")
-            case 51...:
-                self.statusIamge.image = UIImage(named: "DangerStatus")
+            case ...15.0:
+                self.statusImage.image = UIImage(named: "goodStatus")
+            case 15.1...30.0:
+                self.statusImage.image = UIImage(named: "cautionStatus")
+            case 30.1...50.0:
+                self.statusImage.image = UIImage(named: "warningStatus")
+            case 50.1...:
+                self.statusImage.image = UIImage(named: "dangerStatus")
             default:
-                self.statusIamge.image = UIImage(named: "GoodStatus")
+                self.statusImage.image = UIImage(named: "goodStatus")
             }
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -293,15 +292,15 @@ class ScheudlerViewController: BaseViewController {
             let point = UserDefaults.standard.double(forKey: "userScore")
             switch point {
             case ...15:
-                self.statusIamge.image = UIImage(named: "GoodStatus")
+                self.statusImage.image = UIImage(named: "goodStatus")
             case 16...30:
-                self.statusIamge.image = UIImage(named: "CautionStatus")
+                self.statusImage.image = UIImage(named: "cautionStatus")
             case 31...50:
-                self.statusIamge.image = UIImage(named: "WarningStatus")
+                self.statusImage.image = UIImage(named: "warningStatus")
             case 51...:
-                self.statusIamge.image = UIImage(named: "DangerStatus")
+                self.statusImage.image = UIImage(named: "dangerStatus")
             default:
-                self.statusIamge.image = UIImage(named: "GoodStatus")
+                self.statusImage.image = UIImage(named: "goodStatus")
             }
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -312,7 +311,7 @@ class ScheudlerViewController: BaseViewController {
     }
     
     private func getUserPoint() {
-        guard let userPoint = UserDefaults.standard.string(forKey: "userStore") else {return}
+        let userPoint = UserDefaults.standard.double(forKey: "userStore")
         print("userPoint -\(userPoint)")
     }
     
@@ -326,6 +325,7 @@ class ScheudlerViewController: BaseViewController {
     
     func deleteScheduleSuccess(_ response: UserScore) {
         print("response - \(response)")
+        getUser()
     }
     
     
@@ -347,22 +347,22 @@ class ScheudlerViewController: BaseViewController {
     private func configureStatus() {
         
         self.view.addSubview(self.statusLabel)
-        self.view.addSubview(self.statusIamge)
+        self.view.addSubview(self.statusImage)
         self.view.addSubview(self.statusButton)
         
         self.statusLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.statusIamge.translatesAutoresizingMaskIntoConstraints = false
+        self.statusImage.translatesAutoresizingMaskIntoConstraints = false
         self.statusButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             self.statusLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 14),
             self.statusLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-            self.statusIamge.centerYAnchor.constraint(equalTo: self.statusLabel.centerYAnchor),
-            self.statusIamge.heightAnchor.constraint(equalToConstant: 18),
-            self.statusIamge.widthAnchor.constraint(equalToConstant: 54),
-            self.statusIamge.leadingAnchor.constraint(equalTo: self.statusLabel.trailingAnchor, constant: 5),
-            self.statusButton.centerXAnchor.constraint(equalTo: self.statusIamge.centerXAnchor),
-            self.statusButton.centerYAnchor.constraint(equalTo: self.statusIamge.centerYAnchor)
+            self.statusImage.centerYAnchor.constraint(equalTo: self.statusLabel.centerYAnchor),
+            self.statusImage.heightAnchor.constraint(equalToConstant: 18),
+            self.statusImage.widthAnchor.constraint(equalToConstant: 54),
+            self.statusImage.leadingAnchor.constraint(equalTo: self.statusLabel.trailingAnchor, constant: 5),
+            self.statusButton.centerXAnchor.constraint(equalTo: self.statusImage.centerXAnchor),
+            self.statusButton.centerYAnchor.constraint(equalTo: self.statusImage.centerYAnchor)
         ])
     }
     
@@ -422,11 +422,11 @@ class ScheudlerViewController: BaseViewController {
     private func configureAddButton() {
         self.tableView.addSubview(self.addButton)
         
-        //        if KeychainService.shared.loadToken() != nil {
-        //            addButton.isHidden = false
-        //        } else {
-        //            addButton.isHidden = true
-        //        }
+        if KeychainService.shared.loadToken() != nil {
+            addButton.isHidden = false
+        } else {
+            addButton.isHidden = true
+        }
         
         self.addButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -511,28 +511,25 @@ extension ScheudlerViewController : UITableViewDelegate, UITableViewDataSource {
                 let id = allDate[indexPath.row].id
                 tableView.beginUpdates()
                 
-                
-                
                 allDate.remove(at: indexPath.row)
                 User().deleteSchedule(id: id, self)
                 
                 tableView.endUpdates()
                 
-                
                 self.tableView.reloadData()
+                
+                
             } else {
                 let id = allDate[indexPath.row].id
                 
-                
-                
                 tableView.beginUpdates()
-                
                 
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 allDate.remove(at: indexPath.row)
                 User().deleteSchedule(id: id, self)
                 
                 tableView.endUpdates()
+                
                 
             }
         } else if editingStyle == .insert {

@@ -204,7 +204,6 @@ class ModalViewController: UIViewController{
         
         let url = url + "api/scheduling"
         
-//        let header : HTTPHeaders = headers
         
         AF.request(url,
                    method: .post,
