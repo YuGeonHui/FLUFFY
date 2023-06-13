@@ -156,7 +156,12 @@ extension FluffyHomeView {
             
             guard let viewValue else { return }
 
-            self.titleLabel.attributedText = viewValue.nickname?.set(style: Styles.title)
+            
+            let nickname = UserDefaults.standard.string(forKey: NICKNAME_KEY)
+            
+            guard let nickname = nickname else { return }
+            self.titleLabel.attributedText = nickname.set(style: Styles.title)
+//            self.titleLabel.attributedText = viewValue.nickname?.set(style: Styles.title)
             
             self.stateLabel.text = viewValue.status.desc
             self.stateLabel.textColor = viewValue.status.background
