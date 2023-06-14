@@ -24,7 +24,7 @@ class ScheudlerViewController: BaseViewController {
     
     private var todayDate : Date?
     
-//    private var userName = "동동"
+    //    private var userName = "동동"
     
     private var allDate : [AllScheduleDate] = []
     
@@ -122,7 +122,7 @@ class ScheudlerViewController: BaseViewController {
         let calendar = FSCalendar(frame: .zero)
         calendar.weekdayHeight = 15
         calendar.headerHeight = 0
-        calendar.transitionCoordinator.cachedMonthSize.height = 140
+        calendar.transitionCoordinator.cachedMonthSize.height = 193
         calendar.appearance.eventSelectionColor = UIColor(hex: "FF0000")
         calendar.appearance.weekdayFont = UIFont.pretendard(.medium, size: 11)
         calendar.appearance.weekdayTextColor = UIColor(hex: "ADADAD")
@@ -456,21 +456,41 @@ extension ScheudlerViewController : UITableViewDelegate, UITableViewDataSource {
         
         if indexPath.row < result.count {
             let task = result[indexPath.row]
-            let time = String(task.scheduleTime)
+            var time = String(task.scheduleTime)
+            print("time -------- \(time)")
+            print("count ------- \(time.count)")
+            
+            switch time.count {
+            case 1:
+                time = "000" + time
+            case 2:
+                time = "00" + time
+            case 3:
+                time = "0" + time
+            default: break
+            }
             
             let prefix = String(time.prefix(2))
             let suffix = String(time.suffix(2))
-            var numPrefix = Int(prefix)!
-            let otherPrefix = String(time.prefix(1))
             
-            if numPrefix > 12 {
-                numPrefix -= 12
-                let result = "오후 \(numPrefix):\(suffix)"
+            
+            switch Int(prefix)! {
+            case 00:
+                let result = "오전 \(prefix):\(suffix)"
                 cell.timeLabel.text = result
-            } else {
-                let result = "오전 0\(otherPrefix):\(suffix)"
+            case ...11:
+                let result = "오전 \(prefix):\(suffix)"
                 cell.timeLabel.text = result
+            case 12:
+                let result = "오후 \(prefix):\(suffix)"
+                cell.timeLabel.text = result
+            case 13...:
+                let value = Int(prefix)! - 12
+                let result = "오후 \(String(value)):\(suffix)"
+                cell.timeLabel.text = result
+            default: break
             }
+            
             
             cell.taskLabel.text = task.scheduleContent
             cell.taskLabel.font = UIFont.pretendard(.semiBold, size: 18)

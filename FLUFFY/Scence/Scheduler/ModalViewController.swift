@@ -78,6 +78,7 @@ class ModalViewController: UIViewController{
         let textField = UITextField()
         textField.placeholder = "일정 입력"
         textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder ?? "", attributes: [.foregroundColor : UIColor(hex: "DCDCDC"), .font : UIFont.pretendard(.bold, size: 20)])
+        textField.textColor = .black
         textField.borderStyle = .none
         textField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 16.0, height: 0.0))
         textField.leftViewMode = .unlessEditing

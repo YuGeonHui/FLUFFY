@@ -227,21 +227,41 @@ class EditModalViewController: UIViewController{
         print("response - \(response)")
         
         
-        let date = String(response.scheduleTime)
+        var date = String(response.scheduleTime)
         let prefix = String(date.prefix(2))
         let suffix = String(date.suffix(2))
-        var numPrefix = Int(prefix)!
+        
         let value = response.stressStep - 5
-        if numPrefix > 12 {
-            numPrefix -= 12
-            let result = "오후 \(numPrefix):\(suffix)"
-            self.dateTextField.text = result
-            self.dateTextField.font = UIFont.pretendard(.medium, size: 15)
-        } else {
-            let result = "오전 \(numPrefix):\(suffix)"
-            self.dateTextField.text = result
-            self.dateTextField.font = UIFont.pretendard(.medium, size: 15)
+        
+        switch date.count {
+        case 1:
+            date = "000" + date
+        case 2:
+            date = "00" + date
+        case 3:
+            date = "0" + date
+        default: break
         }
+        
+        switch Int(prefix)! {
+        case 00:
+            let result = "오전 \(prefix)0:\(suffix)0"
+            self.dateTextField.text = result
+        case ...11:
+            let result = "오전 \(prefix):\(suffix)"
+            self.dateTextField.text = result
+        case 12:
+            let result = "오후 \(prefix):\(suffix)"
+            self.dateTextField.text = result
+        case 13...:
+            let value = Int(prefix)! - 12
+            let result = "오후 \(String(value)):\(suffix)"
+            self.dateTextField.text = result
+        default: break
+        }
+        
+        self.dateTextField.font = UIFont.pretendard(.medium, size: 15)
+        
         slider.setValue(Float(value), animated: false)
         stressLabel.text = stressWord[response.stressStep]
         print("slider value - \(slider.value)")
