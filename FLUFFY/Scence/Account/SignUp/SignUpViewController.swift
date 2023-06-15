@@ -100,7 +100,7 @@ final class SignUpViewController: UIViewController {
         self.titleStackView.spacing = Metric.stackSpacing
         
         self.backImageView.image = UIImage(named: "background")
-        self.backImageView.contentMode = .scaleAspectFit
+//        self.backImageView.contentMode = .scaleAspectFit
         
         self.appleSignIn.image = UIImage(named: "SignInWithApple")
         self.appleSignIn.contentMode = .scaleAspectFit

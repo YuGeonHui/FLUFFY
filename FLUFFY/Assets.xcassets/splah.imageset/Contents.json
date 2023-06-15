@@ -1,17 +1,16 @@
 {
   "images" : [
     {
-      "filename" : "splah.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "splah 1.png",
+      "filename" : "splash 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "splah 2.png",
+      "filename" : "splash.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
