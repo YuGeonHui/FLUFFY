@@ -29,7 +29,7 @@ extension FluffyMyPageView {
         private let noticeView = MyPageRowView(title: _Str.Notice.title)
         private let inquireView = MyPageRowView(title: _Str.Inquire.title)
         private let termView = MyPageRowView(title: _Str.Term.title)
-        private let versionView = MyPageRowView(title: _Str.Version.title)
+        private let versionView = MyPageRowView(title: _Str.Version.title, hasVersion: true)
         
         // MARK: ViewModel
         private let viewModel = ViewModel()
@@ -135,6 +135,8 @@ extension FluffyMyPageView {
                 self.dividerView.topAnchor.constraint(equalTo: self.descLabel.bottomAnchor, constant: Metric.descAfter),
 
                 self.imageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: Metric.topAnchor),
+                self.imageView.widthAnchor.constraint(equalToConstant: Metric.imageSize.width),
+                self.imageView.heightAnchor.constraint(equalToConstant: Metric.imageSize.height),
                 self.imageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: Metric.trailingAnchor),
             ])
         }
@@ -243,11 +245,6 @@ extension FluffyMyPageView {
             
             guard let status = status else { return }
             
-            let nickname = UserDefaults.standard.string(forKey: NICKNAME_KEY)
-            
-            guard let nickname = nickname else { return }
-            self.titleLabel.attributedText = nickname.set(style: Styles.title)
-            
             self.imageView.image = status.icon
             
             self.descLabel.text = status.desc
@@ -257,7 +254,10 @@ extension FluffyMyPageView {
             self.tagView.backgroundColor = status.background
             self.tagView.padding = Metric.loginInset
             
-            self.view.setNeedsLayout()
+            let nickname = UserDefaults.standard.string(forKey: NICKNAME_KEY)
+            
+            guard let nickname = nickname else { return }
+            self.titleLabel.attributedText = nickname.set(style: Styles.title)
         }
         
         deinit {

@@ -18,6 +18,9 @@ extension UserDefaults {
         
         static let kIsPermAgreed = "isPermAgreed"
         static let kIsUserScore = "IsUserScore"
+        
+        static let kIsPushHour = "isPushHour"
+        static let kIsPushMinute = "isPushMinute"
     }
     
     static func isFirstAppLauch() -> Bool {
@@ -49,6 +52,26 @@ extension UserDefaults {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: Const.kIsUserScore)
+            UserDefaults.standard.synchronize()
+        }
+    }
+    
+    var pushHour: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: Const.kIsPushHour)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Const.kIsPushHour)
+            UserDefaults.standard.synchronize()
+        }
+    }
+    
+    var pushMinute: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: Const.kIsPushMinute)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Const.kIsPushMinute)
             UserDefaults.standard.synchronize()
         }
     }

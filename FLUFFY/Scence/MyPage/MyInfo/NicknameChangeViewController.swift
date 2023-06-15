@@ -96,6 +96,8 @@ final class NicknameChangeViewController: UIViewController {
         
         self.nicknameField.attributedPlaceholder = "닉네임 입력".set(style: Styles.nicknameField)
         self.nicknameField.clearButtonMode = .whileEditing
+        self.nicknameField.font = UIFont.pretendard(.bold, size: 18)
+        self.nicknameField.textColor = UIColor(hex: "2d2d2d")
     }
     
     private func setupAutoLayout() {

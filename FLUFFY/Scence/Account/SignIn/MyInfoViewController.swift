@@ -65,6 +65,11 @@ final class MyInfoViewController: UIViewController {
             $0.color = UIColor(hex: "cecece")
         }
         
+        static let nickname: Style = Style {
+            $0.font = UIFont.pretendard(.bold, size: 18)
+            $0.color = UIColor(hex: "2d2d2d")
+        }
+        
         static let caution: Style = Style {
             $0.font = UIFont.pretendard(.regular, size: 12)
             $0.color = UIColor(hex: "ff0000")
@@ -113,6 +118,8 @@ final class MyInfoViewController: UIViewController {
         self.descLabel.numberOfLines = 0
         
         self.nicknameField.attributedPlaceholder = "닉네임 입력".set(style: Styles.nicknameField)
+        self.nicknameField.font = UIFont.pretendard(.bold, size: 18)
+        self.nicknameField.textColor = UIColor(hex: "2d2d2d")
         self.nicknameField.clearButtonMode = .whileEditing
         
         self.titleStackViwe.axis = .vertical
@@ -147,7 +154,7 @@ final class MyInfoViewController: UIViewController {
             
             self.imageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 120),
             self.imageView.bottomAnchor.constraint(equalTo: self.startButton.topAnchor, constant: -70),
-//
+            
             self.startButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             self.startButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
             self.startButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -20),

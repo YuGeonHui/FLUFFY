@@ -18,31 +18,47 @@ final class PushSettingViewController: UIViewController {
         
         static let spacing: CGFloat = 20
         
-        static let titleSpacing: CGFloat = 16
-        
         static let timePickerHeight: CGFloat = 54
-        
         static let timePickerInset: CGFloat = 18
         
         static let iconWidth: CGFloat = 15
         
+        static let titleSpacing: CGFloat = 16
         static let titleAfter: CGFloat = 60
-        
         static let titleBefore: CGFloat = 12
         
         static let btnHeight: CGFloat = 53
     }
     
+    private enum Styles {
+        
+        static let title: Style = Style {
+            $0.font = UIFont.pretendard(.bold, size: 20)
+            $0.color = UIColor(hex: "2d2d2d")
+            $0.alignment = .center
+        }
+        
+        static let desc: Style = Style {
+            $0.font = UIFont.pretendard(.regular, size: 15)
+            $0.color = UIColor(hex: "6a6a6a")
+            $0.minimumLineHeight = 26
+            $0.maximumLineHeight = 26
+            $0.alignment = .center
+        }
+        
+        static let time: Style = Style {
+            $0.font = UIFont.pretendard(.medium, size: 15)
+            $0.color = UIColor(hex: "454545")
+        }
+    }
+    
     private let titleLabel = UILabel().then {
-        $0.font = UIFont.pretendard(.bold, size: 20)
-        $0.text = "알림받을 시간을 설정해주세요."
+        $0.attributedText = "알림받을 시간을 설정해주세요.".set(style: Styles.title)
     }
     
     private let descLabel = UILabel().then {
-        $0.font = UIFont.pretendard(.regular, size: 15)
-        $0.text = "번아웃을 예방하는 습관을 만들 수 있도록\n원하는 시간에 알림을 보내드릴게요!"
+        $0.attributedText = "번아웃을 예방하는 습관을 만들 수 있도록\n원하는 시간에 알림을 보내드릴게요!".set(style: Styles.desc)
         $0.numberOfLines = 0
-        $0.textAlignment = .center
     }
     
     private lazy var titleStackView = UIStackView(arrangedSubviews: [titleLabel, descLabel]).then {
@@ -100,6 +116,8 @@ final class PushSettingViewController: UIViewController {
         timePickerView.layer.cornerRadius = 5
         timePickerView.clipsToBounds = true
         timePickerView.tintColor = UIColor.clear
+        timePickerView.font = UIFont.pretendard(.medium, size: 15)
+        timePickerView.textColor = UIColor(hex: "454545")
         timePickerView.text = "오후 10:00"
         
         let rightInsetView = UIView(frame: CGRect(x: 0, y: 0, width: 35, height: Metric.timePickerHeight))
@@ -124,7 +142,6 @@ final class PushSettingViewController: UIViewController {
         
         let date = dateFormmater.string(from: datePicker.date)
         timePickerView.text = date
-        timePickerView.font = UIFont.pretendard(.medium, size: 15)
         
         self.view.endEditing(true)
     }
