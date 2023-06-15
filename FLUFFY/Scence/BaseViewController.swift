@@ -23,10 +23,16 @@ class BaseViewController: UIViewController {
         navigationController?.navigationBar.tintColor = UIColor(hex: "454545")
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         self.tabBarController?.tabBar.isHidden = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     private func setupNavViews() {

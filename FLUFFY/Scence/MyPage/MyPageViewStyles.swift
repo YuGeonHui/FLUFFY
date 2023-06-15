@@ -12,6 +12,8 @@ extension FluffyMyPageView {
     
     enum Metric {
         
+        static let imageSize: CGSize = CGSize(width: 105, height: 105)
+        
         static let loginInset: UIEdgeInsets = UIEdgeInsets(top: 3, left: 8, bottom: 3, right: 8)
         
         static let iconSize: CGSize = CGSize(width: 21, height: 21)

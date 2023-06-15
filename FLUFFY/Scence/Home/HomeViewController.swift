@@ -33,6 +33,8 @@ extension FluffyHomeView {
             
             self.viewModel.bind()
             
+            self.view.backgroundColor = Color.background
+            
             self.setupViews()
             self.configereUI()
             self.bindView()
@@ -155,13 +157,6 @@ extension FluffyHomeView {
         private func updateViews(_ viewValue: ViewValue?) {
             
             guard let viewValue else { return }
-
-            
-            let nickname = UserDefaults.standard.string(forKey: NICKNAME_KEY)
-            
-            guard let nickname = nickname else { return }
-            self.titleLabel.attributedText = nickname.set(style: Styles.title)
-//            self.titleLabel.attributedText = viewValue.nickname?.set(style: Styles.title)
             
             self.stateLabel.text = viewValue.status.desc
             self.stateLabel.textColor = viewValue.status.background
@@ -172,6 +167,11 @@ extension FluffyHomeView {
             self.imageView.image = viewValue.status.character
             
             self.descLabel.text = viewValue.status.message
+            
+            let nickname = UserDefaults.standard.string(forKey: NICKNAME_KEY)
+            
+            guard let nickname = nickname else { return }
+            self.titleLabel.attributedText = nickname.set(style: Styles.title)
         }
     }
 }

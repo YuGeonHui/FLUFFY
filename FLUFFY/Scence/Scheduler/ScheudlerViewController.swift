@@ -183,6 +183,8 @@ class ScheudlerViewController: BaseViewController {
         print("---- 스케쥴 viewDidAppear-----")
         getUser()
         User().getAllSchedule(selectedDate: selectedDate, self)
+        
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     

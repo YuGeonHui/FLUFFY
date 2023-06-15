@@ -14,7 +14,7 @@ extension FluffyHomeView {
         
         static let loginInset: UIEdgeInsets = UIEdgeInsets(top: 3, left: 11, bottom: 3, right: 11)
         
-        static let topAnchor: CGFloat = 45
+        static let topAnchor: CGFloat = 30
         
         enum NoLogin {
             
