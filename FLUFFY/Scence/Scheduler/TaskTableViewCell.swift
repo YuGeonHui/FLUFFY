@@ -63,7 +63,12 @@ class TaskTableViewCell: UITableViewCell {
     
     private func addContentView() {
         contentView.addSubview(statusIcon)
+        contentView.addSubview(taskView)
+        contentView.addSubview(taskLabel)
+        contentView.addSubview(timeLabel)
+        contentView.addSubview(line)
         contentView.backgroundColor = UIColor(hex: "F9F9F9")
+        
         statusIcon.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             statusIcon.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -72,7 +77,7 @@ class TaskTableViewCell: UITableViewCell {
             statusIcon.heightAnchor.constraint(equalToConstant: 18)
         ])
         
-        contentView.addSubview(taskView)
+        
         taskView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             taskView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -82,21 +87,21 @@ class TaskTableViewCell: UITableViewCell {
             taskView.widthAnchor.constraint(equalToConstant: 220)
         ])
         
-        contentView.addSubview(taskLabel)
+        
         taskLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             taskLabel.centerYAnchor.constraint(equalTo: taskView.centerYAnchor),
             taskLabel.leadingAnchor.constraint(equalTo: taskView.leadingAnchor, constant: 17)
         ])
         
-        contentView.addSubview(timeLabel)
+        
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             timeLabel.centerYAnchor.constraint(equalTo: self.taskView.centerYAnchor),
             timeLabel.trailingAnchor.constraint(equalTo: self.taskView.trailingAnchor, constant: -12)
         ])
         
-        contentView.addSubview(line)
+        
         line.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             line.centerXAnchor.constraint(equalTo: statusIcon.centerXAnchor),

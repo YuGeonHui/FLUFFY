@@ -24,11 +24,11 @@ struct User {
             switch result {
             case .success(let response):
                 // 성공적으로 응답 받았을 때의 처리
-                print(response)
+                print("getUserName 응답 --- \(response)")
                 viewController.didSuccess(response)
             case .failure(let error):
                 // 요청 실패 또는 응답 처리 오류가 발생했을 때의 처리
-                print(error)
+                print("error - \(error.localizedDescription)")
             }
         }
     }

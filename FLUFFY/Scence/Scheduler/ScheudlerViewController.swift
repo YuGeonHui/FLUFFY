@@ -40,7 +40,7 @@ class ScheudlerViewController: BaseViewController {
     
     private let statusImage : UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "WarningStatus")
+        image.image = UIImage(named: "goodStatus")
         return image
     }()
     
@@ -256,7 +256,6 @@ class ScheudlerViewController: BaseViewController {
             self.view.layoutIfNeeded()
         } else {
             print("토큰 없음")
-            //            User().getUserName(self)
             self.statusLabel.text = "로그인이 필요해요!"
             self.statusImage.image = UIImage(named: "loginStatus")
         }
@@ -264,49 +263,37 @@ class ScheudlerViewController: BaseViewController {
     }
     
     func didSuccess(_ response: UserInfo) {
-        if let getUserName = response.userNickname {
-            self.statusLabel.text = "\(getUserName)" + "님의 현재 상태"
-            print("getUserName - \(getUserName)")
-            
-            let point = UserDefaults.standard.double(forKey: "userScore")
-            print("userPoint -\(point)")
-            
-            switch point {
-            case ...15.0:
-                self.statusImage.image = UIImage(named: "goodStatus")
-            case 15.1...30.0:
-                self.statusImage.image = UIImage(named: "cautionStatus")
-            case 30.1...50.0:
-                self.statusImage.image = UIImage(named: "warningStatus")
-            case 50.1...:
-                self.statusImage.image = UIImage(named: "dangerStatus")
-            default:
-                self.statusImage.image = UIImage(named: "goodStatus")
-            }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.view.layoutIfNeeded()
-            }
-            
-        } else {
-            let point = UserDefaults.standard.double(forKey: "userScore")
-            switch point {
-            case ...15:
-                self.statusImage.image = UIImage(named: "goodStatus")
-            case 16...30:
-                self.statusImage.image = UIImage(named: "cautionStatus")
-            case 31...50:
-                self.statusImage.image = UIImage(named: "warningStatus")
-            case 51...:
-                self.statusImage.image = UIImage(named: "dangerStatus")
-            default:
-                self.statusImage.image = UIImage(named: "goodStatus")
-            }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.view.layoutIfNeeded()
-            }
-            print("userPoint - \(point)")
+        
+        guard let userName = response.userNickname else {return}
+        self.statusLabel.text = "\(userName)님의 현재 상태"
+        
+        if let realName = UserDefaults.standard.string(forKey: "nickname_key") {
+            self.statusLabel.text = "\(realName)님의 현재 상태"
+        }
+
+        let point = UserDefaults.standard.double(forKey: "userScore")
+        print("userPoint -\(point)")
+        
+        switch point {
+        case 0.0...15.0:
+            self.statusImage.image = UIImage(named: "goodStatus")
+            print("--------작동--------")
+        case 15.1...30:
+            self.statusImage.image = UIImage(named: "cautionStatus")
+            print("--------작동--------")
+        case 31...50.0:
+            self.statusImage.image = UIImage(named: "warningStatus")
+            print("--------작동--------")
+        case 51...:
+            self.statusImage.image = UIImage(named: "dangerStatus")
+            print("--------작동--------")
+        default:
+            self.statusImage.image = UIImage(named: "goodStatus")
+        }
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.view.layoutIfNeeded()
         }
     }
     
@@ -357,7 +344,8 @@ class ScheudlerViewController: BaseViewController {
         NSLayoutConstraint.activate([
             self.statusLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 14),
             self.statusLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-            self.statusImage.centerYAnchor.constraint(equalTo: self.statusLabel.centerYAnchor),
+            //            self.statusImage.centerYAnchor.constraint(equalTo: self.statusLabel.centerYAnchor),
+            self.statusImage.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 14),
             self.statusImage.heightAnchor.constraint(equalToConstant: 18),
             self.statusImage.widthAnchor.constraint(equalToConstant: 54),
             self.statusImage.leadingAnchor.constraint(equalTo: self.statusLabel.trailingAnchor, constant: 5),

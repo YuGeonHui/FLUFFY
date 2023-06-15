@@ -89,6 +89,7 @@ class ModalViewController: UIViewController{
     private let timeChooseLabel : UILabel = {
         let label = UILabel()
         label.text = "시간 선택"
+        label.textColor = .black
         label.font = UIFont.pretendard(.medium, size: 15)
         return label
     }()
