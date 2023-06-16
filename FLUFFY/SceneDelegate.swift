@@ -15,8 +15,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-//        var secondVC = ScheudlerViewController()
-        
         var firstVC: UIViewController = TabBarViewController()
         let isFirst = UserDefaults.isFirstAppLauch()
 
@@ -30,9 +28,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window?.rootViewController = firstVC
         
-//        window?.rootViewController = secondVC
-        
         window?.makeKeyAndVisible()
+        window?.windowScene = windowScene
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

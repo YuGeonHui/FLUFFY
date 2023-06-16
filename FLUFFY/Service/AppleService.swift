@@ -12,9 +12,5 @@ extension AppDelegate {
     
     func appleApp(_ app: UIApplication, didFinishLauchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
      
-//        guard let accessToken = KeychainService.shared.loadToken() else { return }
-//        
-//        let appleIDProvider = ASAuthorizationAppleIDProvider()
-        
     }
 }
